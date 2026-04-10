@@ -22,12 +22,12 @@ Desarrollo e implementación de un aplicativo web inteligente denominado OptiAca
 
 ## 👥 Integrantes del equipo
 
-Mendoza Vilcahuaman Yuri Luigui
-Cajamarca Areche Reynaldo Elias
-Torres Inche Ulises Yerko
-Yarasca Batalla Jairo Ronald
-Riveros Sumalabe Fredy
-Zacarias Lopez Lenning Andree
+  Mendoza Vilcahuaman Yuri Luigui
+  Cajamarca Areche Reynaldo Elias
+  Torres Inche Ulises Yerko
+  Yarasca Batalla Jairo Ronald
+  Riveros Sumalabe Fredy
+  Zacarias Lopez Lenning Andree
 
 
 ## ⚠️ Problemática abordada
