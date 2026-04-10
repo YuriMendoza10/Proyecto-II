@@ -11,12 +11,6 @@ Desarrollo e implementación de un aplicativo web inteligente denominado OptiAca
 - [📌 Justificación del PMV](#-justificación-del-pmv)
 - [📌 Descripción](#-descripción)
 - [🛠 Tecnologías](#-tecnologías)
-- [⚙️ Instalación](docs/installation.md)
-- [▶️ Uso](docs/usage.md)
-- [🏗 Arquitectura](Doc/01.INICIO)
-- [🔌 API](docs/api.md)
-- [🤝 Contribución](docs/contributing.md)
-- [❓ FAQ](docs/faq.md)
 
 ---
 
