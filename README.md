@@ -34,25 +34,25 @@ Desarrollo e implementación de un aplicativo web inteligente denominado OptiAca
 
 La planificación de horarios académicos en instituciones de educación superior es un problema de optimización combinatoria de alta complejidad. Actualmente, el proceso se realiza de forma manual o mediante herramientas genéricas (Excel,hojas), lo que genera las siguientes deficiencias:
 
-  Conflictos Logísticos: Presencia de cruces de horarios para docentes y solapamiento de aulas, afectando la integridad de la programación académica.
+  - Conflictos Logísticos: Presencia de cruces de horarios para docentes y solapamiento de aulas, afectando la integridad de la programación académica.
   
-  Ineficiencia Operativa: Los procesos de validación manual pueden tomar semanas, mientras que el 72% de los estudiantes manifiesta insatisfacción debido a la rigidez de los horarios y cruces en materias obligatorias.
+  - Ineficiencia Operativa: Los procesos de validación manual pueden tomar semanas, mientras que el 72% de los estudiantes manifiesta insatisfacción debido a la rigidez de los horarios y cruces en materias obligatorias.
   
-  Subutilización de Infraestructura: Una asignación ineficiente resulta en una mejora pendiente del 60% en la ocupación de aulas.
+ -  Subutilización de Infraestructura: Una asignación ineficiente resulta en una mejora pendiente del 60% en la ocupación de aulas.
   
-  Barreras en el Egreso: La mala planificación de vacantes y horarios obliga al 30% de los estudiantes a retrasar su progreso académico por falta de secciones viables.
+ -  Barreras en el Egreso: La mala planificación de vacantes y horarios obliga al 30% de los estudiantes a retrasar su progreso académico por falta de secciones viables.
 
 ## 📌 Justificación del PMV
 
 El MVP de OptiAcademic se centra en resolver el "núcleo del dolor": la generación de horarios sin conflictos lógicos. Es viable y estratégico por las siguientes razones:
 
-  Enfoque en el Core Algorítmico: Prioriza el motor de Satisfacción de Restricciones (CSP) sobre funciones administrativas secundarias, permitiendo validar la eficacia de la optimización en menos de 120 segundos.
+ -  Enfoque en el Core Algorítmico: Prioriza el motor de Satisfacción de Restricciones (CSP) sobre funciones administrativas secundarias, permitiendo validar la eficacia de la optimización en menos de 120 segundos.
   
-  Reducción de Riesgos: Permite probar la lógica de las mallas curriculares complejas en un entorno controlado antes de una implementación institucional masiva.
+ -  Reducción de Riesgos: Permite probar la lógica de las mallas curriculares complejas en un entorno controlado antes de una implementación institucional masiva.
   
-  Valor Inmediato: Automatiza la validación de cruces de horarios, eliminando el error humano que afecta al 72% de los estudiantes y liberando al personal administrativo de tareas manuales repetitivas.
+ -  Valor Inmediato: Automatiza la validación de cruces de horarios, eliminando el error humano que afecta al 72% de los estudiantes y liberando al personal administrativo de tareas manuales repetitivas.
   
-  Escalabilidad Ágil: Establece una arquitectura modular que facilita la integración futura de nuevos módulos (gestión de pagos, asistencia, etc.) basados en datos reales de uso.
+ -  Escalabilidad Ágil: Establece una arquitectura modular que facilita la integración futura de nuevos módulos (gestión de pagos, asistencia, etc.) basados en datos reales de uso.
 
 ---
 
@@ -63,26 +63,26 @@ OptiAcademic es una plataforma web de ingeniería de software diseñada para la 
   🧩 Problema que Resuelve
   El proyecto aborda el desafío de la Optimización Combinatoria en la gestión educativa. El proceso manual actual genera:
   
-  Conflictos de colisión: Cruces de horarios para docentes y duplicidad en el uso de aulas físicas.
+ -  Conflictos de colisión: Cruces de horarios para docentes y duplicidad en el uso de aulas físicas.
   
-  Ineficiencia Temporal: Procesos administrativos que toman semanas de validación manual.
+ -  Ineficiencia Temporal: Procesos administrativos que toman semanas de validación manual.
   
-  Insatisfacción Estudiantil: Un 72% de alumnos afectados por horarios inconsistentes que retrasan su progreso académico.
+ -  Insatisfacción Estudiantil: Un 72% de alumnos afectados por horarios inconsistentes que retrasan su progreso académico.
   
-  Opacidad de Datos: Dificultad para visualizar la disponibilidad real de la infraestructura en tiempo real.
+ -  Opacidad de Datos: Dificultad para visualizar la disponibilidad real de la infraestructura en tiempo real.
   
   🚀 Alcance del Sistema
   El sistema se despliega como un Producto Mínimo Viable (MVP) enfocado en las funciones críticas de optimización:
   
-  Motor de Optimización (CSP): Implementación de lógica basada en Satisfacción de Restricciones para generar cronogramas con "Conflicto Cero".
+  - Motor de Optimización (CSP): Implementación de lógica basada en Satisfacción de Restricciones para generar cronogramas con "Conflicto Cero".
   
-  Gestión de Entidades Maestras: Control centralizado de Mallas Curriculares, Infraestructura (Aulas/Laboratorios) y Staff Docente.
+  - Gestión de Entidades Maestras: Control centralizado de Mallas Curriculares, Infraestructura (Aulas/Laboratorios) y Staff Docente.
   
-  Matriz de Disponibilidad: Interfaz interactiva para que los docentes registren sus restricciones de tiempo.
+  - Matriz de Disponibilidad: Interfaz interactiva para que los docentes registren sus restricciones de tiempo.
   
-  Editor y Validador Manual: Herramienta que permite ajustes humanos supervisados con validación lógica instantánea (impide guardar si existe un cruce).
+  - Editor y Validador Manual: Herramienta que permite ajustes humanos supervisados con validación lógica instantánea (impide guardar si existe un cruce).
   
-  Visualización y Reportes: Dashboards interactivos y exportación de cronogramas finales en formatos estructurados (PDF/Excel).
+  - Visualización y Reportes: Dashboards interactivos y exportación de cronogramas finales en formatos estructurados (PDF/Excel).
 
 ---
 
