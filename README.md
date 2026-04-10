@@ -13,7 +13,7 @@ Desarrollo e implementación de un aplicativo web inteligente denominado OptiAca
 - [🛠 Tecnologías](#-tecnologías)
 - [⚙️ Instalación](docs/installation.md)
 - [▶️ Uso](docs/usage.md)
-- [🏗 Arquitectura](docs/01.INICIO)
+- [🏗 Arquitectura](Doc/01.INICIO)
 - [🔌 API](docs/api.md)
 - [🤝 Contribución](docs/contributing.md)
 - [❓ FAQ](docs/faq.md)
