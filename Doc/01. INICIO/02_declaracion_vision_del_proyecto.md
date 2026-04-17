@@ -53,8 +53,7 @@ El sistema OptiAcademic proporciona:
 
 ## 2.6 Declaración de la Visión
 
-### Para
-Universidades e instituciones de educación superior con currículos flexibles que requieren optimizar la planificación académica.
+### ParaUniversidades e instituciones de educación superior con currículos flexibles que requieren optimizar la planificación académica.
 
 ### Quién
 Necesitan gestionar eficientemente sus recursos físicos y humanos, garantizando procesos de matrícula sin conflictos.
