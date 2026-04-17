@@ -1,12 +1,12 @@
-# 2. Selección del Enfoque del Proyecto
+# 1. Selección del Enfoque del Proyecto
 
-## 2.1 Resumen Ejecutivo
+## 1.1 Resumen Ejecutivo
 
 Tras evaluar las 15 variables críticas del proyecto, se ha determinado que el enfoque más adecuado para el desarrollo de OptiAcademic es un **modelo híbrido**. Esta decisión se fundamenta en la necesidad de equilibrar la rigurosidad técnica requerida por un motor de optimización basado en Satisfacción de Restricciones (CSP) con la flexibilidad operativa que exige un entorno universitario con alta variabilidad de requisitos.
 
 ---
 
-## 2.2 Análisis del Diagrama de Radar
+## 1.2 Análisis del Diagrama de Radar
 
 El análisis de las variables del proyecto evidencia una tendencia predominante hacia el enfoque adaptativo (valores entre 4 y 5), lo que indica alta necesidad de flexibilidad. Sin embargo, también se identifican variables críticas en rangos medios (2 y 3), que requieren control estructurado.
 
@@ -14,7 +14,7 @@ Esto confirma que el proyecto no puede abordarse únicamente con metodologías �
 
 ---
 
-## 2.3 Necesidad de Agilidad (Valores Altos: 4 – 5)
+## 1.3 Necesidad de Agilidad (Valores Altos: 4 – 5)
 
 - **Gestión de la incertidumbre:**  
   La alta innovación (5) y baja certeza de requisitos (2) indican que el problema no puede definirse completamente desde el inicio. Es necesario iterar para descubrir la mejor solución.
@@ -27,7 +27,7 @@ Esto confirma que el proyecto no puede abordarse únicamente con metodologías �
 
 ---
 
-## 2.4 Necesidad de Control (Valores Medios/Bajos: 2 – 3)
+## 1.4 Necesidad de Control (Valores Medios/Bajos: 2 – 3)
 
 - **Riesgo y criticidad:**  
   El proyecto presenta alto riesgo (5) y alta criticidad (4), debido a la complejidad del algoritmo CSP. Esto exige una fase de diseño técnico previo para evitar fallos estructurales.
@@ -37,9 +37,9 @@ Esto confirma que el proyecto no puede abordarse únicamente con metodologías �
 
 ---
 
-## 2.5 Estructura del Enfoque Híbrido
+## 1.5 Estructura del Enfoque Híbrido
 
-### a) Componente Predictivo (Planificación por Hitos)
+### 1.5.1 Componente Predictivo (Planificación por Hitos)
 
 - Aplicado en:
   - Modelado del problema (CSP)
@@ -50,7 +50,7 @@ Esto confirma que el proyecto no puede abordarse únicamente con metodologías �
 
 ---
 
-### b) Componente Adaptativo (Sprints Ágiles)
+### 1.5.2 Componente Adaptativo (Sprints Ágiles)
 
 - Aplicado en:
   - Desarrollo del aplicativo web (frontend y backend)
@@ -62,7 +62,7 @@ Esto confirma que el proyecto no puede abordarse únicamente con metodologías �
 
 ---
 
-## 2.6 Evaluación de Variables del Proyecto
+## 1.6 Evaluación de Variables del Proyecto
 
 | Variable | Valor | Justificación |
 |--------|------|-------------|
@@ -84,7 +84,7 @@ Esto confirma que el proyecto no puede abordarse únicamente con metodologías �
 
 ---
 
-## 2.7 Conclusión
+## 1.7 Conclusión
 
 El análisis integral de las variables del proyecto demuestra que OptiAcademic requiere un enfoque híbrido que combine control estructurado y adaptabilidad.
 
