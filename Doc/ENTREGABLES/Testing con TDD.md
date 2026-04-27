@@ -268,3 +268,195 @@ El proyecto **OptiAcademic** implementa correctamente **TDD (Test-Driven Develop
 * Refactorización segura  
 * Documentación automática del sistema
 
+### **1\. CLONAR EL REPOSITORIO**
+
+`bash`
+
+`git clone https://github.com/YuriMendoza10/Proyecto-II.git`
+
+`cd Proyecto-II`
+
+---
+
+### **2\. CONFIGURAR BACKEND**
+
+`bash`
+
+*`# Entrar a la carpeta del backend`*  
+`cd backend`
+
+*`# Crear y activar entorno virtual`*  
+`python -m venv venv`  
+`venv\Scripts\activate`
+
+*`# Instalar dependencias`*  
+`pip install -r requirements.txt`
+
+*`# Instalar dependencias adicionales (si faltan)`*
+
+`pip install fastapi uvicorn sqlalchemy pymysql bcrypt python-jose[cryptography] passlib[bcrypt] python-multipart pytest pytest-cov`
+
+### **3\. CONFIGURAR BASE DE DATOS MYSQL**
+
+`bash`
+
+*`# Conectar a MySQL`*  
+`mysql -u root -p`  
+*`# Contraseña: paracetamor`*
+
+*`# Crear base de datos`*  
+`CREATE DATABASE IF NOT EXISTS optiacademic_db;`  
+`USE optiacademic_db;`  
+`EXIT;`
+
+*`# Ejecutar seed (poblar datos)`*  
+`python seed_sistemas.py`
+
+*`# Responde 's' cuando pregunte`*
+
+### **4\. EJECUTAR PRUEBAS DEL BACKEND**
+
+`bash`
+
+*`# Ejecutar todas las pruebas`*  
+`pytest -v`
+
+*`# Ejecutar pruebas con cobertura`*  
+`pytest --cov=. --cov-report=term`
+
+*`# Ejecutar solo pruebas de autenticación`*  
+`pytest tests/test_auth.py -v`
+
+*`# Ejecutar solo pruebas del CSP`*
+
+`pytest tests/test_csp.py -v`
+
+---
+
+### **5\. CONFIGURAR FRONTEND**
+
+`bash`
+
+*`# Abrir nueva terminal`*  
+`cd frontend`
+
+*`# Instalar dependencias`*  
+`npm install`
+
+*`# Instalar dependencias de pruebas`*
+
+`npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom`
+
+### **6\. EJECUTAR PRUEBAS DEL FRONTEND**
+
+`bash`
+
+*`# Ejecutar pruebas`*  
+`npm run test`
+
+*`# O si no tienes el script configurado:`*
+
+`npx vitest run`
+
+---
+
+### **7\. EJECUTAR EL SISTEMA COMPLETO**
+
+#### **Terminal 1 \- Backend:**
+
+`bash`
+
+`cd backend`  
+`venv\Scripts\activate`
+
+`python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000`
+
+#### **Terminal 2 \- Frontend:**
+
+`bash`
+
+`cd frontend`
+
+`npm run dev`
+
+#### **Abrir navegador:**
+
+`text`
+
+`http://localhost:5173`
+
+---
+
+### **8\. CREDENCIALES DE PRUEBA**
+
+| Rol | Email | Contraseña |
+| :---- | :---- | :---- |
+| Admin | admin@uni.edu | admin123 |
+| Coordinador | coord.sistemas@uni.edu | coord123 |
+| Estudiante | estudiante1@uni.edu | est123 |
+| Docente | docente1@uni.edu | doc123 |
+
+---
+
+### **9\. COMANDOS RÁPIDOS (RESUMEN)**
+
+`bash`
+
+*`# === BACKEND ===`*  
+`cd backend`  
+`venv\Scripts\activate`  
+`pytest -v                                    # Pruebas`  
+`python -m uvicorn main:app --reload          # Ejecutar servidor`
+
+*`# === FRONTEND ===`*  
+`cd frontend`  
+`npm run test                                 # Pruebas`  
+`npm run dev                                  # Ejecutar frontend`
+
+*`# === BASE DE DATOS ===`*  
+`python seed_sistemas.py                      # Poblar datos`
+
+`mysql -u root -p -e "USE optiacademic_db; SHOW TABLES;"  # Ver tablas`
+
+---
+
+### **10\. VERIFICACIÓN RÁPIDA (TODO EN UNO)**
+
+`bash`
+
+*`# Verificar que todo está funcionando`*  
+`echo "=== VERIFICANDO BACKEND ==="`  
+`cd backend`  
+`python -c "from csp_engine import CSPEngine; print('✅ CSP Engine OK')"`  
+`python -c "from database import engine; print('✅ Database OK')"`  
+`python -c "from auth import authenticate_user; print('✅ Auth OK')"`
+
+`echo "=== VERIFICANDO FRONTEND ==="`  
+`cd ../frontend`  
+`node -e "console.log('✅ Node OK')"`  
+`npx vite --version`
+
+`echo "=== TODO LISTO ==="`
+
+---
+
+### **11\. POSIBLES ERRORES Y SOLUCIONES**
+
+| Error | Solución |
+| :---- | :---- |
+| `ModuleNotFoundError` | `pip install` el módulo faltante |
+| `Port 8000 in use` | Cambiar puerto: `--port 8001` |
+| `MySQL connection failed` | Verificar que MySQL está corriendo |
+| `npm command not found` | Instalar Node.js |
+
+---
+
+### **12\. ENTREGABLES PARA EL SALÓN**
+
+* Repositorio GitHub con código completo  
+* Backend funcionando (FastAPI)  
+* Frontend funcionando (React)  
+* Pruebas TDD ejecutándose (pytest \+ vitest)  
+* Documentación en carpeta Doc/  
+* README.md con instrucciones
+
