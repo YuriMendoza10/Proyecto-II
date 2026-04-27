@@ -160,3 +160,5 @@ Los casos de uso definidos cubren:
 Estos procesos representan el flujo completo del sistema desde la configuración inicial hasta la interacción final del usuario.
 
 ---
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/68cbca51-2b63-41f8-9e5b-54780b97f7f7" />
+
