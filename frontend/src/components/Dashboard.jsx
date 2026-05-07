@@ -1,10 +1,10 @@
 // D:\TALLER 2\optiacademic\frontend\src\components\Dashboard.jsx
 import { useState, useEffect, useCallback } from 'react'
 import HorarioUniversitario from './HorarioUniversitario'
+import toast, { Toaster } from 'react-hot-toast'
+import api from '../api'
 
-
-
-const API_URL = 'http://localhost:8000/api/v1'
+// const API_URL = 'http://localhost:8000/api/v1'
 
 // ─── Paleta y estilos globales ──────────────────────────────────────────────
 const COLORS = {
@@ -49,25 +49,10 @@ const buildPayload = (cursosFiltrados, docentes, aulas) => ({
     })),
 })
 
-// ─── Toast notification ───────────────────────────────────────────────────────
+// ─── Toast wrapper (usa react-hot-toast) ─────────────────────────────────────
 const showToast = (message, type = 'success') => {
-    const el = document.createElement('div')
-    el.style.cssText = `
-        position:fixed;top:1rem;right:1rem;z-index:9999;
-        padding:.85rem 1.25rem;border-radius:.75rem;
-        font-size:.875rem;font-weight:600;
-        box-shadow:0 10px 30px rgba(0,0,0,.18);
-        animation:slideIn .3s ease;
-        background:${type === 'success' ? '#dcfce7' : '#fee2e2'};
-        color:${type === 'success' ? '#166534' : '#991b1b'};
-        border-left:4px solid ${type === 'success' ? '#16a34a' : '#dc2626'};
-    `
-    el.innerText = (type === 'success' ? '✓  ' : '✕  ') + message
-    const style = document.createElement('style')
-    style.innerText = `@keyframes slideIn{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}`
-    document.head.appendChild(style)
-    document.body.appendChild(el)
-    setTimeout(() => el.remove(), 3200)
+    if (type === 'success') toast.success(message)
+    else toast.error(message)
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -95,18 +80,15 @@ export default function Dashboard({ user }) {
     const [showModal, setShowModal] = useState(false)
     const [modalCurso, setModalCurso] = useState(null)
 
-    const token = localStorage.getItem('token')
-    const headers = { 'Authorization': `Bearer ${token}` }
-
     // ── Carga de datos ────────────────────────────────────────────────────────
     useEffect(() => {
         const cargar = async () => {
             try {
                 const [c, d, a, p] = await Promise.all([
-                    fetch(`${API_URL}/cursos`, { headers }).then(r => r.json()),
-                    fetch(`${API_URL}/docentes`, { headers }).then(r => r.json()),
-                    fetch(`${API_URL}/aulas`, { headers }).then(r => r.json()),
-                    fetch(`${API_URL}/programas`, { headers }).then(r => r.json()),
+                    api.get('/cursos').then(r => r.data),
+                    api.get('/docentes').then(r => r.data),
+                    api.get('/aulas').then(r => r.data),
+                    api.get('/programas').then(r => r.data),
                 ])
                 setCursos(Array.isArray(c) ? c : [])
                 setDocentes(Array.isArray(d) ? d : [])
@@ -118,8 +100,8 @@ export default function Dashboard({ user }) {
         }
         const cargarStats = async () => {
             try {
-                const oc = await fetch(`${API_URL}/reportes/ocupacion`, { headers }).then(r => r.json())
-                setEstadisticas(oc)
+                const res = await api.get('/reportes/ocupacion')
+                setEstadisticas(res.data)
             } catch (err) { console.error(err) }
         }
         cargar()
@@ -164,18 +146,14 @@ export default function Dashboard({ user }) {
         setSolucionSeleccionada(null)
 
         try {
-            const res = await fetch(`${API_URL}/generar`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', ...headers },
-                body: JSON.stringify(buildPayload(cursosFiltrados, docentes, aulas)),
-            })
-            const data = await res.json()
-            if (!res.ok) throw new Error(data.detail || 'Error del servidor')
+            const res = await api.post('/generar', buildPayload(cursosFiltrados, docentes, aulas))
+            const data = res.data
             setResultado(data)
             showToast('Horario generado exitosamente')
         } catch (e) {
-            setErrorMsg(e.message)
-            showToast(e.message, 'error')
+            const msg = e.response?.data?.detail || e.message
+            setErrorMsg(msg)
+            showToast(msg, 'error')
         } finally {
             setGenerando(false)
         }
@@ -195,21 +173,17 @@ export default function Dashboard({ user }) {
         setSolucionSeleccionada(null)
 
         try {
-            const res = await fetch(`${API_URL}/generar`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', ...headers },
-                body: JSON.stringify(buildPayload(cursosFiltrados, docentes, aulas)),
-            })
-            const data = await res.json()
-            if (!res.ok) throw new Error(data.detail || 'Error del servidor')
+            const res = await api.post('/generar', buildPayload(cursosFiltrados, docentes, aulas))
+            const data = res.data
             const sols = data.soluciones || []
             setSoluciones(sols)
             const mejor = data.mejor_solucion || (sols.length > 0 ? sols[0] : null)
             setSolucionSeleccionada(mejor)
             showToast(`${sols.length} opciones de horario generadas`)
         } catch (e) {
-            setErrorMsg(e.message)
-            showToast(e.message, 'error')
+            const msg = e.response?.data?.detail || e.message
+            setErrorMsg(msg)
+            showToast(msg, 'error')
         } finally {
             setGenerando(false)
         }
@@ -217,10 +191,11 @@ export default function Dashboard({ user }) {
 
     // ── Render ────────────────────────────────────────────────────────────────
     return (
-        <div className="space-y-6 animate-fadeIn">
-
+        <div className="space-y-6">
+            <Toaster position="top-right" />
+            
             {/* ── Header ── */}
-            <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 rounded-2xl p-6 text-white shadow-lg">
+            <div className="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-8 text-white shadow-lg relative overflow-hidden">
                 <div className="flex justify-between items-center">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight">
@@ -378,13 +353,24 @@ export default function Dashboard({ user }) {
                                     {/* Horario visual */}
                                     {resultado.horario_generado?.length > 0 && (
                                         <div>
-                                            <div className="flex justify-between items-center mb-3">
-                                                <h3 className="font-bold text-lg text-slate-800">📅 Horario Generado</h3>
+                                            <div className="flex gap-2 mb-4">
                                                 <button
-                                                    onClick={() => showToast('Exportación en desarrollo', 'error')}
-                                                    className="text-sm bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition font-medium text-slate-600"
+                                                    onClick={async () => {
+                                                        window.open(`${API_URL}/exportar/horario-pdf?periodo=2025-1`, '_blank')
+                                                        showToast('Descargando PDF...')
+                                                    }}
+                                                    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
                                                 >
-                                                    📄 Exportar
+                                                    📄 Exportar PDF
+                                                </button>
+                                                <button
+                                                    onClick={async () => {
+                                                        window.open(`${API_URL}/exportar/horario-excel?periodo=2025-1`, '_blank')
+                                                        showToast('Descargando Excel...')
+                                                    }}
+                                                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                                                >
+                                                    📊 Exportar Excel
                                                 </button>
                                             </div>
                                             <HorarioUniversitario

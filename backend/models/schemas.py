@@ -12,3 +12,7 @@ class HorarioResponse(BaseModel):
     horario_generado: List[Dict[str, Any]]
     estadisticas: Dict[str, Any]
     mensaje: Optional[str] = None
+
+class GuardarSolucionRequest(BaseModel):
+    semestre: int
+    horario_generado: List[Dict[str, Any]]

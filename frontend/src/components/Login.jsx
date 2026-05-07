@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin, onForgotPassword }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
@@ -9,6 +9,12 @@ export default function Login({ onLogin }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        if (!email || !password) {
+            setError('Completa todos los campos')
+            return
+        }
+
         setLoading(true)
         setError(null)
 
@@ -23,22 +29,25 @@ export default function Login({ onLogin }) {
                 body: formData
             })
 
-            const data = await res.json()
+            if (!res.ok) {
+                const data = await res.json()
+                throw new Error(data.detail || 'Error de autenticación')
+            }
 
-            if (!res.ok) throw new Error(data.detail || 'Error de autenticación')
+            const data = await res.json()
 
             localStorage.setItem('token', data.access_token)
             localStorage.setItem('user', JSON.stringify(data.usuario))
 
             onLogin(data.usuario)
+
         } catch (e) {
-            setError(e.message)
+            setError(e.message || 'Error de conexión con el servidor')
         } finally {
             setLoading(false)
         }
     }
 
-    // CUENTAS CORREGIDAS - Emails exactos de la base de datos
     const cuentasDemo = [
         { email: 'admin@uni.edu', pass: 'admin123', rol: 'admin', color: 'bg-red-100 text-red-700 border-red-200' },
         { email: 'coord.sistemas@uni.edu', pass: 'coord123', rol: 'coordinador', color: 'bg-blue-100 text-blue-700 border-blue-200' },
@@ -56,86 +65,105 @@ export default function Login({ onLogin }) {
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
             <div className="w-full max-w-md">
                 <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+
+                    {/* HEADER */}
                     <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-8 text-center">
-                        <div className="w-16 h-16 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span className="text-white text-3xl font-bold">O</span>
                         </div>
                         <h1 className="text-2xl font-bold text-white">OptiAcademic</h1>
                         <p className="text-blue-100 text-sm mt-1">Sistema de Planificación Universitaria</p>
                     </div>
 
+                    {/* FORM */}
                     <div className="p-8">
                         <form onSubmit={handleSubmit} className="space-y-5">
+
+                            {/* EMAIL */}
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Correo institucional</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    Correo institucional
+                                </label>
                                 <div className="relative">
                                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">📧</span>
                                     <input
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="usuario@uni.edu"
-                                        className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                                        className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
                                         required
                                     />
                                 </div>
                             </div>
 
+                            {/* PASSWORD */}
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Contraseña</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    Contraseña
+                                </label>
                                 <div className="relative">
                                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span>
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="••••••"
-                                        className="w-full border border-gray-300 rounded-lg pl-10 pr-12 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                                        className="w-full border border-gray-300 rounded-lg pl-10 pr-12 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
                                         required
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
                                     >
                                         {showPassword ? '🙈' : '👁️'}
                                     </button>
                                 </div>
+
+                                {/* 🔥 CORREGIDO */}
+                                <div className="text-right mt-2">
+                                    <button
+                                        type="button"
+                                        onClick={onForgotPassword}
+                                        className="text-sm text-blue-600 hover:text-blue-700"
+                                    >
+                                        ¿Olvidaste tu contraseña?
+                                    </button>
+                                </div>
                             </div>
 
+                            {/* ERROR */}
                             {error && (
-                                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm animate-shake">
+                                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
                                     ❌ {error}
                                 </div>
                             )}
 
+                            {/* SUBMIT */}
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 text-white font-semibold py-3.5 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+                                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg"
                             >
-                                {loading ? (
-                                    <span className="flex items-center justify-center gap-2">
-                                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                                        Verificando...
-                                    </span>
-                                ) : (
-                                    'Ingresar al Sistema'
-                                )}
+                                {loading ? 'Verificando...' : 'Ingresar'}
                             </button>
+
                         </form>
 
+                        {/* DEMO */}
                         <div className="mt-6">
-                            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Cuentas de demostración</p>
+                            <p className="text-xs font-semibold text-gray-500 mb-3">
+                                Cuentas de demostración
+                            </p>
+
                             <div className="grid grid-cols-2 gap-2">
                                 {cuentasDemo.map((c, i) => (
                                     <button
                                         key={i}
                                         onClick={() => autocompletar(c.email, c.pass)}
-                                        className={`text-left p-3 rounded-lg border transition-all duration-200 hover:scale-105 hover:shadow-md ${c.color}`}
+                                        className={`text-left p-3 rounded-lg border ${c.color}`}
                                     >
                                         <div className="text-xs font-bold uppercase">{c.rol}</div>
-                                        <div className="text-xs mt-1 opacity-80">{c.email}</div>
+                                        <div className="text-xs">{c.email}</div>
                                     </button>
                                 ))}
                             </div>
@@ -144,7 +172,7 @@ export default function Login({ onLogin }) {
                 </div>
 
                 <p className="text-center text-white/40 text-xs mt-6">
-                    OptiAcademic v2.1 · Proyecto Académico CSP
+                    OptiAcademic v2.1
                 </p>
             </div>
         </div>
