@@ -2,9 +2,9 @@
 
 ## Descripción general
 
-La planificación del proyecto OptiAcademic se realizó utilizando metodología ágil Scrum mediante Jira Software. Esta herramienta permitió organizar el trabajo en épicas, historias de usuario, sprints, versiones y métricas ágiles, manteniendo trazabilidad entre la planificación y la complejidad del problema.
+La planificación del proyecto OptiAcademic se realizó utilizando la metodología ágil Scrum mediante Jira Software. Esta herramienta permitió organizar el trabajo en épicas, historias de usuario, sprints, versiones y métricas ágiles, manteniendo trazabilidad entre la planificación, los entregables y la complejidad del problema.
 
-El proyecto aborda la generación automática de horarios académicos, considerando restricciones asociadas a docentes, cursos, aulas, matrícula y disponibilidad horaria. Debido a esta complejidad, se estructuró el trabajo de forma incremental, priorizando primero las funcionalidades base y posteriormente los módulos de generación, validación, detección de conflictos y exportación de horarios.
+El proyecto aborda la generación automática de horarios académicos, considerando restricciones asociadas a docentes, cursos, aulas, matrícula y disponibilidad horaria. Debido a esta complejidad, el trabajo fue estructurado de forma incremental, priorizando primero las funcionalidades base y posteriormente los módulos de generación, validación, detección de conflictos y exportación de horarios.
 
 ---
 
@@ -20,7 +20,7 @@ Las historias fueron estimadas utilizando puntos de historia, lo que permitió m
 
 ### Evidencia
 
-![Backlog del producto](./img/backlog.png)
+![Backlog del producto](./img/backlog.jpeg)
 
 ---
 
@@ -55,7 +55,7 @@ Esta descomposición facilita el seguimiento del avance y permite distribuir res
 
 ### Evidencia
 
-![Historia de usuario](./img/historia_usuario_generar_horarios.png)
+![Historia de usuario: Generar horarios automáticamente](./img/historia_usuario_generar_horarios.jpeg)
 
 ---
 
@@ -71,7 +71,7 @@ La priorización del backlog se realizó considerando tres criterios principales
 
 Las funcionalidades relacionadas con la generación automática de horarios, validación de restricciones y detección de conflictos fueron priorizadas debido a que representan el núcleo del sistema.
 
-Por ejemplo, la historia **“Generar horarios automáticamente”** fue asignada con una estimación de **8 puntos de historia**, ya que requiere integración de datos, procesamiento lógico y validación de restricciones. De igual forma, la actividad **“Validar restricciones académicas”** presenta una estimación alta debido a su relación directa con la consistencia del horario generado.
+Por ejemplo, la historia **“Generar horarios automáticamente”** fue asignada con una estimación de **8 puntos de historia**, ya que requiere integración de datos, procesamiento lógico y validación de restricciones. Asimismo, actividades como **“Validar restricciones académicas”** y **“Detectar conflictos de horarios”** presentan mayor complejidad por su relación directa con la consistencia del horario generado.
 
 ---
 
@@ -83,7 +83,7 @@ Las historias del backlog se vinculan con restricciones como:
 
 - Un docente no puede dictar dos clases al mismo tiempo.
 - Un aula no puede ser asignada a más de un curso en la misma franja horaria.
-- Los cursos deben respetar disponibilidad docente.
+- Los cursos deben respetar la disponibilidad docente.
 - Los horarios deben evitar cruces entre asignaturas.
 - La capacidad del aula debe ser coherente con la demanda de estudiantes.
 - La generación de horarios debe considerar cursos, aulas, docentes y matrícula.
@@ -122,7 +122,7 @@ Esta división permite abordar el sistema de manera modular, evitando que todas 
 
 ### Evidencia
 
-![Épicas del proyecto](./img/epicas.png)
+![Épicas del proyecto](./img/epicas.jpeg)
 
 ---
 
@@ -139,9 +139,9 @@ La versión **v1.0 MVP** representa el producto mínimo viable, centrado en cont
 
 ### Evidencia
 
-![Versión v1.0 MVP](./img/version_v1_mvp.png)
+![Versión v1.0 MVP](./img/version_v1_mvp.jpeg)
 
-![Versión v1.1](./img/version_v1_1.png)
+![Versión v1.1](./img/version_v1_1.jpeg)
 
 ---
 
@@ -160,7 +160,7 @@ En el Sprint 3 se observa la historia **“Generar horarios automáticamente”*
 
 ### Evidencia
 
-![Sprints en Jira](./img/sprints_jira.png)
+![Sprints en Jira](./img/sprints_jira.jpeg)
 
 ---
 
@@ -183,7 +183,7 @@ El cronograma muestra una secuencia lógica de trabajo, iniciando con el anális
 
 ### Evidencia
 
-![Cronograma del proyecto](./img/cronograma.png)
+![Cronograma del proyecto](./img/cronograma.jpeg)
 
 ---
 
@@ -211,7 +211,7 @@ Esta ruta representa las actividades que no deben retrasarse, ya que impactan di
 
 ### Evidencia
 
-![Dependencias en Jira](./img/dependencias_jira.png)
+![Dependencias en Jira](./img/dependencias_jira.jpeg)
 
 ---
 
@@ -235,9 +235,9 @@ El Burnup evidencia que el equipo logró completar trabajo en ambos sprints, aun
 
 ### Evidencia
 
-![Burnup Sprint 1](./img/burnup_sprint_1.png)
+![Burnup Sprint 1](./img/burnup_sprint_1.jpeg)
 
-![Burnup Sprint 2](./img/burnup_sprint_2.png)
+![Burnup Sprint 2](./img/burnup_sprint_2.jpeg)
 
 ---
 
@@ -255,9 +255,9 @@ El Burndown muestra que el equipo logró reducir el trabajo pendiente, pero tamb
 
 ### Evidencia
 
-![Burndown Sprint 1](./img/burndown_sprint_1.png)
+![Burndown Sprint 1](./img/burndown_sprint_1.jpeg)
 
-![Burndown Sprint 2](./img/burndown_sprint_2.png)
+![Burndown Sprint 2](./img/burndown_sprint_2.jpeg)
 
 ---
 
@@ -282,7 +282,7 @@ A pesar de esta variación, el equipo mantiene una capacidad de avance estable, 
 
 ### Evidencia
 
-![Gráfico de velocidad](./img/velocidad.png)
+![Gráfico de velocidad](./img/velocidad.jpeg)
 
 ---
 
@@ -294,7 +294,11 @@ En el proyecto, el gráfico de control permite evaluar el comportamiento del flu
 
 ### Interpretación
 
-El análisis del gráfico de control permite detectar posibles variaciones en el tiempo de resolución de tareas. Las actividades de mayor duración se relacionan principalmente con componentes técnicos complejos, como el modelado CSP y la validación de conflictos.
+El análisis del gráfico de control permite detectar posibles variaciones en el tiempo de resolución de tareas. Las actividades de mayor duración se relacionan principalmente con componentes técnicos complejos, como el modelado CSP, la validación de restricciones y la detección de conflictos.
+
+> Nota: Si se incorpora una captura del gráfico de control de Jira, debe guardarse en la ruta `./img/control_chart.jpeg` y agregarse como evidencia en esta sección.
+
+<!-- ![Gráfico de control](./img/control_chart.jpeg) -->
 
 ---
 
