@@ -1,30 +1,12 @@
-# 🚀 OptiAcademic  
-## Aplicativo web inteligente para la planificación y automatización de horarios académicos mediante modelado de restricciones
+# OptiAcademic
 
-OptiAcademic es un aplicativo web diseñado para apoyar la planificación, generación y validación de horarios académicos en instituciones de educación superior. El sistema utiliza un enfoque basado en restricciones para reducir cruces de horarios, validar disponibilidad docente, controlar capacidad de aulas y mejorar la organización de la oferta académica.
+Sistema web inteligente para la planificación, generación, validación y publicación de horarios académicos mediante optimización basada en restricciones.
 
-El proyecto integra una arquitectura web moderna con frontend en React, backend en FastAPI, base de datos MySQL y ejecución local mediante Docker Compose. Además, incorpora documentación de sostenibilidad digital, optimización de recursos y validación mediante métricas de rendimiento.
+OptiAcademic apoya la gestión académica de una institución de educación superior. El sistema permite organizar datos de estudiantes, docentes, aulas, cursos, facultades, campus, programas académicos y ofertas, con el objetivo de generar horarios más consistentes, trazables y verificables.
 
----
+La documentación oficial del repositorio compartido está centralizada únicamente en la carpeta [Doc](Doc/).
 
-## 📑 Tabla de contenidos
-
-- [👥 Integrantes del equipo](#-integrantes-del-equipo)
-- [⚠️ Problemática abordada](#️-problemática-abordada)
-- [📌 Justificación del PMV](#-justificación-del-pmv)
-- [🧩 Alcance del sistema](#-alcance-del-sistema)
-- [⚙️ Funcionalidades principales](#️-funcionalidades-principales)
-- [🛠 Tecnologías utilizadas](#-tecnologías-utilizadas)
-- [🌱 Sostenibilidad y optimización](#-sostenibilidad-y-optimización)
-- [🚀 Ejecución local](#-ejecución-local)
-- [🧪 Pruebas y validación](#-pruebas-y-validación)
-- [📂 Documentación](#-documentación)
-- [📌 Estado de la entrega](#-estado-de-la-entrega)
-- [📄 Licencia](#-licencia)
-
----
-
-## 👥 Integrantes del equipo
+## Integrantes Del Equipo
 
 - Mendoza Vilcahuaman Yuri Luigui
 - Cajamarca Areche Reynaldo Elias
@@ -33,163 +15,141 @@ El proyecto integra una arquitectura web moderna con frontend en React, backend 
 - Riveros Sumalabe Fredy
 - Zacarias Lopez Lenning Andree
 
----
+## Problematica Abordada
 
-## ⚠️ Problemática abordada
+La planificación de horarios académicos es un proceso complejo porque debe considerar disponibilidad docente, capacidad de aulas, ciclos, secciones, cursos, periodos académicos, restricciones institucionales y necesidades de estudiantes.
 
-La planificación de horarios académicos en instituciones de educación superior es un proceso complejo debido a la cantidad de restricciones que deben considerarse al mismo tiempo: disponibilidad docente, capacidad de aulas, carga horaria, secciones, ciclos académicos, prerrequisitos y cruces entre cursos.
+Cuando este proceso se realiza manualmente o con herramientas generales, pueden aparecer cruces de horarios, duplicidad de datos, poca trazabilidad y mayor carga administrativa. OptiAcademic busca reducir esos riesgos mediante una plataforma web que centraliza información, valida datos y genera horarios con apoyo de un motor de optimización CSP.
 
-Cuando este proceso se realiza manualmente o mediante herramientas genéricas, pueden presentarse problemas como:
+## Justificacion Del PMV
 
-- Cruces de horarios entre docentes, aulas o cursos del mismo ciclo.
-- Dificultad para validar disponibilidad docente e infraestructura.
-- Demora en la generación y corrección de horarios.
-- Falta de trazabilidad sobre los criterios usados para construir la programación.
-- Mayor carga administrativa para coordinadores y responsables académicos.
-- Riesgo de generar horarios poco eficientes para estudiantes y docentes.
+El producto mínimo viable se enfoca en el flujo esencial de planificación académica:
 
-OptiAcademic aborda esta problemática mediante una plataforma web que permite organizar datos académicos, preparar la oferta institucional, generar horarios y validar restricciones de manera más controlada.
+- Registrar y consultar entidades académicas principales.
+- Preparar ofertas académicas para generación de horarios.
+- Validar condiciones mínimas antes de ejecutar el motor CSP.
+- Generar, revisar, guardar y publicar soluciones de horario.
+- Consultar reportes, auditoría, trazabilidad y notificaciones.
+- Documentar sostenibilidad, optimización y validación técnica.
 
----
+Este alcance permite demostrar el valor del sistema sin depender todavía de una automatización total de todos los procesos institucionales.
 
-## 📌 Justificación del PMV
+## Alcance Del Sistema
 
-El Producto Mínimo Viable de OptiAcademic se enfoca en resolver el núcleo del problema: la generación y validación de horarios académicos sin conflictos lógicos.
+El sistema incluye:
 
-El PMV es viable porque prioriza:
-
-- Un motor de generación de horarios basado en restricciones.
-- La gestión de entidades principales: estudiantes, docentes, cursos, aulas, facultades, campus, planes curriculares y ofertas académicas.
-- La validación de disponibilidad docente y capacidad de aulas.
-- La publicación segura de horarios institucionales.
-- Reportes de apoyo para la toma de decisiones.
-- Documentación de sostenibilidad y optimización del software.
-
-Este enfoque permite validar la utilidad del sistema antes de una implementación institucional de mayor escala.
-
----
-
-## 🧩 Alcance del sistema
-
-OptiAcademic permite administrar y validar información académica relacionada con la planificación de horarios.
-
-El alcance principal incluye:
-
-- Gestión de usuarios y roles.
-- Gestión de docentes, estudiantes, aulas, cursos y secciones.
-- Gestión de facultades, campus y programas académicos.
-- Gestión de planes curriculares e historial académico.
+- Autenticación y navegación por roles: administrador, coordinador, docente y estudiante.
+- Gestión de usuarios, docentes, estudiantes, aulas, cursos y secciones.
+- Gestión institucional de facultades, campus, programas académicos y planes curriculares.
+- Gestión de estudiantes institucionales e historial académico.
 - Preparación de ofertas académicas.
-- Generación de horarios institucionales.
-- Generación de alternativas de horario para estudiantes.
-- Reportes ejecutivos y académicos.
-- Auditoría, trazabilidad y notificaciones.
-- Reporte de sostenibilidad digital e impacto ambiental estimado.
-
----
-
-## ⚙️ Funcionalidades principales
-
-### Administración académica
-
-- Registro y consulta de estudiantes institucionales.
-- Registro de historial académico.
-- Gestión de docentes, cursos, aulas, facultades y campus.
-- Gestión de planes curriculares y programas académicos.
-
-### Motor de horarios
-
-- Preparación de ofertas académicas.
-- Generación de horarios institucionales.
-- Validación de restricciones.
+- Generación institucional de horarios.
 - Publicación segura de horarios.
-- Visualización de bloques horarios.
+- Reportes académicos y ejecutivos.
+- Auditoría, trazabilidad y notificaciones.
+- Reporte de sostenibilidad digital y validación con Lighthouse.
 
-### Portal por roles
+## Tecnologias Reales
 
-- Administrador.
-- Coordinador.
-- Docente.
-- Estudiante.
+| Capa | Tecnologias |
+|---|---|
+| Frontend | React, Vite, Tailwind CSS, Axios |
+| Backend | FastAPI, Python, SQLAlchemy, Alembic |
+| Base de datos | MySQL |
+| Contenedores | Docker Compose |
+| Optimizacion | CSP, paginacion, cache, reduccion de solicitudes HTTP |
+| Sostenibilidad | Reporte ambiental, CO2 estimado, transferencia, Lighthouse |
 
-### Reportes
+## Funcionalidades Principales
 
-- Panel ejecutivo.
-- Reportes de estudiantes.
-- Reportes de horarios.
-- Reportes de aulas.
-- Reportes de carga docente.
-- Reporte de sostenibilidad.
-- Auditoría y trazabilidad.
+- Panel administrativo y paneles por rol.
+- Gestión de datos académicos.
+- Gestión institucional para sede, facultades y programas.
+- Registro de estudiantes institucionales e historial académico.
+- Preparación de datos para generación de horarios.
+- Motor CSP para generación institucional.
+- Vista previa, guardado y publicación segura de soluciones.
+- Reportes de estudiantes, horarios, carga docente, aulas y conflictos.
+- Auditoría, trazabilidad y notificaciones.
+- Reporte de sostenibilidad con nombres amigables para usuarios no técnicos.
+- Modo claro y modo oscuro.
 
----
+## Sostenibilidad Y Optimizacion
 
-## 🛠 Tecnologías utilizadas
-
-### Frontend
-
-- React
-- Vite
-- Tailwind CSS
-- Axios
-- React Router
-- Zustand
-
-### Backend
-
-- Python
-- FastAPI
-- SQLAlchemy
-- Alembic
-- Pydantic
-- JWT para autenticación
-
-### Base de datos
-
-- MySQL
-
-### Contenedores y entorno local
-
-- Docker Compose
-- Variables de entorno mediante `.env.docker.example`
-
-### Optimización y sostenibilidad
-
-- Paginación en listados grandes.
-- Caché breve de catálogos.
-- Reducción de solicitudes HTTP repetidas.
-- Lazy loading en rutas React.
-- Reporte ambiental con solicitudes, transferencia, tiempo promedio y CO₂ estimado.
-- Validación con Lighthouse.
-
----
-
-## 🌱 Sostenibilidad y optimización
-
-El proyecto incorpora una sección de sostenibilidad digital orientada a reducir el consumo innecesario de recursos tecnológicos.
+La documentación de sostenibilidad digital incluye sensibilización, identificación de oportunidades, implementación de mejoras y validación de resultados.
 
 Las mejoras aplicadas o documentadas incluyen:
 
-- Identificación de impactos ambientales del software.
-- Optimización de listados mediante paginación.
-- Reducción de cargas iniciales.
-- Caché de datos estables.
-- Nombres amigables en reportes.
-- Modo claro y modo oscuro.
-- Reporte de impacto ambiental.
-- Plan de validación con Lighthouse.
-- Documentación de evidencias antes y después de las optimizaciones.
+- Paginación en listados grandes.
+- Reducción de llamadas HTTP duplicadas.
+- Caché breve para catálogos estables.
+- Nombres amigables en reportes en lugar de rutas técnicas como información principal.
+- Reporte ambiental con solicitudes, tiempo promedio, datos transferidos y CO2 estimado.
+- Preparación de validación con Lighthouse.
 
-La documentación correspondiente se encuentra en:
+## Ejecucion Local
 
-[Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION)
+Requisitos sugeridos:
 
----
+- Docker Desktop.
+- Node.js.
+- Git.
 
-## 🚀 Ejecución local
+Validar configuración de Docker Compose:
 
-### 1. Clonar el repositorio
+```powershell
+docker compose --env-file .env.docker.example config --quiet
+```
 
-```bash
-git clone https://github.com/YuriMendoza10/Proyecto-II.git
-cd Proyecto-II
+Levantar el entorno:
+
+```powershell
+docker compose --env-file .env.docker.example up --build -d
+```
+
+Ejecutar migraciones:
+
+```powershell
+docker compose --env-file .env.docker.example exec backend alembic upgrade head
+```
+
+Compilar frontend:
+
+```powershell
+npm --prefix frontend run build
+```
+
+## Pruebas Y Validacion
+
+Las pruebas y verificaciones consideradas para la revisión incluyen:
+
+- Build del frontend con Vite.
+- Validación de configuración Docker Compose.
+- Migraciones Alembic.
+- Compilación del backend Python.
+- Revisión de rutas críticas por rol.
+- Verificación de reportes, auditoría, trazabilidad y notificaciones.
+- Revisión de modo claro y modo oscuro.
+- Validación manual con Lighthouse para rendimiento, accesibilidad y buenas prácticas.
+
+## Documentacion
+
+Toda la documentación del proyecto está centralizada en la carpeta [Doc](Doc/).
+
+- [01. INICIO](Doc/01.%20INICIO/)
+- [02. PLANIFICACION](Doc/02.%20PLANIFICACION/)
+- [03. IMPLEMENTACION](Doc/03.%20IMPLEMENTACION/)
+- [04. REVISION Y RETROSPECTIVA](Doc/04.%20REVISION%20Y%20RETROSPECTIVA/)
+- [05. LANZAMIENTO](Doc/05.%20LANZAMIENTO/)
+- [06. CIERRE](Doc/06.%20CIERRE/)
+- [07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION/)
+
+## Estado De La Entrega
+
+El repositorio se encuentra organizado para revisión académica. La documentación antigua del equipo fue preservada dentro de la estructura sucesiva de `Doc/`, y la documentación técnica de OptiAcademic se mantiene en la sección 07.
+
+No se debe hacer push directo a `main` sin revisión previa del equipo.
+
+## Licencia
+
+Proyecto académico desarrollado con fines educativos. El uso, distribución o reutilización debe coordinarse con los integrantes del equipo y las normas de la institución.
