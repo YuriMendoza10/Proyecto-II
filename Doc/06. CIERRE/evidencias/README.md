@@ -1,26 +1,26 @@
-# Evidencias finales de validación
+# Evidencias Finales De Validacion
 
-Esta carpeta contiene las capturas finales utilizadas como evidencia para la validación del proyecto OptiAcademic.
+Esta carpeta contiene capturas finales utilizadas como evidencia para la validacion del proyecto OptiAcademic.
 
-## Evidencias incluidas
+## Evidencias Incluidas
 
 - Capturas de Lighthouse.
-- Capturas del reporte de sostenibilidad.
+- Capturas del reporte de sostenibilidad o impacto ambiental.
 - Capturas del dashboard administrativo.
-- Capturas de funcionamiento general del sistema.
-- Evidencias de consola o rutas funcionando, si corresponde.
+- Capturas de modulos principales del sistema.
+- Evidencia de consola sin errores.
 
-## Relación con la rúbrica
+## Relacion Con La Rubrica
 
 Estas evidencias respaldan:
 
-- Comparación antes/después de las optimizaciones.
-- Validación de rendimiento y accesibilidad.
-- Funcionamiento del reporte ambiental.
-- Mejora de eficiencia y sostenibilidad del software.
-- Calidad técnica de la entrega final.
+- Analisis del impacto ambiental del software.
+- Validacion de rendimiento, accesibilidad y buenas practicas.
+- Funcionamiento del reporte ambiental interno de OptiAcademic.
+- Comparacion y documentacion de mejoras de optimizacion.
+- Calidad tecnica y presentacion profesional de la entrega final.
 
-## Herramientas utilizadas
+## Herramientas Utilizadas
 
 - Chrome DevTools.
 - Lighthouse.

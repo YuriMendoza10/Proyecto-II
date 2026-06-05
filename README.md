@@ -153,3 +153,9 @@ No se debe hacer push directo a `main` sin revisión previa del equipo.
 ## Licencia
 
 Proyecto académico desarrollado con fines educativos. El uso, distribución o reutilización debe coordinarse con los integrantes del equipo y las normas de la institución.
+
+## Evidencias
+
+Las evidencias finales de validación se encuentran en:
+
+- [Doc/06. CIERRE/evidencias](Doc/06.%20CIERRE/evidencias/)
