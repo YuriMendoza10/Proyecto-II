@@ -21,11 +21,11 @@ La consigna solicita validar requerimientos funcionales y no funcionales, actore
 
 El proyecto lo evidencia mediante:
 
-- `docs/requerimientos/03-requerimientos-funcionales.md`
-- `docs/requerimientos/04-requerimientos-no-funcionales.md`
-- `docs/requerimientos/02-actores-del-sistema.md`
-- `docs/requerimientos/05-reglas-de-negocio.md`
-- `docs/validacion-problema/04-indicadores-exito.md`
+- `Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/requerimientos/03-requerimientos-funcionales.md`
+- `Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/requerimientos/04-requerimientos-no-funcionales.md`
+- `Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/requerimientos/02-actores-del-sistema.md`
+- `Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/requerimientos/05-reglas-de-negocio.md`
+- `Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/validacion-problema/04-indicadores-exito.md`
 
 ## 6.3 Modelado y fundamentación técnica
 
@@ -57,7 +57,7 @@ El MVP actualizado incluye:
 
 ## 6.5 Gestión documental y repositorio
 
-El proyecto usa GitHub como repositorio principal y contiene documentación en la carpeta `docs`.
+El proyecto usa GitHub como repositorio principal y contiene documentación en la carpeta `Doc`.
 
 Se recomienda mantener commits descriptivos como:
 

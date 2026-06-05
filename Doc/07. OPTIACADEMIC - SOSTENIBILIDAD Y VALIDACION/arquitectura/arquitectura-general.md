@@ -36,7 +36,7 @@ optiacademic/
 │   │   └── utils/
 │   └── package.json
 │
-└── docs/
+└── Doc/
 ```
 
 ## Backend

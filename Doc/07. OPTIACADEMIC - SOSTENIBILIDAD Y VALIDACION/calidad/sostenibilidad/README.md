@@ -44,5 +44,5 @@ Estas tecnologias no son el stack principal de `OptiAcademic`.
 - logs backend sin errores `500`;
 - cantidad de ofertas elegibles y bloques generados en CSP.
 
-Esta seccion complementa la documentacion ambiental operativa existente en
-[docs/sostenibilidad](../../sostenibilidad/README.md).
+Esta seccion complementa la documentacion de sostenibilidad consolidada en
+[Doc/07 - sostenibilidad](../../sostenibilidad/README.md).

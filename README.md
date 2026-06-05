@@ -1,4 +1,4 @@
-# OptiAcademic
+﻿# OptiAcademic
 
 ![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=111)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white)
@@ -113,15 +113,14 @@ docker compose --env-file .env.docker.example exec backend python seed_huancayo_
 
 | Sección | Descripción |
 | --- | --- |
-| [Proyecto](docs/01-proyecto/) | Introducción, tecnologías y decisiones técnicas |
-| [Arquitectura](docs/02-arquitectura/) | Arquitectura general, backend, frontend y base de datos |
-| [Instalación](docs/03-instalacion/) | Configuración local, Docker y mantenimiento Git |
-| [Módulos](docs/04-modulos/) | Roles, permisos, estudiantes, coordinadores y motor CSP |
-| [Demo](docs/05-demo/) | Flujo de demostración y preparación de datos |
-| [Calidad](docs/06-calidad/) | Validaciones, pruebas y criterios de calidad |
-| [Sostenibilidad y optimización](docs/06-calidad/sostenibilidad/) | Sensibilización, matriz de oportunidades y plan de evidencias |
+| [01. INICIO](Doc/01.%20INICIO/) | Documentación inicial del equipo. |
+| [02. PLANIFICACION](Doc/02.%20PLANIFICACION/) | Planificación y organización del trabajo. |
+| [3. IMPLEMENTACION](Doc/3.%20IMPLEMENTACION/) | Documentación de implementación conservada del equipo. |
+| [ENTREGABLES](Doc/ENTREGABLES/) | Entregables existentes del proyecto. |
+| [ENTREGABLES-PARCIAL](Doc/ENTREGABLES-PARCIAL/) | Entregables parciales existentes. |
+| [OptiAcademic - Sostenibilidad y validación](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION/) | Documentación técnica, sostenibilidad, validación, Lighthouse y evidencias. |
 
-Índice completo: [docs/README.md](docs/README.md).
+Toda la documentación del proyecto está centralizada en la carpeta [Doc](Doc/).
 
 ## Endpoints Relevantes
 
@@ -154,18 +153,3 @@ stack, aplicar migraciones y cargar datos demo.
 
 No se ha publicado aún un archivo de licencia. Definir la licencia antes de
 redistribuir el proyecto fuera del contexto académico.
-
-## Documentación del proyecto
-
-La documentación grupal se encuentra en:
-
-- [01. INICIO](Doc/01.%20INICIO)
-- [02. PLANIFICACION](Doc/02.%20PLANIFICACION)
-- [03. IMPLEMENTACION](Doc/03.%20IMPLEMENTACION)
-- [04. REVISION Y RETROSPECTIVA](Doc/04.%20REVISION%20Y%20RETROSPECTIVA)
-- [05. LANZAMIENTO](Doc/05.%20LANZAMIENTO)
-- [06. CIERRE](Doc/06.%20CIERRE)
-
-La documentación técnica de sostenibilidad y validación se encuentra en:
-
-- [07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION)

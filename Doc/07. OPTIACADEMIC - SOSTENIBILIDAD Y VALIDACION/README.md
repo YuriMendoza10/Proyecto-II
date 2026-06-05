@@ -1,36 +1,62 @@
-# Sostenibilidad Digital Y Optimizacion
+# OptiAcademic - Sostenibilidad Y Validacion
 
-Esta seccion integra el trabajo de sensibilizacion, diagnostico, implementacion
-y validacion de optimizaciones sostenibles aplicado a `OptiAcademic`.
+Esta carpeta centraliza la documentacion tecnica de `OptiAcademic` dentro del
+repositorio compartido. Su objetivo es que el docente encuentre en una sola
+ubicacion la arquitectura real del sistema, los modulos principales, las guias
+de instalacion, las evidencias de calidad y la documentacion de sostenibilidad.
 
-## Objetivo
+## Relacion Con La Rubrica
 
-Relacionar rendimiento y sostenibilidad digital con decisiones verificables
-del proyecto. Menos solicitudes innecesarias, respuestas mas pequenas,
-consultas eficientes y procesos controlados reducen consumo de red, CPU,
-memoria y tiempo de ejecucion.
+La carpeta agrupa los entregables usados para sustentar:
+
+- sensibilizacion sobre impacto ambiental del software;
+- identificacion de oportunidades de optimizacion;
+- implementacion de mejoras sostenibles;
+- validacion con evidencias y Lighthouse;
+- documentacion tecnica de arquitectura, requerimientos, API, TDD y modulos.
 
 ## Arquitectura Real
 
 `OptiAcademic` usa:
 
-- React, Vite, Tailwind CSS y Axios en el frontend;
-- FastAPI, Python, SQLAlchemy y Alembic en el backend;
-- MySQL como base de datos;
-- Docker Compose para ejecucion local.
+- Frontend: React, Vite, Tailwind CSS y Axios.
+- Backend: FastAPI, Python, SQLAlchemy y Alembic.
+- Base de datos: MySQL.
+- Contenedores: Docker Compose.
 
-El material de clase puede mencionar MERN, MongoDB o Express como referencia.
-Estas tecnologias no son el stack principal de `OptiAcademic`.
+El material de clase puede mencionar `MegaBlog`, MERN, MongoDB o Express como
+referencia pedagogica. Esas tecnologias no son el stack principal de
+`OptiAcademic`.
 
-## Documentos
+## Indice De Carpetas
 
-1. [Sensibilizacion sobre impacto ambiental](01-sensibilizacion-impacto-ambiental.md)
-2. [Identificacion de oportunidades](02-identificacion-oportunidades.md)
-3. [Implementacion de optimizaciones](03-implementacion-optimizaciones.md)
-4. [Validacion de optimizaciones](04-validacion-optimizaciones.md)
-5. [Matriz de optimizaciones OptiAcademic](05-matriz-optimizaciones-optiacademic.md)
-6. [Plan de validacion y evidencias](06-plan-validacion-evidencias.md)
-7. [Validacion Lighthouse](07-validacion-lighthouse.md)
+| Carpeta | Contenido |
+| --- | --- |
+| [sostenibilidad](sostenibilidad/) | Actividades 2.1 a 2.4, matriz de optimizaciones, plan de evidencias y Lighthouse. |
+| [proyecto](proyecto/) | Introduccion, tecnologias y decisiones tecnicas. |
+| [arquitectura](arquitectura/) | Arquitectura general, frontend, backend y base de datos. |
+| [instalacion](instalacion/) | Instalacion local, Docker y mantenimiento Git. |
+| [modulos](modulos/) | Roles, permisos, motor CSP, estudiantes institucionales e historial academico. |
+| [demo](demo/) | Flujo de demostracion y preparacion de datos. |
+| [calidad](calidad/) | Validaciones, accesibilidad, sostenibilidad y calidad. |
+| [api](api/) | Referencia operativa de endpoints y Swagger. |
+| [requerimientos](requerimientos/) | Requerimientos funcionales y no funcionales. |
+| [validacion-problema](validacion-problema/) | Evidencia de problema, analisis y encuestas. |
+| [tdd](tdd/) | Estrategia, casos y evidencias TDD. |
+| [presentacion](presentacion/) | Material de presentacion y guias de demo. |
+| [sostenibilidad-tecnica](sostenibilidad-tecnica/) | Documentacion ambiental operativa complementaria. |
+| [base-datos](base-datos/) | Documentacion de persistencia y datos. |
+| [otros](otros/) | Documentos tecnicos migrados que no encajan en las secciones anteriores. |
+
+## Documentos Clave De Sostenibilidad
+
+- [Sensibilizacion sobre impacto ambiental](sostenibilidad/01-sensibilizacion-impacto-ambiental.md)
+- [Identificacion de oportunidades](sostenibilidad/02-identificacion-oportunidades.md)
+- [Implementacion de optimizaciones](sostenibilidad/03-implementacion-optimizaciones.md)
+- [Validacion de optimizaciones](sostenibilidad/04-validacion-optimizaciones.md)
+- [Matriz de optimizaciones OptiAcademic](sostenibilidad/05-matriz-optimizaciones-optiacademic.md)
+- [Plan de validacion y evidencias](sostenibilidad/06-plan-validacion-evidencias.md)
+- [Validacion Lighthouse](sostenibilidad/07-validacion-lighthouse.md)
 
 ## Evidencias Esperadas
 
@@ -43,6 +69,3 @@ Estas tecnologias no son el stack principal de `OptiAcademic`.
 - Swagger operativo;
 - logs backend sin errores `500`;
 - cantidad de ofertas elegibles y bloques generados en CSP.
-
-Esta seccion complementa la documentacion ambiental operativa existente en
-[docs/sostenibilidad](../../sostenibilidad/README.md).

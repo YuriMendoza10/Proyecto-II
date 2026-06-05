@@ -51,7 +51,7 @@
 
 ## 7. Documentacion
 
-- [ ] Crear `docs/sostenibilidad/02-greenframe-report.md`.
+- [ ] Crear `Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/sostenibilidad-tecnica/02-greenframe-report.md`.
 - [ ] Describir objetivo, limites y caracter estimado del analisis GreenFrame.
 - [ ] Documentar la adaptacion de la actividad MERN a React + FastAPI + MySQL.
 - [ ] Documentar Docker, `.greenframe.yml`, `scenario.js` y `npm run sustainability:analyze`.

@@ -27,7 +27,7 @@ El cambio incluira:
 - Escenario de prueba con login usando credenciales de demostracion configurables, navegacion a una pantalla relevante y espera de estabilizacion de al menos 10 segundos.
 - Script raiz `sustainability:analyze` que ejecute `greenframe analyze` y persista una salida de consola legible en `backend/public/assets/greenframe-latest.txt`.
 - Endpoint FastAPI publico `GET /api/v1/sustainability` para consultar el ultimo reporte disponible.
-- Documento `docs/sostenibilidad/02-greenframe-report.md`.
+- Documento `Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/sostenibilidad-tecnica/02-greenframe-report.md`.
 - Definicion de una posible integracion futura del reporte GreenFrame en la pantalla React `/admin/environmental-impact`, sin implementarla en esta fase.
 
 ## Compatibilidad y seguridad

@@ -175,4 +175,4 @@ planes curriculares usan una cache breve con deduplicacion de solicitudes
 concurrentes e invalidacion despues de cambios.
 
 La preparacion de mediciones antes y despues se documenta en
-[`docs/06-calidad/sostenibilidad/07-validacion-lighthouse.md`](../docs/06-calidad/sostenibilidad/07-validacion-lighthouse.md).
+[`Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/sostenibilidad/07-validacion-lighthouse.md`](../Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION/sostenibilidad/07-validacion-lighthouse.md).

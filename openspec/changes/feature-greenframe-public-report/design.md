@@ -125,7 +125,7 @@ Esta especificacion no implementa esa pantalla ni modifica el dashboard React ac
 
 ## Documentacion
 
-Se creara `docs/sostenibilidad/02-greenframe-report.md` para documentar:
+Se creara `Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/sostenibilidad-tecnica/02-greenframe-report.md` para documentar:
 
 - Objetivo y alcance de GreenFrame.
 - Adaptacion a React + FastAPI + MySQL.

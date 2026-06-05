@@ -756,7 +756,7 @@ optiacademic/
 │   │   └── utils/            # Utilidades
 │   └── package.json          # Dependencias frontend
 │
-└── docs/                     # Documentación del proyecto
+└── Doc/                      # Documentación centralizada del proyecto
 ```
 
 ---
