@@ -1,155 +1,158 @@
-﻿# OptiAcademic
+# OptiAcademic
 
-![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=111)
-![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+OptiAcademic es un sistema web académico orientado a la generación, validación y publicación de horarios universitarios. El proyecto combina gestión institucional, reportes, trazabilidad y optimización mediante CSP para apoyar la planificación académica de una sede universitaria.
 
-**Sistema inteligente para generar, validar y publicar horarios académicos
-universitarios.**
+Este repositorio corresponde a la integración final del proyecto compartido y centraliza la documentación oficial en la carpeta [Doc](Doc/).
 
-OptiAcademic es una aplicación web full-stack para planificación académica
-universitaria. Centraliza la gestión de períodos, programas, malla curricular,
-oferta académica, disponibilidad docente, aulas y horarios. Su flujo principal
-usa un motor CSP institucional conectado a ofertas académicas modernas, con
-publicación segura y portal por roles.
+## Descripción Breve
 
-## Tecnologías
+El sistema permite administrar información académica relevante, preparar datos institucionales, generar horarios desde ofertas académicas, publicar resultados de forma controlada y revisar reportes operativos. También incorpora una línea de sostenibilidad digital con métricas de consumo estimado, reducción de solicitudes HTTP, paginación y validación con Lighthouse.
 
-- Frontend: React, Vite, Tailwind CSS, Axios
-- Backend: FastAPI, Python, SQLAlchemy, Alembic
-- Base de datos: MySQL
-- Contenedores: Docker Compose
-- Optimización: paginación, caché, lazy loading, reducción de solicitudes HTTP
-- Sostenibilidad: dashboard ambiental, CO₂ estimado, Lighthouse y documentación de evidencias
+## Integrantes Del Equipo
 
-## Arquitectura Resumida
+| Integrante | Rol | Responsabilidad principal |
+|---|---|---|
+| Mendoza Vilcahuaman Yuri Luigui | Scrum Master / Backend | Gestión del equipo y arquitectura del servidor |
+| Cajamarca Areche Reynaldo Elias | Base de Datos | Diseño e integridad de la base de datos |
+| Torres Inche Ulises Yerko | Algoritmos CSP | Desarrollo del motor de optimización |
+| Yarasca Batalla Jairo Ronald | Full Stack | Integración frontend-backend |
+| Riveros Sumalabe Fredy | Frontend | Interfaz de usuario y reportes |
+| Zacarias Lopez Lenning Andree | QA / Datos | Pruebas y validación |
+| Gamarra Moreno Daniel | Product Owner | Definición de requerimientos y validación |
 
-```text
-Navegador
-  |
-  v
-React + Vite :5173
-  |  HTTP / JWT
-  v
-FastAPI :8000
-  |
-  | SQLAlchemy + Alembic
-  v
-MySQL :3306 (publicado localmente en :3307)
-```
+## Problemática Abordada
 
-## Módulos Principales
+La planificación de horarios académicos suele requerir coordinación entre carreras, docentes, aulas, periodos, secciones y restricciones institucionales. Cuando este proceso se realiza de forma manual, aumenta el riesgo de cruces, uso ineficiente de recursos, duplicidad de datos y poca trazabilidad para justificar los resultados.
 
-| Módulo | Alcance |
-| --- | --- |
-| Autenticación | Login JWT, sesión persistente y protección por rol. |
-| Dominio académico | Períodos, programas, planes curriculares y malla. |
-| Base institucional Huancayo | Sede única, facultades y relaciones iniciales compatibles. |
-| Estudiantes institucionales | Matrícula, carrera, plan curricular, ciclo e historial académico. |
-| Oferta académica | Secciones por período, docentes, aulas, cupos y estados. |
-| CSP institucional | Diagnóstico, vista previa, generación, guardado y publicación. |
-| Portal coordinador | Gestión de oferta, conflictos, solicitudes y reportes. |
-| Portal docente | Horario publicado, disponibilidad, carga y solicitudes de cambio. |
-| Portal estudiante | Malla, oferta publicada y horarios personales. |
-| Reportes | Panel ejecutivo, carga docente, aulas, estudiantes y CSV. |
-| Trazabilidad | Notificaciones, auditoría y seguimiento de publicaciones. |
-| Sostenibilidad | Métricas ambientales y soporte GreenFrame. |
-| Accesibilidad web | Tema claro/oscuro, escala de texto, foco visible y navegación por teclado. |
+OptiAcademic aborda esta problemática con una plataforma que organiza la información académica, valida condiciones mínimas, genera propuestas de horario y conserva evidencias para auditoría, reportes y mejora continua.
 
-## Roles
+## Justificación Del PMV
 
-| Rol técnico | Vista principal |
-| --- | --- |
-| `ADMIN` | Administración completa, panel ejecutivo, auditoría y demo. |
-| `COORDINATOR` | Oferta académica, CSP, solicitudes docentes y reportes. |
-| `TEACHER` | Horario docente, disponibilidad, carga y solicitudes. |
-| `STUDENT` | Malla, oferta publicada y generación de horario personal. |
+El producto mínimo viable se enfoca en resolver el flujo principal de planificación académica:
 
-## Inicio Rápido Con Docker
+- Registrar y consultar datos institucionales necesarios para la programación.
+- Preparar ofertas académicas y condiciones iniciales.
+- Generar horarios institucionales mediante optimización CSP.
+- Revisar, guardar y publicar soluciones de horario.
+- Consultar reportes, auditoría, trazabilidad y notificaciones.
+- Incorporar criterios de sostenibilidad y accesibilidad visual.
+
+Este alcance permite demostrar valor funcional sin esperar una automatización total de todos los procesos universitarios.
+
+## Alcance Del Sistema
+
+El alcance actual incluye:
+
+- Gestión de usuarios y roles: administrador, coordinador, docente y estudiante.
+- Gestión institucional de sede, facultades, programas, planes, estudiantes e historial académico.
+- Administración de aulas, cursos, docentes, secciones y ofertas académicas.
+- Generación institucional de horarios desde ofertas académicas.
+- Publicación segura de soluciones de horario.
+- Paneles, reportes, auditoría, trazabilidad y notificaciones.
+- Reporte de sostenibilidad digital y preparación para validación con Lighthouse.
+
+Quedan como mejoras posteriores la proyección masiva de demanda, reglas institucionales más avanzadas, analítica predictiva y validaciones con mayor volumen de datos reales.
+
+## Tecnologías Reales
+
+| Capa | Tecnologías |
+|---|---|
+| Frontend | React, Vite, Tailwind CSS, Axios |
+| Backend | FastAPI, Python, SQLAlchemy, Alembic |
+| Base de datos | MySQL |
+| Contenedores | Docker Compose |
+| Optimización | CSP, paginación, caché de catálogos, reducción de solicitudes HTTP |
+| Sostenibilidad | Reporte ambiental, CO2 estimado, métricas de transferencia, Lighthouse |
+
+## Funcionalidades Principales
+
+- Autenticación y navegación por roles.
+- Dashboard administrativo y paneles de coordinación.
+- Gestión de facultades, campus, programas académicos y planes curriculares.
+- Gestión de estudiantes institucionales e historial académico.
+- Preparación de datos para generación institucional.
+- Vista previa, generación, guardado y publicación segura de horarios.
+- Reportes de estudiantes, horarios, carga docente, uso de aulas y conflictos.
+- Auditoría, trazabilidad y notificaciones.
+- Reporte de sostenibilidad con nombres amigables para usuarios no técnicos.
+- Modo claro y modo oscuro en la interfaz.
+
+## Sostenibilidad Y Optimización
+
+La línea de sostenibilidad del proyecto documenta y aplica mejoras orientadas a reducir carga innecesaria y facilitar la validación de calidad:
+
+- Paginación gradual en listados grandes.
+- Reducción de llamadas HTTP duplicadas.
+- Caché breve para catálogos estables.
+- Nombres amigables en reportes en lugar de rutas técnicas como dato principal.
+- Medición de solicitudes, tiempos de respuesta, transferencia y CO2 estimado.
+- Preparación de evidencias con Lighthouse para rendimiento, accesibilidad y buenas prácticas.
+
+La documentación detallada está en [Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION/).
+
+## Ejecución Local
+
+Requisitos sugeridos:
+
+- Docker Desktop.
+- Node.js para tareas del frontend fuera de contenedores.
+- Git.
+
+Ejecución con Docker Compose:
 
 ```powershell
+docker compose --env-file .env.docker.example config --quiet
 docker compose --env-file .env.docker.example up --build -d
 docker compose --env-file .env.docker.example exec backend alembic upgrade head
-docker compose --env-file .env.docker.example exec backend python seed_realistic_demo.py
-docker compose --env-file .env.docker.example exec backend python seed_uc_ingenieria_sistemas_curriculum.py
-docker compose --env-file .env.docker.example exec backend python seed_uc_isi_offerings_ready_demo.py
-docker compose --env-file .env.docker.example exec backend python seed_huancayo_institutional_base.py
-docker compose --env-file .env.docker.example exec backend python seed_huancayo_students_history_demo.py
 ```
 
-| Servicio | URL |
-| --- | --- |
-| Aplicación React | <http://localhost:5173> |
-| Swagger FastAPI | <http://localhost:8000/docs> |
-| API base | <http://localhost:8000/api/v1> |
-| MySQL publicado | `localhost:3307` |
+Compilación del frontend:
 
-## Credenciales Demo
+```powershell
+npm --prefix frontend install
+npm --prefix frontend run build
+```
 
-| Rol | Usuario | Contraseña |
-| --- | --- | --- |
-| Admin | `admin@optiacademic.com` | `admin123` |
-| Coordinador | `coordinator@optiacademic.com` | `coordinator123` |
-| Docente | `docente.demo1@optiacademic.com` | `docente123` |
-| Estudiante | `estudiante.demo1@optiacademic.com` | `estudiante123` |
+Verificación del backend:
 
-> Estas credenciales son solo para desarrollo y demostración.
+```powershell
+docker compose --env-file .env.docker.example exec backend python -m compileall app alembic
+```
 
-## Flujo Rápido De Demo
+## Pruebas Y Validación
 
-1. Levantar servicios con Docker.
-2. Ejecutar migraciones y seeds.
-3. Iniciar sesión como administrador.
-4. Ir a **Horarios → Generación institucional**.
-5. Presionar **Preparar datos demo completo**.
-6. Ejecutar **Vista previa**.
-7. Generar horario.
-8. Guardar solución.
-9. Publicar horario.
+Las validaciones consideradas para la entrega incluyen:
 
-## Documentación
+- Build del frontend con Vite.
+- Validación de configuración de Docker Compose.
+- Migraciones de base de datos con Alembic.
+- Compilación del backend Python.
+- Revisión de rutas críticas por rol.
+- Revisión de reportes, auditoría, trazabilidad y notificaciones.
+- Validación manual de modo claro y modo oscuro.
+- Validación de sostenibilidad y accesibilidad con Lighthouse.
 
-| Sección | Descripción |
-| --- | --- |
-| [01. INICIO](Doc/01.%20INICIO/) | Documentación inicial del equipo. |
-| [02. PLANIFICACION](Doc/02.%20PLANIFICACION/) | Planificación y organización del trabajo. |
-| [3. IMPLEMENTACION](Doc/3.%20IMPLEMENTACION/) | Documentación de implementación conservada del equipo. |
-| [ENTREGABLES](Doc/ENTREGABLES/) | Entregables existentes del proyecto. |
-| [ENTREGABLES-PARCIAL](Doc/ENTREGABLES-PARCIAL/) | Entregables parciales existentes. |
-| [OptiAcademic - Sostenibilidad y validación](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION/) | Documentación técnica, sostenibilidad, validación, Lighthouse y evidencias. |
+Las plantillas y evidencias se organizan en [Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION/sostenibilidad](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION/sostenibilidad/).
 
-Toda la documentación del proyecto está centralizada en la carpeta [Doc](Doc/).
+## Documentación Centralizada En Doc
 
-## Endpoints Relevantes
+Toda la documentación oficial del repositorio compartido está centralizada en [Doc](Doc/). No se mantiene una segunda carpeta de documentación en la raíz.
 
-| Método | Endpoint | Uso |
-| --- | --- | --- |
-| `POST` | `/api/v1/auth/login-json` | Autenticación del frontend. |
-| `POST` | `/api/v1/admin/demo/prepare-institutional-csp` | Preparación demo completa. |
-| `POST` | `/api/v1/institutional-csp/preview-from-offerings` | Vista previa desde oferta académica. |
-| `POST` | `/api/v1/institutional-csp/generate-from-offerings` | Generación CSP moderna. |
-| `POST` | `/api/v1/institutional-csp/save-offering-solution` | Guardar solución como horario institucional. |
-| `PATCH` | `/api/v1/schedule-publication/{id}/publish-safe` | Publicación segura. |
-| `GET` | `/api/v1/sustainability` | Reporte GreenFrame disponible. |
-| `GET` | `/api/v1/student-academic-history` | Historial académico institucional. |
-| `GET` | `/api/v1/students/{id}/academic-summary` | Resumen académico por estudiante. |
+| Sección | Ubicación |
+|---|---|
+| Inicio y organización del equipo | [Doc/01. INICIO](Doc/01.%20INICIO/) |
+| Planificación | [Doc/02. PLANIFICACION](Doc/02.%20PLANIFICACION/) |
+| Implementación | [Doc/3. IMPLEMENTACION](Doc/3.%20IMPLEMENTACION/) |
+| Entregables del equipo | [Doc/ENTREGABLES](Doc/ENTREGABLES/) |
+| Entregables parciales | [Doc/ENTREGABLES-PARCIAL](Doc/ENTREGABLES-PARCIAL/) |
+| OptiAcademic, sostenibilidad y validación | [Doc/07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION/) |
 
-La referencia navegable completa está disponible en Swagger.
+## Estado De La Entrega
 
-## Estado Del Proyecto
+El repositorio se encuentra en integración final para revisión académica. La rama de trabajo compartida conserva la documentación histórica del equipo y agrega la documentación técnica de OptiAcademic dentro de `Doc/`.
 
-Proyecto académico funcional en evolución. Incluye frontend, backend,
-persistencia MySQL, generación CSP, ejecución Docker, reportes, trazabilidad y
-componentes de sostenibilidad. Antes de una demostración debe levantarse el
-stack, aplicar migraciones y cargar datos demo.
-
-## Autores
-
-- Repositorio académico mantenido por `ArweNMera` y el equipo OptiAcademic.
+No se debe hacer push directo a `main` sin revisión previa del equipo.
 
 ## Licencia
 
-No se ha publicado aún un archivo de licencia. Definir la licencia antes de
-redistribuir el proyecto fuera del contexto académico.
+Proyecto académico desarrollado con fines educativos. El uso, distribución o reutilización debe coordinarse con los integrantes del equipo y las normas de la institución.
