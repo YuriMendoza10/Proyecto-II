@@ -15,17 +15,14 @@ oferta académica, disponibilidad docente, aulas y horarios. Su flujo principal
 usa un motor CSP institucional conectado a ofertas académicas modernas, con
 publicación segura y portal por roles.
 
-## Stack
+## Tecnologías
 
-| Capa | Tecnologías |
-| --- | --- |
-| Frontend | React, Vite, Tailwind CSS, Axios, Zustand |
-| Backend | FastAPI, Python, SQLAlchemy, Alembic, Pydantic |
-| Base de datos | MySQL |
-| Seguridad | JWT y autorización por roles |
-| Optimización | CSP institucional con restricciones y scoring |
-| Operación local | Docker Compose |
-| Sostenibilidad | Dashboard ambiental y GreenFrame |
+- Frontend: React, Vite, Tailwind CSS, Axios
+- Backend: FastAPI, Python, SQLAlchemy, Alembic
+- Base de datos: MySQL
+- Contenedores: Docker Compose
+- Optimización: paginación, caché, lazy loading, reducción de solicitudes HTTP
+- Sostenibilidad: dashboard ambiental, CO₂ estimado, Lighthouse y documentación de evidencias
 
 ## Arquitectura Resumida
 
@@ -157,3 +154,18 @@ stack, aplicar migraciones y cargar datos demo.
 
 No se ha publicado aún un archivo de licencia. Definir la licencia antes de
 redistribuir el proyecto fuera del contexto académico.
+
+## Documentación del proyecto
+
+La documentación grupal se encuentra en:
+
+- [01. INICIO](Doc/01.%20INICIO)
+- [02. PLANIFICACION](Doc/02.%20PLANIFICACION)
+- [03. IMPLEMENTACION](Doc/03.%20IMPLEMENTACION)
+- [04. REVISION Y RETROSPECTIVA](Doc/04.%20REVISION%20Y%20RETROSPECTIVA)
+- [05. LANZAMIENTO](Doc/05.%20LANZAMIENTO)
+- [06. CIERRE](Doc/06.%20CIERRE)
+
+La documentación técnica de sostenibilidad y validación se encuentra en:
+
+- [07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION)
