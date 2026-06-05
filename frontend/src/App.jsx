@@ -1,190 +1,201 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 
-// Componentes
-import Login from './components/Login'
-import Dashboard from './components/Dashboard'
-import MatriculaPanel from './components/MatriculaPanel'
-import AdminPanel from './components/AdminPanel'
-import AdminUsuarios from './components/AdminUsuarios'
-import AdminAulas from './components/AdminAulas'
-import DashboardEjecutivo from './components/DashboardEjecutivo'
-import ForgotPassword from './components/ForgotPassword'
-import ResetPassword from './components/ResetPassword'
-import MisCursos from './components/MisCursos'
-import GestionarSolicitudes from './components/GestionarSolicitudes'
+import AppLayout from './components/layout/AppLayout'
+import ErrorBoundary from './components/common/ErrorBoundary'
+import ProtectedRoute from './components/layout/ProtectedRoute'
+import RoleRoute from './components/layout/RoleRoute'
+import LoadingPage from './pages/common/LoadingPage'
+import AccessibilityToolbar from './components/accessibility/AccessibilityToolbar'
+import NotFoundPage from './pages/common/NotFoundPage'
+import UnauthorizedPage from './pages/common/UnauthorizedPage'
+import { useAuthStore } from './stores/authStore'
 
-// NUEVO
-import SelectorHorarioProfesional from './components/SelectorHorarioProfesional'
+const LoginPage = lazy(() => import('./pages/auth/LoginPage'))
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'))
+const EnvironmentalImpactPage = lazy(() => import('./pages/admin/EnvironmentalImpactPage'))
+const ClassroomsPage = lazy(() => import('./pages/admin/ClassroomsPage'))
+const CoursesPage = lazy(() => import('./pages/admin/CoursesPage'))
+const DataReadinessPage = lazy(() => import('./pages/admin/DataReadinessPage'))
+const InstitutionalCSPPage = lazy(() => import('./pages/admin/InstitutionalCSPPage'))
+const InstitutionalCspGeneratorPage = lazy(() => import('./pages/admin/InstitutionalCspGeneratorPage'))
+const InstitutionalScheduleViewPage = lazy(() => import('./pages/admin/InstitutionalScheduleViewPage'))
+const ScheduleQualityPage = lazy(() => import('./pages/admin/ScheduleQualityPage'))
+const SectionsPage = lazy(() => import('./pages/admin/SectionsPage'))
+const StudentsPage = lazy(() => import('./pages/admin/StudentsPage'))
+const TeachersPage = lazy(() => import('./pages/admin/TeachersPage'))
+const UsersPage = lazy(() => import('./pages/admin/UsersPage'))
+const AcademicPeriodsPage = lazy(() => import('./pages/admin/AcademicPeriodsPage'))
+const AcademicProgramsPage = lazy(() => import('./pages/admin/AcademicProgramsPage'))
+const CurriculumPlansPage = lazy(() => import('./pages/admin/CurriculumPlansPage'))
+const CurriculumPage = lazy(() => import('./pages/admin/CurriculumPage'))
+const AuditLogsPage = lazy(() => import('./pages/admin/AuditLogsPage'))
+const FacultiesPage = lazy(() => import('./pages/admin/FacultiesPage'))
+const CampusesPage = lazy(() => import('./pages/admin/CampusesPage'))
+const InstitutionalStudentsPage = lazy(() => import('./pages/admin/InstitutionalStudentsPage'))
+const AcademicHistoryPage = lazy(() => import('./pages/admin/AcademicHistoryPage'))
 
-function App() {
+const CoordinatorDashboard = lazy(() => import('./pages/coordinator/CoordinatorDashboard'))
+const OfferingsPage = lazy(() => import('./pages/coordinator/OfferingsPage'))
+const OfferingFormPage = lazy(() => import('./pages/coordinator/OfferingFormPage'))
+const OfferingConflictsPage = lazy(() => import('./pages/coordinator/OfferingConflictsPage'))
+const CoordinatorCspPage = lazy(() => import('./pages/coordinator/CoordinatorCspPage'))
+const CoordinatorChangeRequestsPage = lazy(() => import('./pages/coordinator/CoordinatorChangeRequestsPage'))
+const TraceabilityPage = lazy(() => import('./pages/coordinator/TraceabilityPage'))
 
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const navigate = useNavigate()
-  const location = useLocation()
+const ExecutiveDashboardPage = lazy(() => import('./pages/reports/ExecutiveDashboardPage'))
+const ReportDetailPage = lazy(() => import('./pages/reports/ReportDetailPage'))
+const NotificationPage = lazy(() => import('./pages/notifications/NotificationPage'))
 
-  useEffect(() => {
-    const savedUser = localStorage.getItem('user')
-    const token = localStorage.getItem('token')
+const TeacherDashboardPage = lazy(() => import('./pages/teacher/TeacherDashboardPage'))
+const TeacherSchedulePage = lazy(() => import('./pages/teacher/TeacherSchedulePage'))
+const TeacherSectionsPage = lazy(() => import('./pages/teacher/TeacherSectionsPage'))
+const TeacherAvailabilityPage = lazy(() => import('./pages/teacher/TeacherAvailabilityPage'))
+const TeacherLoadPage = lazy(() => import('./pages/teacher/TeacherLoadPage'))
+const TeacherConflictsPage = lazy(() => import('./pages/teacher/TeacherConflictsPage'))
+const TeacherChangeRequestsPage = lazy(() => import('./pages/teacher/TeacherChangeRequestsPage'))
 
-    if (savedUser && token) {
-      try {
-        setUser(JSON.parse(savedUser))
-      } catch {
-        handleLogout()
-      }
-    }
-    setLoading(false)
-  }, [])
+const StudentDashboard = lazy(() => import('./pages/student/StudentDashboard'))
+const MySavedSchedulesPage = lazy(() => import('./pages/student/MySavedSchedulesPage'))
+const StudentScheduleGeneratorPage = lazy(() => import('./pages/student/StudentScheduleGeneratorPage'))
+const StudentCurriculumPage = lazy(() => import('./pages/student/StudentCurriculumPage'))
+const StudentOfferPage = lazy(() => import('./pages/student/StudentOfferPage'))
 
-  const handleLogin = (usuario) => {
-    setUser(usuario)
-
-    if (usuario.rol === 'estudiante') {
-      navigate('/selector-horario') // 🔥 ahora entra directo al generador
-    } else if (usuario.rol === 'docente') {
-      navigate('/mis-cursos')
-    } else {
-      navigate('/dashboard')
-    }
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    setUser(null)
-    navigate('/login')
-  }
-
-  const getNavItems = () => {
-    if (!user) return []
-
-    const items = [{ id: 'dashboard', label: '⚡ Dashboard' }]
-
-    // 👨‍🎓 ESTUDIANTE
-    if (user.rol === 'estudiante') {
-      items.push(
-        { id: 'selector-horario', label: '🎯 Generar Horario' },
-        { id: 'matricula', label: '📝 Matrícula' },
-        { id: 'mi-horario', label: '📅 Mi Horario' },
-        { id: 'mis-cursos', label: '📚 Mis Cursos' }
-      )
-    }
-
-    // 🧑‍💼 ADMIN / COORDINADOR
-    if (user.rol === 'admin' || user.rol === 'coordinador') {
-      items.push(
-        { id: 'admin', label: '⚙️ Administración' },
-        { id: 'admin-usuarios', label: '👥 Usuarios' },
-        { id: 'admin-aulas', label: '🏫 Aulas' },
-        { id: 'dashboard-ejecutivo', label: '📈 Ejecutivo' },
-        { id: 'gestionar-solicitudes', label: '📋 Solicitudes' }
-      )
-    }
-
-    return items
-  }
-
-  // ⏳ LOADING
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-sm font-medium">Cargando OptiAcademic...</p>
-        </div>
-      </div>
-    )
-  }
-
-  // 🔐 NO AUTENTICADO
-  if (!user) {
-    return (
-      <Routes>
-        <Route path="/" element={<Login onLogin={handleLogin} onForgotPassword={() => navigate('/forgot-password')} />} />
-        <Route path="/login" element={<Login onLogin={handleLogin} onForgotPassword={() => navigate('/forgot-password')} />} />
-        <Route path="/forgot-password" element={<ForgotPassword onBack={() => navigate('/login')} onSuccess={() => navigate('/login')} />} />
-        <Route path="/reset-password" element={<ResetPassword onBack={() => navigate('/login')} onSuccess={() => navigate('/login')} />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    )
-  }
-
-  // 🧠 APP PRINCIPAL
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between h-16 items-center">
-
-          <div className="flex items-center">
-            <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center font-bold text-lg mr-3">
-              O
-            </div>
-            <span className="font-bold text-xl hidden sm:block">OptiAcademic</span>
-          </div>
-
-          <div className="flex items-center gap-1">
-            {getNavItems().map(item => (
-              <button
-                key={item.id}
-                onClick={() => navigate(`/${item.id}`)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium ${location.pathname === `/${item.id}`
-                  ? 'bg-blue-600 text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-slate-800'
-                  }`}
-              >
-                {item.label}
-              </button>
-            ))}
-
-            <div className="ml-4 pl-4 border-l border-gray-700 flex items-center gap-3">
-              <div className="hidden md:block text-right">
-                <p className="text-sm font-semibold">{user.nombre} {user.apellido}</p>
-                <p className="text-[10px] text-gray-400 uppercase">{user.rol}</p>
-              </div>
-
-              <button onClick={handleLogout} className="text-red-400 hover:text-red-300">
-                🚪
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <Routes>
-
-          {/* ESTUDIANTE */}
-          <Route path="/selector-horario" element={
-            <SelectorHorarioProfesional
-              user={user}
-              onMatricular={(solucion) => {
-                console.log('Matricular en:', solucion)
-                navigate('/matricula')
-              }}
-            />
-          } />
-
-          <Route path="/matricula" element={<MatriculaPanel user={user} />} />
-          <Route path="/mi-horario" element={<MatriculaPanel user={user} vistaInicial="mi-horario" />} />
-          <Route path="/mis-cursos" element={<MisCursos user={user} />} />
-
-          {/* ADMIN */}
-          <Route path="/admin" element={<AdminPanel user={user} />} />
-          <Route path="/admin-usuarios" element={<AdminUsuarios user={user} />} />
-          <Route path="/admin-aulas" element={<AdminAulas user={user} />} />
-          <Route path="/dashboard-ejecutivo" element={<DashboardEjecutivo user={user} />} />
-          <Route path="/gestionar-solicitudes" element={<GestionarSolicitudes user={user} />} />
-
-          {/* GENERAL */}
-          <Route path="/dashboard" element={<Dashboard user={user} />} />
-          <Route path="/" element={<Dashboard user={user} />} />
-
-        </Routes>
-      </main>
-    </div>
-  )
+function dashboardFor(role) {
+    if (role === 'ADMIN') return '/admin/dashboard'
+    if (role === 'COORDINATOR') return '/coordinator/dashboard'
+    if (role === 'TEACHER') return '/teacher/dashboard'
+    if (role === 'STUDENT') return '/student'
+    return '/login'
 }
 
-export default App
+function HomeRedirect() {
+    const { user, isAuthenticated, initialized } = useAuthStore()
+
+    if (!initialized) return <LoadingPage />
+    if (!isAuthenticated) return <Navigate to="/login" replace />
+    return <Navigate to={dashboardFor(user?.role)} replace />
+}
+
+function Page(element) {
+    return <ErrorBoundary>{element}</ErrorBoundary>
+}
+
+export default function App() {
+    const { loadUser, token, initialized, logout } = useAuthStore()
+
+    useEffect(() => {
+        if (token && !initialized) {
+            loadUser()
+        }
+    }, [token, initialized, loadUser])
+
+    useEffect(() => {
+        const onExpired = () => logout()
+        window.addEventListener('optiacademic:auth-expired', onExpired)
+        return () => window.removeEventListener('optiacademic:auth-expired', onExpired)
+    }, [logout])
+
+    return (
+        <>
+            <AccessibilityToolbar />
+            <Toaster position="top-right" />
+            <Suspense fallback={<LoadingPage />}>
+                <Routes>
+                    <Route path="/login" element={Page(<LoginPage />)} />
+                    <Route path="/unauthorized" element={<UnauthorizedPage />} />
+
+                    <Route element={<ProtectedRoute />}>
+                        <Route element={Page(<AppLayout />)}>
+                            <Route path="/" element={<HomeRedirect />} />
+                            <Route path="/notifications" element={Page(<NotificationPage />)} />
+
+                            <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+                            <Route path="/coordinator" element={<Navigate to="/coordinator/dashboard" replace />} />
+                            <Route path="/teacher" element={<Navigate to="/teacher/dashboard" replace />} />
+
+                            <Route element={<RoleRoute allowedRoles={['ADMIN']} />}>
+                                <Route path="/admin/dashboard" element={Page(<AdminDashboardPage />)} />
+                                <Route path="/admin/executive-dashboard" element={Page(<ExecutiveDashboardPage />)} />
+                                <Route path="/admin/audit-logs" element={Page(<AuditLogsPage />)} />
+                                <Route path="/admin/faculties" element={Page(<FacultiesPage />)} />
+                                <Route path="/admin/campuses" element={Page(<CampusesPage />)} />
+                                <Route path="/admin/institutional-students" element={Page(<InstitutionalStudentsPage />)} />
+                                <Route path="/admin/academic-history" element={Page(<AcademicHistoryPage />)} />
+                                <Route path="/admin/reports/teacher-load" element={Page(<ReportDetailPage reportType="teacher-load" />)} />
+                                <Route path="/admin/reports/classroom-usage" element={Page(<ReportDetailPage reportType="classroom-usage" />)} />
+                                <Route path="/admin/reports/offerings" element={Page(<ReportDetailPage reportType="offerings" />)} />
+                                <Route path="/admin/reports/conflicts" element={Page(<ReportDetailPage reportType="conflicts" />)} />
+                                <Route path="/admin/reports/schedules" element={Page(<ReportDetailPage reportType="schedules" />)} />
+                                <Route path="/admin/reports/students" element={Page(<ReportDetailPage reportType="students" />)} />
+                                <Route path="/admin/reports/change-requests" element={Page(<ReportDetailPage reportType="change-requests" />)} />
+                                <Route path="/admin/reports/sustainability" element={Page(<EnvironmentalImpactPage />)} />
+                                <Route path="/admin/environmental-impact" element={Page(<EnvironmentalImpactPage />)} />
+                                <Route path="/admin/users" element={Page(<UsersPage />)} />
+                                <Route path="/admin/teachers" element={Page(<TeachersPage />)} />
+                                <Route path="/admin/students" element={Page(<StudentsPage />)} />
+                                <Route path="/admin/sections" element={Page(<SectionsPage />)} />
+                                <Route path="/admin/courses" element={Page(<CoursesPage />)} />
+                                <Route path="/admin/classrooms" element={Page(<ClassroomsPage />)} />
+                                <Route path="/admin/academic-periods" element={Page(<AcademicPeriodsPage />)} />
+                                <Route path="/admin/academic-programs" element={Page(<AcademicProgramsPage />)} />
+                                <Route path="/admin/curriculum-plans" element={Page(<CurriculumPlansPage />)} />
+                                <Route path="/admin/curriculum" element={Page(<CurriculumPage />)} />
+                                <Route path="/admin/student-generator" element={Page(<StudentScheduleGeneratorPage />)} />
+                                <Route path="/admin/student-schedules" element={Page(<MySavedSchedulesPage />)} />
+                                <Route path="/admin/student-offer" element={Page(<StudentOfferPage />)} />
+                            </Route>
+
+                            <Route element={<RoleRoute allowedRoles={['ADMIN', 'COORDINATOR']} />}>
+                                <Route path="/coordinator/dashboard" element={Page(<CoordinatorDashboard />)} />
+                                <Route path="/coordinator/offerings" element={Page(<OfferingsPage />)} />
+                                <Route path="/coordinator/offerings/create" element={Page(<OfferingFormPage />)} />
+                                <Route path="/coordinator/offerings/:id" element={Page(<OfferingFormPage />)} />
+                                <Route path="/coordinator/conflicts" element={Page(<OfferingConflictsPage />)} />
+                                <Route path="/coordinator/csp" element={Page(<CoordinatorCspPage />)} />
+                                <Route path="/coordinator/change-requests" element={Page(<CoordinatorChangeRequestsPage />)} />
+                                <Route path="/coordinator/traceability" element={Page(<TraceabilityPage />)} />
+                                <Route path="/admin/traceability" element={Page(<TraceabilityPage />)} />
+                                <Route path="/coordinator/reports" element={Page(<ExecutiveDashboardPage />)} />
+                                <Route path="/coordinator/reports/teacher-load" element={Page(<ReportDetailPage reportType="teacher-load" />)} />
+                                <Route path="/coordinator/reports/classroom-usage" element={Page(<ReportDetailPage reportType="classroom-usage" />)} />
+                                <Route path="/coordinator/reports/offerings" element={Page(<ReportDetailPage reportType="offerings" />)} />
+                                <Route path="/coordinator/reports/conflicts" element={Page(<ReportDetailPage reportType="conflicts" />)} />
+                                <Route path="/coordinator/reports/schedules" element={Page(<ReportDetailPage reportType="schedules" />)} />
+                                <Route path="/coordinator/reports/change-requests" element={Page(<ReportDetailPage reportType="change-requests" />)} />
+                                <Route path="/admin/schedules" element={Page(<InstitutionalCSPPage />)} />
+                                <Route path="/admin/schedule-view" element={Page(<InstitutionalScheduleViewPage />)} />
+                                <Route path="/admin/schedule-quality" element={Page(<ScheduleQualityPage />)} />
+                                <Route path="/admin/data-readiness" element={Page(<DataReadinessPage />)} />
+                                <Route path="/admin/institutional-csp" element={Page(<InstitutionalCspGeneratorPage />)} />
+                            </Route>
+
+                            <Route element={<RoleRoute allowedRoles={['TEACHER']} />}>
+                                <Route path="/teacher/dashboard" element={Page(<TeacherDashboardPage />)} />
+                                <Route path="/teacher/schedule" element={Page(<TeacherSchedulePage />)} />
+                                <Route path="/teacher/sections" element={Page(<TeacherSectionsPage />)} />
+                                <Route path="/teacher/availability" element={Page(<TeacherAvailabilityPage />)} />
+                                <Route path="/teacher/load" element={Page(<TeacherLoadPage />)} />
+                                <Route path="/teacher/conflicts" element={Page(<TeacherConflictsPage />)} />
+                                <Route path="/teacher/change-requests" element={Page(<TeacherChangeRequestsPage />)} />
+                            </Route>
+
+                            <Route element={<RoleRoute allowedRoles={['STUDENT']} />}>
+                                <Route path="/student" element={Page(<StudentDashboard />)} />
+                                <Route path="/student/schedule-generator" element={Page(<StudentScheduleGeneratorPage />)} />
+                                <Route path="/student/my-schedules" element={Page(<MySavedSchedulesPage />)} />
+                                <Route path="/student/offer" element={Page(<StudentOfferPage />)} />
+                                <Route path="/student/curriculum" element={Page(<StudentCurriculumPage />)} />
+                            </Route>
+
+                            <Route path="*" element={<NotFoundPage />} />
+                        </Route>
+                    </Route>
+
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+            </Suspense>
+        </>
+    )
+}

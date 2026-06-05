@@ -1,0 +1,12 @@
+baseURL: http://localhost:5173
+projectName: optiacademic
+samples: 3
+useAdblock: true
+scenarios:
+  - name: Admin environmental impact dashboard
+    path: ./scenario.js
+containers:
+  - optiacademic_frontend
+  - optiacademic_backend
+databaseContainers:
+  - optiacademic_mysql

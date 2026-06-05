@@ -1,105 +1,170 @@
-/* D:\TALLER 2\optiacademic\frontend\src\index.css */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 1. Configuración de Base */
-@layer base {
-  body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    @apply bg-gray-50 text-slate-900;
+html {
+  font-size: calc(100% * var(--app-text-scale, 1));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid #2563eb !important;
+  outline-offset: 3px !important;
+}
+
+.skip-to-content {
+  position: fixed;
+  left: 1rem;
+  top: 0.75rem;
+  z-index: 100;
+  transform: translateY(-180%);
+  border-radius: 0.5rem;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  box-shadow: 0 0 0 3px #2563eb;
+}
+
+.skip-to-content:focus {
+  transform: translateY(0);
+}
+
+.accessibility-toolbar {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 1px solid #475569;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 0.35rem;
+  box-shadow: 0 8px 20px rgb(15 23 42 / 0.28);
+}
+
+.accessibility-toolbar button {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 0.35rem;
+  padding: 0.35rem 0.55rem;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.accessibility-toolbar button:hover,
+.accessibility-toolbar button[aria-pressed="true"] {
+  background: #c2410c;
+}
+
+.accessibility-toolbar output {
+  min-width: 3rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.dark body {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .bg-white {
+  background-color: #1e293b !important;
+}
+
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+  background-color: #334155 !important;
+}
+
+.dark .bg-emerald-50,
+.dark .bg-teal-50,
+.dark .bg-blue-50,
+.dark .bg-orange-50,
+.dark .bg-red-50 {
+  background-color: #273449 !important;
+}
+
+.dark .from-emerald-50 {
+  --tw-gradient-from: #1e293b var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgb(30 41 59 / 0) var(--tw-gradient-to-position) !important;
+}
+
+.dark .to-teal-50 {
+  --tw-gradient-to: #334155 var(--tw-gradient-to-position) !important;
+}
+
+.dark .text-slate-400,
+.dark .text-slate-500,
+.dark .text-slate-600,
+.dark .text-slate-700,
+.dark .text-slate-800,
+.dark .text-slate-900,
+.dark .text-slate-950 {
+  color: #e2e8f0 !important;
+}
+
+.dark .border,
+.dark [class*="border-"] {
+  border-color: #64748b !important;
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  border-color: #64748b !important;
+  background: #334155 !important;
+  color: #f8fafc !important;
+}
+
+.dark th,
+.dark td {
+  color: #e2e8f0;
+}
+
+.dark .accessibility-toolbar {
+  border-color: #94a3b8;
+  background: #1e293b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-/* 2. Componentes Personalizados (Clases de utilidad de proyecto) */
-@layer components {
-  .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-md hover:shadow-lg active:transform active:scale-95;
-  }
-
-  .card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6 transition-all;
-  }
-
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+table {
+  font-size: 0.875rem;
 }
 
-/* 3. Definición de Animaciones (Keyframes únicos) */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+th {
+  color: #1e293b;
+  font-weight: 700;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes shake {
-
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  25% {
-    transform: translateX(-5px);
-  }
-
-  75% {
-    transform: translateX(5px);
-  }
-}
-
-/* 4. Clases de Animación (Para usar en tus componentes) */
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-out;
-}
-
-.animate-slideUp {
-  animation: slideUp 0.3s ease-out;
-}
-
-.animate-scaleIn {
-  animation: scaleIn 0.2s ease-out;
-}
-
-.animate-shake {
-  animation: shake 0.3s ease-in-out;
-}
-
-/* Útil para las tablas de Horario o Paneles */
-.table-container {
-  @apply overflow-x-auto rounded-xl border border-gray-200 shadow-sm;
+td {
+  color: #334155;
 }
