@@ -1,14 +1,20 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
+    AlertTriangle,
     CalendarDays,
     CheckCircle,
     ClipboardCheck,
+    Database,
+    Eye,
+    FileSearch,
+    Layers,
     Loader2,
     PlayCircle,
     RefreshCw,
-    Rocket,
+    School,
 } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 import EmptyState from '../../components/common/EmptyState'
 import ErrorState from '../../components/common/ErrorState'
@@ -47,6 +53,7 @@ const DEFAULT_CSP_CONFIG = {
 }
 
 export default function InstitutionalCspGeneratorPage() {
+    const navigate = useNavigate()
     const { user } = useAuthStore()
     const [periods, setPeriods] = useState([])
     const [programs, setPrograms] = useState([])
@@ -70,6 +77,10 @@ export default function InstitutionalCspGeneratorPage() {
     const [loading, setLoading] = useState(true)
     const [loadError, setLoadError] = useState(false)
     const [loadingAction, setLoadingAction] = useState(null)
+    const [scheduleSearch, setScheduleSearch] = useState('')
+    const [scheduleStatusFilter, setScheduleStatusFilter] = useState('ALL')
+    const [schedulePeriodFilter, setSchedulePeriodFilter] = useState('ALL')
+    const [expandedScheduleId, setExpandedScheduleId] = useState(null)
 
     const selectedPeriod = periods.find((item) => String(item.id) === String(selectedPeriodId))
     const selectedProgram = programs.find((item) => String(item.id) === String(selectedProgramId))
@@ -91,6 +102,31 @@ export default function InstitutionalCspGeneratorPage() {
 
     const canRunCsp = Boolean(selectedPeriod && selectedProgram && selectedPlan)
     const canGenerateModern = !isModernSource || preview?.can_generate === true
+    const selectedScheduleDetails = selectedSchedule || null
+    const currentSchedule = savedSchedule || selectedScheduleDetails
+    const scheduleBlocks = Number(currentSchedule?.blocks_count ?? generation?.total_blocks ?? generation?.generated_blocks ?? generation?.solutions?.[0]?.blocks?.length ?? 0)
+    const scheduleScore = currentSchedule?.quality_score ?? generation?.best_score ?? generation?.score_total ?? generation?.score ?? preview?.best_score ?? 0
+    const preparationSummary = buildPreparationSummary({
+        preparation,
+        diagnostic,
+        preview,
+        generation,
+        selectedCycles,
+        prepareAllCycles,
+        cycleOptions,
+        scheduleBlocks,
+    })
+    const hasOperationalData = Boolean(preparation || diagnostic || preview || generation)
+    const hasCriticalMissingData = hasOperationalData && (Number(preparationSummary.availability) === 0
+        || Number(preparationSummary.teachersAssigned) === 0
+        || Number(preparationSummary.classroomsAssigned) === 0)
+    const schedulePeriodOptions = uniqueSchedulePeriods(availableSchedules)
+    const filteredGeneratedSchedules = filterGeneratedSchedules(
+        availableSchedules,
+        scheduleSearch,
+        scheduleStatusFilter,
+        schedulePeriodFilter,
+    )
 
     const loadData = async () => {
         setLoading(true)
@@ -149,8 +185,6 @@ export default function InstitutionalCspGeneratorPage() {
         if (!selectedPlan) return
         setSelectedCycles((current) => current.filter((cycle) => cycle <= Number(selectedPlan.total_cycles || 10)))
     }, [selectedPlanId])
-
-    const selectedScheduleDetails = useMemo(() => selectedSchedule || null, [selectedSchedule])
 
     const ensureSchedule = async () => {
         if (!isCreatingNew && selectedSchedule?.id) {
@@ -313,11 +347,51 @@ export default function InstitutionalCspGeneratorPage() {
         }
     }
 
+    const handleSelectGeneratedSchedule = (schedule) => {
+        setSelectedScheduleId(String(schedule.id))
+        setSavedSchedule(null)
+        setDiagnostic(null)
+        setPreview(null)
+        setGeneration(null)
+        setPublication(null)
+        setPublicationError(null)
+        setExpandedScheduleId(schedule.id)
+        toast.success(`Horario #${schedule.id} cargado en el flujo CSP.`)
+    }
+
+    const handlePublishGeneratedSchedule = async (schedule) => {
+        if (!schedule?.id) return
+        if (schedule.status === 'PUBLISHED') {
+            toast('Este horario ya esta publicado.')
+            return
+        }
+        if (Number(schedule.blocks_count || 0) <= 0) {
+            toast.error('Este horario aun no tiene bloques generados.')
+            return
+        }
+
+        setLoadingAction(`publish-list-${schedule.id}`)
+        try {
+            const response = await scheduleService.publishSchedule(schedule.id)
+            setPublication(response)
+            setPublicationError(null)
+            toast.success(`Horario #${schedule.id} publicado correctamente.`)
+            await loadData()
+        } catch (error) {
+            const normalized = normalizeApiError(error, 'No se pudo publicar el horario.')
+            setPublication(null)
+            setPublicationError(error.response?.data?.detail || { message: normalized })
+            toast.error(normalized)
+        } finally {
+            setLoadingAction(null)
+        }
+    }
+
     if (loading) return <LoadingState title="Cargando configuracion institucional..." />
     if (loadError) return <ErrorState onRetry={loadData} message="No se pudieron obtener periodos, planes u horarios." />
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-6">
             <PageHeader
                 eyebrow="Generacion institucional"
                 title="Motor CSP Institucional"
@@ -348,12 +422,67 @@ export default function InstitutionalCspGeneratorPage() {
                 />
             )}
 
+            <section className="grid gap-4 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.4fr)]">
+                <SelectedScheduleCard
+                    schedule={currentSchedule}
+                    scheduleName={scheduleName}
+                    selectedPeriod={selectedPeriod}
+                    selectedProgram={selectedProgram}
+                    selectedPlan={selectedPlan}
+                    isCreatingNew={isCreatingNew}
+                    blocks={scheduleBlocks}
+                    score={scheduleScore}
+                />
+                <PreparationSummaryPanel
+                    summary={preparationSummary}
+                    hasCriticalMissingData={hasCriticalMissingData}
+                />
+            </section>
+
+            <GeneratedSchedulesSection
+                schedules={filteredGeneratedSchedules}
+                allSchedules={availableSchedules}
+                selectedScheduleId={selectedScheduleId}
+                expandedScheduleId={expandedScheduleId}
+                search={scheduleSearch}
+                statusFilter={scheduleStatusFilter}
+                periodFilter={schedulePeriodFilter}
+                periodOptions={schedulePeriodOptions}
+                loadingAction={loadingAction}
+                onSearchChange={setScheduleSearch}
+                onStatusFilterChange={setScheduleStatusFilter}
+                onPeriodFilterChange={setSchedulePeriodFilter}
+                onToggleDetail={(id) => setExpandedScheduleId((current) => current === id ? null : id)}
+                onLoadSchedule={handleSelectGeneratedSchedule}
+                onViewBlocks={(schedule) => navigate(`/admin/schedule-view?schedule_id=${schedule.id}`)}
+                onPublishSchedule={handlePublishGeneratedSchedule}
+            />
+
+            <section className="sticky top-3 z-20 rounded-3xl border border-slate-200 bg-white/95 p-4 shadow-lg shadow-slate-200/60 backdrop-blur dark:border-slate-700 dark:bg-slate-900/95 dark:shadow-black/20">
+                <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+                    <div>
+                        <p className="text-xs font-black uppercase tracking-wide text-orange-600 dark:text-orange-300">Acciones del flujo CSP</p>
+                        <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                            Diagnostique, revise vista previa y genere el horario sin perder de vista el resumen superior.
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 md:flex md:flex-wrap">
+                        <CompactActionButton icon={ClipboardCheck} title="Diagnosticar" loading={loadingAction === 'diagnose'} disabled={!canRunCsp} onClick={() => runAction('diagnose', isModernSource ? offeringCspService.preview : institutionalCspService.diagnoseDomains)} />
+                        <CompactActionButton icon={PlayCircle} title="Vista previa" loading={loadingAction === 'preview'} disabled={!canRunCsp} onClick={() => runAction('preview', isModernSource ? offeringCspService.preview : institutionalCspService.previewInstitutionalSchedule)} />
+                        <CompactActionButton icon={CalendarDays} title="Generar" loading={loadingAction === 'generate'} disabled={!canRunCsp || !canGenerateModern} onClick={() => runAction('generate', isModernSource ? offeringCspService.generate : institutionalCspService.generateInstitutionalSchedule)} />
+                        <CompactActionButton icon={CheckCircle} title="Publicar" loading={loadingAction === 'publish'} disabled={Boolean(publishDisabledReason)} onClick={handlePublish} />
+                    </div>
+                </div>
+            </section>
+
             <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
                 <div className="space-y-6 xl:col-span-1">
-                    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                        <h2 className="mb-4 flex items-center gap-2 text-xl font-black text-slate-900">
-                            <Rocket className="text-orange-600" /> Datos detectados
-                        </h2>
+                    <StepSection
+                        step="Paso 1"
+                        title="Seleccionar datos"
+                        icon={School}
+                        description="Periodo, programa, plan curricular y ciclos a generar."
+                    >
 
                         <div className="space-y-4">
                             <SelectField label="Periodo academico" value={selectedPeriodId} onChange={setSelectedPeriodId}>
@@ -388,10 +517,14 @@ export default function InstitutionalCspGeneratorPage() {
                                 />
                             )}
                         </div>
-                    </section>
+                    </StepSection>
 
-                    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                        <h2 className="mb-4 text-xl font-black text-slate-900">Ciclos a generar</h2>
+                    <StepSection
+                        step="Paso 1"
+                        title="Ciclos a generar"
+                        icon={Layers}
+                        description="Puede trabajar todos los ciclos del plan o elegir ciclos puntuales."
+                    >
                         <label className="mb-4 flex cursor-pointer items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-bold text-emerald-700">
                             <input type="checkbox" checked={prepareAllCycles} onChange={(event) => setPrepareAllCycles(event.target.checked)} />
                             Preparar/generar todos los ciclos del plan
@@ -408,17 +541,38 @@ export default function InstitutionalCspGeneratorPage() {
                                 </label>
                             ))}
                         </div>
-                    </section>
+                    </StepSection>
                 </div>
 
                 <div className="space-y-6 xl:col-span-2">
-                    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                        <h2 className="mb-4 text-xl font-black text-slate-900">Horario institucional</h2>
+                    <StepSection
+                        step="Paso 2"
+                        title="Preparar datos demo"
+                        icon={Database}
+                        description="Seleccione el horario y use la preparacion demo o recargue los datos institucionales."
+                        actions={(
+                            <div className="flex flex-wrap gap-2">
+                                {user?.role === 'ADMIN' && (
+                                    <button
+                                        onClick={handlePrepareDemo}
+                                        disabled={loadingAction === 'prepare'}
+                                        className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-black text-white hover:bg-emerald-700 disabled:opacity-60"
+                                    >
+                                        {loadingAction === 'prepare' ? <Loader2 size={15} className="animate-spin" /> : <CheckCircle size={15} />}
+                                        Preparar datos demo completo
+                                    </button>
+                                )}
+                                <button onClick={loadData} className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800">
+                                    <RefreshCw size={15} /> Recargar datos
+                                </button>
+                            </div>
+                        )}
+                    >
                         <select
                             value={selectedScheduleId}
                             onChange={(event) => {
-                setSelectedScheduleId(event.target.value)
-                setSavedSchedule(null)
+                                setSelectedScheduleId(event.target.value)
+                                setSavedSchedule(null)
                                 setDiagnostic(null)
                                 setPreview(null)
                                 setGeneration(null)
@@ -432,6 +586,9 @@ export default function InstitutionalCspGeneratorPage() {
                                 <option key={item.id} value={item.id}>{item.label}</option>
                             ))}
                         </select>
+                        <p className="mt-2 text-xs font-semibold text-slate-500 dark:text-slate-300">
+                            Tambien puede seleccionar un horario desde la lista superior de horarios generados, sin conocer el ID manualmente.
+                        </p>
 
                         {!availableSchedules.length && (
                             <div className="mt-4">
@@ -450,10 +607,14 @@ export default function InstitutionalCspGeneratorPage() {
                                 Solucion guardada: {savedSchedule.label}. Ya puedes publicar con validacion segura.
                             </div>
                         )}
-                    </section>
+                    </StepSection>
 
-                    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                        <h2 className="mb-4 text-xl font-black text-slate-900">Acciones CSP</h2>
+                    <StepSection
+                        step="Pasos 3, 4 y 5"
+                        title="Diagnostico, vista previa, generacion y publicacion"
+                        icon={FileSearch}
+                        description="Los botones mantienen el flujo actual: diagnosticar, previsualizar, generar y publicar solo cuando corresponde."
+                    >
                         <div className="mb-5 grid gap-3 md:grid-cols-2">
                             <label className={`cursor-pointer rounded-2xl border p-4 ${isModernSource ? 'border-orange-300 bg-orange-50' : 'border-slate-200 bg-slate-50'}`}>
                                 <input
@@ -493,7 +654,7 @@ export default function InstitutionalCspGeneratorPage() {
                             <Metric label="Bloques generados" value={generation?.total_blocks || generation?.generated_blocks || generation?.solutions?.[0]?.blocks?.length || '-'} />
                         </div>
 
-                    </section>
+                    </StepSection>
                 </div>
             </section>
 
@@ -514,6 +675,320 @@ export default function InstitutionalCspGeneratorPage() {
             )}
             {(publication || publicationError) && <CspPublicationResult data={publication} error={publicationError} />}
         </div>
+    )
+}
+
+function StepSection({ step, title, description, icon: Icon, actions, children }) {
+    return (
+        <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                <div className="flex gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-200">
+                        <Icon size={21} aria-hidden="true" />
+                    </div>
+                    <div>
+                        <p className="text-xs font-black uppercase tracking-wide text-orange-600 dark:text-orange-300">{step}</p>
+                        <h2 className="text-lg font-black text-slate-900 dark:text-slate-100">{title}</h2>
+                        {description && <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{description}</p>}
+                    </div>
+                </div>
+                {actions && <div className="shrink-0">{actions}</div>}
+            </div>
+            {children}
+        </section>
+    )
+}
+
+function SelectedScheduleCard({ schedule, scheduleName, selectedPeriod, selectedProgram, selectedPlan, isCreatingNew, blocks, score }) {
+    const scheduleId = schedule?.id
+    const hasBlocks = Number(blocks || 0) > 0
+    const status = schedule?.status || 'DRAFT'
+    const title = scheduleId
+        ? hasBlocks
+            ? `Horario generado con ID #${scheduleId}`
+            : `Horario seleccionado con ID #${scheduleId}, pendiente de generacion`
+        : 'Nuevo horario pendiente de crear'
+
+    return (
+        <article className="rounded-3xl border border-orange-200 bg-gradient-to-br from-orange-50 to-white p-5 shadow-sm dark:border-orange-800 dark:from-slate-900 dark:to-slate-950">
+            <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                <div>
+                    <p className="text-xs font-black uppercase tracking-wide text-orange-700 dark:text-orange-300">Horario seleccionado</p>
+                    <h2 className="mt-1 text-xl font-black text-slate-950 dark:text-white">{title}</h2>
+                    <p className="mt-1 text-sm font-semibold text-slate-700 dark:text-slate-200">{schedule?.name || scheduleName}</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                    <StatusBadge value={status} />
+                    <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-bold ${hasBlocks ? 'border-emerald-700 bg-emerald-50 text-emerald-900' : 'border-amber-700 bg-amber-50 text-amber-950'}`}>
+                        {hasBlocks ? 'Horario generado' : 'Sin bloques generados'}
+                    </span>
+                </div>
+            </div>
+
+            <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2 xl:grid-cols-3">
+                <Info label="ID" value={scheduleId ? `#${scheduleId}` : isCreatingNew ? 'Nuevo' : '-'} />
+                <Info label="Periodo" value={schedule?.academic_period_code || selectedPeriod?.code || selectedPeriod?.name || '-'} />
+                <Info label="Programa" value={schedule?.academic_program_name || selectedProgram?.name || '-'} />
+                <Info label="Plan curricular" value={schedule?.curriculum_plan_code || selectedPlan?.code || '-'} />
+                <Info label="Bloques generados" value={blocks || 0} />
+                <Info label="Score" value={formatScore(score)} />
+                <Info label="Actualizado" value={formatDate(schedule?.updated_at)} />
+            </dl>
+        </article>
+    )
+}
+
+function PreparationSummaryPanel({ summary, hasCriticalMissingData }) {
+    const cards = [
+        ['Ciclos seleccionados', summary.cycles, 'neutral'],
+        ['Ofertas revisadas', summary.offeringsReviewed, 'info'],
+        ['Ofertas elegibles', summary.eligibleOfferings, 'success'],
+        ['READY/APPROVED', summary.readyApproved, 'success'],
+        ['Docentes asignados', summary.teachersAssigned, Number(summary.teachersAssigned) ? 'success' : 'warning'],
+        ['Aulas asignadas', summary.classroomsAssigned, Number(summary.classroomsAssigned) ? 'success' : 'warning'],
+        ['Disponibilidades', summary.availability, Number(summary.availability) ? 'success' : 'warning'],
+        ['Bloques generados', summary.blocksGenerated, Number(summary.blocksGenerated) ? 'success' : 'neutral'],
+        ['Advertencias', summary.warnings, Number(summary.warnings) ? 'warning' : 'success'],
+    ]
+
+    return (
+        <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                <div>
+                    <p className="text-xs font-black uppercase tracking-wide text-slate-500 dark:text-slate-300">Resumen de preparacion</p>
+                    <h2 className="text-xl font-black text-slate-950 dark:text-white">Estado del flujo CSP</h2>
+                </div>
+                <span className={`w-fit rounded-full border px-3 py-1.5 text-xs font-black ${hasCriticalMissingData ? 'border-amber-700 bg-amber-50 text-amber-950' : 'border-emerald-700 bg-emerald-50 text-emerald-900'}`}>
+                    {hasCriticalMissingData ? 'Con datos faltantes' : 'Listo para revisar'}
+                </span>
+            </div>
+
+            <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {cards.map(([label, value, tone]) => <SummaryMetric key={label} label={label} value={value} tone={tone} />)}
+            </div>
+
+            {hasCriticalMissingData && (
+                <div className="mt-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-100" role="alert">
+                    <div className="flex gap-2">
+                        <AlertTriangle className="mt-0.5 shrink-0" size={18} aria-hidden="true" />
+                        <div>
+                            <p className="font-black">No se puede generar un horario completo porque faltan docentes, aulas o disponibilidades.</p>
+                            <p className="mt-1 font-semibold">Asigne docentes, aulas y disponibilidad antes de generar la vista previa.</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </article>
+    )
+}
+
+function GeneratedSchedulesSection({
+    schedules,
+    allSchedules,
+    selectedScheduleId,
+    expandedScheduleId,
+    search,
+    statusFilter,
+    periodFilter,
+    periodOptions,
+    loadingAction,
+    onSearchChange,
+    onStatusFilterChange,
+    onPeriodFilterChange,
+    onToggleDetail,
+    onLoadSchedule,
+    onViewBlocks,
+    onPublishSchedule,
+}) {
+    return (
+        <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div>
+                    <p className="text-xs font-black uppercase tracking-wide text-blue-600 dark:text-blue-300">Horarios generados</p>
+                    <h2 className="text-xl font-black text-slate-950 dark:text-white">Lista de horarios institucionales disponibles</h2>
+                    <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                        Seleccione un horario sin escribir su ID. La lista usa el endpoint institucional existente.
+                    </p>
+                </div>
+                <span className="w-fit rounded-full border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs font-black text-slate-700 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100">
+                    {allSchedules.length} horario(s)
+                </span>
+            </div>
+
+            <div className="mt-4 grid gap-3 lg:grid-cols-[minmax(0,1fr)_180px_180px]">
+                <label className="block">
+                    <span className="text-xs font-black uppercase tracking-wide text-slate-500 dark:text-slate-300">Buscar por nombre o ID</span>
+                    <input
+                        value={search}
+                        onChange={(event) => onSearchChange(event.target.value)}
+                        placeholder="Ej. 10, 2026-I, ISI..."
+                        className="mt-1 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-100"
+                    />
+                </label>
+                <label className="block">
+                    <span className="text-xs font-black uppercase tracking-wide text-slate-500 dark:text-slate-300">Estado</span>
+                    <select
+                        value={statusFilter}
+                        onChange={(event) => onStatusFilterChange(event.target.value)}
+                        className="mt-1 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-100"
+                    >
+                        <option value="ALL">Todos</option>
+                        <option value="DRAFT">Borrador</option>
+                        <option value="READY">Listo</option>
+                        <option value="PUBLISHED">Publicado</option>
+                    </select>
+                </label>
+                <label className="block">
+                    <span className="text-xs font-black uppercase tracking-wide text-slate-500 dark:text-slate-300">Periodo</span>
+                    <select
+                        value={periodFilter}
+                        onChange={(event) => onPeriodFilterChange(event.target.value)}
+                        className="mt-1 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-100"
+                    >
+                        <option value="ALL">Todos</option>
+                        {periodOptions.map((period) => <option key={period} value={period}>{period}</option>)}
+                    </select>
+                </label>
+            </div>
+
+            {!allSchedules.length ? (
+                <div className="mt-5 rounded-2xl border border-dashed border-slate-300 p-6 dark:border-slate-700">
+                    <EmptyState
+                        title="No hay horarios generados todavia."
+                        text="Prepare datos, ejecute diagnostico y genere un horario para verlo en esta lista."
+                    />
+                </div>
+            ) : !schedules.length ? (
+                <div className="mt-5 rounded-2xl border border-dashed border-slate-300 p-6 dark:border-slate-700">
+                    <EmptyState
+                        title="No hay horarios con los filtros actuales."
+                        text="Cambie el nombre, estado o periodo para ver otros horarios disponibles."
+                    />
+                </div>
+            ) : (
+                <div className="mt-5 max-h-[520px] overflow-auto rounded-2xl border border-slate-200 dark:border-slate-700">
+                    <table className="w-full min-w-[980px] text-sm">
+                        <caption className="sr-only">Horarios institucionales generados o disponibles para cargar en el flujo CSP</caption>
+                        <thead className="sticky top-0 bg-slate-50 text-left text-xs font-black uppercase tracking-wide text-slate-600 dark:bg-slate-800 dark:text-slate-200">
+                            <tr>
+                                <th scope="col" className="px-4 py-3">Horario</th>
+                                <th scope="col" className="px-4 py-3">Periodo</th>
+                                <th scope="col" className="px-4 py-3">Programa / Plan</th>
+                                <th scope="col" className="px-4 py-3">Estado</th>
+                                <th scope="col" className="px-4 py-3">Bloques</th>
+                                <th scope="col" className="px-4 py-3">Score</th>
+                                <th scope="col" className="px-4 py-3">Actualizado</th>
+                                <th scope="col" className="px-4 py-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {schedules.map((schedule) => {
+                                const selected = String(selectedScheduleId) === String(schedule.id)
+                                const expanded = expandedScheduleId === schedule.id
+                                const blocksCount = Number(schedule.blocks_count || 0)
+                                const canPublish = schedule.status !== 'PUBLISHED' && blocksCount > 0
+
+                                return (
+                                    <tr key={schedule.id} className={`border-t border-slate-100 align-top dark:border-slate-800 ${selected ? 'bg-orange-50 dark:bg-orange-950/30' : 'bg-white dark:bg-slate-900'}`}>
+                                        <td className="px-4 py-3">
+                                            <p className="font-black text-slate-950 dark:text-white">ID #{schedule.id}</p>
+                                            <p className="mt-0.5 max-w-[260px] truncate font-semibold text-slate-700 dark:text-slate-200" title={schedule.name}>
+                                                {schedule.name || 'Horario institucional'}
+                                            </p>
+                                            {selected && <p className="mt-1 text-xs font-black text-orange-700 dark:text-orange-300">Seleccionado actualmente</p>}
+                                        </td>
+                                        <td className="px-4 py-3 font-semibold text-slate-700 dark:text-slate-200">{schedule.academic_period_code || '-'}</td>
+                                        <td className="px-4 py-3">
+                                            <p className="font-semibold text-slate-800 dark:text-slate-100">{schedule.academic_program_name || '-'}</p>
+                                            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{schedule.curriculum_plan_code || '-'}</p>
+                                        </td>
+                                        <td className="px-4 py-3"><StatusBadge value={schedule.status} /></td>
+                                        <td className="px-4 py-3">
+                                            <span className={`rounded-full border px-2.5 py-1 text-xs font-black ${blocksCount ? 'border-emerald-700 bg-emerald-50 text-emerald-900' : 'border-amber-700 bg-amber-50 text-amber-950'}`}>
+                                                {blocksCount ? `${blocksCount} bloque(s)` : 'Sin bloques'}
+                                            </span>
+                                        </td>
+                                        <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100">{formatScore(schedule.quality_score)}</td>
+                                        <td className="px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-300">{formatDate(schedule.updated_at)}</td>
+                                        <td className="px-4 py-3">
+                                            <div className="flex flex-wrap gap-2">
+                                                <SmallActionButton onClick={() => onToggleDetail(schedule.id)} icon={Eye}>
+                                                    {expanded ? 'Ocultar' : 'Ver detalle'}
+                                                </SmallActionButton>
+                                                <SmallActionButton onClick={() => onLoadSchedule(schedule)}>
+                                                    Cargar horario
+                                                </SmallActionButton>
+                                                <SmallActionButton onClick={() => onViewBlocks(schedule)} disabled={!blocksCount}>
+                                                    Ver bloques
+                                                </SmallActionButton>
+                                                <SmallActionButton
+                                                    onClick={() => onPublishSchedule(schedule)}
+                                                    disabled={!canPublish || loadingAction === `publish-list-${schedule.id}`}
+                                                >
+                                                    {loadingAction === `publish-list-${schedule.id}` ? 'Publicando...' : 'Publicar'}
+                                                </SmallActionButton>
+                                            </div>
+                                            {expanded && (
+                                                <dl className="mt-3 grid gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-xs dark:border-slate-700 dark:bg-slate-800">
+                                                    <Info label="Fuente" value={schedule.source_type || '-'} />
+                                                    <Info label="ID periodo" value={schedule.academic_period_id || '-'} />
+                                                    <Info label="ID programa" value={schedule.academic_program_id || '-'} />
+                                                    <Info label="ID plan" value={schedule.curriculum_plan_id || '-'} />
+                                                    <Info label="Creado" value={formatDate(schedule.created_at)} />
+                                                </dl>
+                                            )}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            )}
+        </section>
+    )
+}
+
+function SmallActionButton({ children, onClick, disabled, icon: Icon }) {
+    return (
+        <button
+            type="button"
+            onClick={onClick}
+            disabled={disabled}
+            className="inline-flex items-center gap-1 rounded-xl border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-black text-slate-700 transition hover:border-orange-400 hover:bg-orange-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800"
+        >
+            {Icon && <Icon size={13} aria-hidden="true" />}
+            {children}
+        </button>
+    )
+}
+
+function SummaryMetric({ label, value, tone }) {
+    const tones = {
+        info: 'border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-100',
+        success: 'border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-100',
+        warning: 'border-amber-200 bg-amber-50 text-amber-950 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-100',
+        neutral: 'border-slate-200 bg-slate-50 text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100',
+    }
+    return (
+        <div className={`rounded-2xl border p-3 ${tones[tone] || tones.neutral}`}>
+            <p className="text-[11px] font-black uppercase tracking-wide opacity-75">{label}</p>
+            <p className="mt-1 text-xl font-black">{value ?? '-'}</p>
+        </div>
+    )
+}
+
+function CompactActionButton({ icon: Icon, title, loading, disabled, onClick }) {
+    return (
+        <button
+            type="button"
+            disabled={disabled || loading}
+            onClick={onClick}
+            className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white px-4 py-2 text-sm font-black text-slate-800 transition hover:border-orange-400 hover:bg-orange-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800"
+        >
+            {loading ? <Loader2 size={17} className="animate-spin text-orange-600" /> : <Icon size={17} className="text-orange-600" />}
+            {title}
+        </button>
     )
 }
 
@@ -569,7 +1044,7 @@ function ScheduleDetails({ schedule }) {
 }
 
 function Info({ label, value }) {
-    return <div><dt className="text-xs font-bold uppercase text-slate-400">{label}</dt><dd className="font-semibold text-slate-700">{value}</dd></div>
+    return <div><dt className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">{label}</dt><dd className="font-semibold text-slate-800 dark:text-slate-100">{value}</dd></div>
 }
 
 function ActionButton({ icon: Icon, title, loading, disabled, onClick, helper }) {
@@ -595,6 +1070,132 @@ function Metric({ label, value }) {
             <p className="mt-1 text-2xl font-black text-slate-900">{value}</p>
         </div>
     )
+}
+
+function buildPreparationSummary({ preparation, diagnostic, preview, generation, selectedCycles, prepareAllCycles, cycleOptions, scheduleBlocks }) {
+    const ready = firstValue(
+        diagnostic?.ready_offerings,
+        preview?.ready_offerings,
+        generation?.ready_offerings,
+    )
+    const approved = firstValue(
+        preparation?.offerings_approved,
+        diagnostic?.approved_offerings,
+        preview?.approved_offerings,
+        generation?.approved_offerings,
+    )
+
+    return {
+        cycles: prepareAllCycles ? `${cycleOptions.length} ciclos` : selectedCycles.join(', '),
+        offeringsReviewed: firstValue(
+            preparation?.offerings_reviewed,
+            diagnostic?.total_offerings,
+            diagnostic?.total_sections_checked,
+            preview?.total_offerings,
+            generation?.total_offerings,
+            '-',
+        ),
+        eligibleOfferings: firstValue(
+            diagnostic?.eligible_offerings,
+            diagnostic?.programmable_sections,
+            diagnostic?.summary?.eligible_offerings,
+            preview?.eligible_offerings,
+            preview?.sections_count,
+            generation?.eligible_offerings,
+            '-',
+        ),
+        readyApproved: `${ready ?? '-'} / ${approved ?? '-'}`,
+        teachersAssigned: firstValue(
+            preparation?.teachers_assigned,
+            diagnostic?.teachers_assigned,
+            diagnostic?.summary?.teachers_assigned,
+            preview?.teachers_assigned,
+            generation?.teachers_assigned,
+            0,
+        ),
+        classroomsAssigned: firstValue(
+            preparation?.classrooms_assigned,
+            diagnostic?.classrooms_assigned,
+            diagnostic?.summary?.classrooms_assigned,
+            preview?.classrooms_assigned,
+            generation?.classrooms_assigned,
+            0,
+        ),
+        availability: firstValue(
+            preparation?.teacher_availability_created,
+            diagnostic?.teacher_availability_records,
+            diagnostic?.availability_records,
+            diagnostic?.summary?.teacher_availability_records,
+            preview?.teacher_availability_records,
+            generation?.teacher_availability_records,
+            0,
+        ),
+        blocksGenerated: firstValue(
+            scheduleBlocks,
+            generation?.total_blocks,
+            generation?.generated_blocks,
+            generation?.solutions?.[0]?.blocks?.length,
+            preview?.total_blocks,
+            0,
+        ),
+        warnings: countCspIssues(preparation) + countCspIssues(diagnostic) + countCspIssues(preview) + countCspIssues(generation),
+    }
+}
+
+function firstValue(...values) {
+    return values.find((value) => value !== undefined && value !== null && value !== '')
+}
+
+function countCspIssues(data) {
+    if (!data) return 0
+    const diagnostics = asArray(data.diagnostics).reduce((count, item) => count + asArray(item.reasons).length, 0)
+    const problematic = Array.isArray(data.problematic_sections) ? data.problematic_sections.length : Number(data.problematic_sections_count ?? data.problematic_sections ?? 0)
+    return asArray(data.warnings).length
+        + asArray(data.soft_warnings).length
+        + asArray(data.errors).length
+        + asArray(data.issues).length
+        + asArray(data.conflicts).length
+        + asArray(data.hard_conflicts).length
+        + asArray(data.not_eligible_by_cycle).length
+        + diagnostics
+        + (Number.isFinite(problematic) ? problematic : 0)
+}
+
+function asArray(value) {
+    return Array.isArray(value) ? value : []
+}
+
+function formatScore(value) {
+    const number = Number(value)
+    if (!Number.isFinite(number)) return value ?? '-'
+    return number.toFixed(2)
+}
+
+function uniqueSchedulePeriods(schedules) {
+    return Array.from(new Set(
+        schedules
+            .map((schedule) => schedule.academic_period_code)
+            .filter(Boolean),
+    )).sort((a, b) => String(a).localeCompare(String(b)))
+}
+
+function filterGeneratedSchedules(schedules, search, statusFilter, periodFilter) {
+    const query = String(search || '').trim().toLowerCase()
+    return schedules.filter((schedule) => {
+        if (statusFilter !== 'ALL' && schedule.status !== statusFilter) return false
+        if (periodFilter !== 'ALL' && schedule.academic_period_code !== periodFilter) return false
+        if (!query) return true
+        const text = [
+            schedule.id,
+            schedule.name,
+            schedule.label,
+            schedule.academic_period_code,
+            schedule.academic_program_name,
+            schedule.curriculum_plan_code,
+            schedule.status,
+        ].filter(Boolean).join(' ').toLowerCase()
+        return text.includes(query)
+    })
 }
 
 function unwrap(value) {

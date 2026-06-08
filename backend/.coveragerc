@@ -1,0 +1,25 @@
+[run]
+source = app
+omit =
+    */tests/*
+    */__pycache__/*
+    seed_*.py
+    ver_*.py
+    crear_*.py
+    migrar_*.py
+    diagnostico_*.py
+    actualizar_*.py
+    agregar_*.py
+    corregir_*.py
+    fix_*.py
+    generar_*.py
+    limpiar_*.py
+    main.py
+    auth.py
+    database.py
+    config.py
+
+[report]
+show_missing = True
+skip_empty = True
+

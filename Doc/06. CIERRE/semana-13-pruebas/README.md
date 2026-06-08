@@ -14,8 +14,11 @@ Validar de forma progresiva los modulos principales del sistema y reducir riesgo
 | Backend | TestClient | Verificacion de rutas HTTP sin levantar servidor externo |
 | Frontend | Vitest | Pruebas unitarias de utilidades y componentes React |
 | Frontend | Testing Library | Validacion de comportamiento visible para el usuario |
+| Frontend | MSW | Simulacion de APIs para pruebas de componentes con Axios |
 | E2E | Playwright | Pruebas de navegador sobre rutas principales |
+| Aceptacion | Cypress | Pruebas minimas de aceptacion sobre login y CSP |
 | Calidad | Vite build | Verificacion de compilacion del frontend |
+| Calidad | Coverage V8 / pytest-cov | Analisis de cobertura frontend y backend |
 | Entorno | Docker Compose | Validacion de configuracion del entorno |
 
 ## Modulos evaluados
@@ -38,7 +41,9 @@ Desde la raiz del proyecto:
 ```powershell
 npm --prefix frontend run build
 npm --prefix frontend run test
+npm --prefix frontend run test:coverage
 npm --prefix frontend run e2e
+npm --prefix frontend run acceptance
 docker compose --env-file .env.docker.example config --quiet
 ```
 
@@ -47,6 +52,7 @@ Para backend:
 ```powershell
 cd backend
 py -m pytest -v
+py -m pytest --cov=app --cov-report=term --cov-report=html
 ```
 
 ## Contenido
@@ -57,6 +63,8 @@ py -m pytest -v
 - [04-casos-prueba-e2e.md](04-casos-prueba-e2e.md)
 - [05-evidencias-ejecucion.md](05-evidencias-ejecucion.md)
 - [06-resultados-pruebas.md](06-resultados-pruebas.md)
+- [adaptacion-rubrica-testing.md](adaptacion-rubrica-testing.md)
+- [analisis-cobertura-calidad.md](analisis-cobertura-calidad.md)
 - [matriz-casos-prueba.md](matriz-casos-prueba.md)
 - [evidencias](evidencias/)
 

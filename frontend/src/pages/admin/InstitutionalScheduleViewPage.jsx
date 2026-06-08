@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import {
     AlertTriangle,
     BookOpen,
-    Building2,
     CalendarDays,
     ChevronDown,
     ChevronUp,
@@ -16,6 +15,7 @@ import {
     XCircle,
 } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { useSearchParams } from 'react-router-dom'
 import { scheduleBlockService } from '../../services/scheduleBlockService'
 
 const DAYS = [
@@ -61,7 +61,9 @@ const DAY_COLORS = [
 ]
 
 export default function InstitutionalScheduleViewPage() {
-    const [scheduleId, setScheduleId] = useState(1)
+    const [searchParams] = useSearchParams()
+    const initialScheduleId = searchParams.get('schedule_id') || searchParams.get('scheduleId') || 1
+    const [scheduleId, setScheduleId] = useState(initialScheduleId)
     const [blocks, setBlocks] = useState([])
     const [loading, setLoading] = useState(false)
     const [filters, setFilters] = useState(INITIAL_FILTERS)

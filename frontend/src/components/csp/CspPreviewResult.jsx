@@ -37,7 +37,10 @@ export default function CspPreviewResult({ data }) {
 
             {!solutions.length && !blocks.length ? (
                 <div className="mt-6">
-                    <EmptyState title="No hay secciones listas para previsualizar." text="Revise la oferta academica o el diagnostico antes de continuar." />
+                    <EmptyState
+                        title="No hay secciones listas para previsualizar porque faltan datos requeridos."
+                        text="Posibles causas: no hay docentes asignados, no hay aulas asignadas, no hay disponibilidades registradas o las ofertas no cumplen condiciones READY/APPROVED. Revise las advertencias del diagnostico antes de generar el horario."
+                    />
                 </div>
             ) : null}
 

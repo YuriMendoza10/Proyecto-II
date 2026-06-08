@@ -1,17 +1,25 @@
 // D:\TALLER 2\optiacademic\frontend\src\tests\setup.js
-import { afterEach, vi } from 'vitest'
+import { afterAll, afterEach, beforeAll, vi } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import React from 'react'
+import { server } from './msw/server'
+import { invalidateCache } from '../utils/serviceCache'
 
 globalThis.React = React
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'bypass' }))
 
 // Limpiar después de cada prueba
 afterEach(() => {
     cleanup()
     vi.clearAllMocks()
+    server.resetHandlers()
+    invalidateCache('academic-periods', 'academic-programs', 'curriculum-plans')
     document.documentElement.classList.remove('dark', 'dark-theme')
 })
+
+afterAll(() => server.close())
 
 // Mock de localStorage
 const localStorageMock = {

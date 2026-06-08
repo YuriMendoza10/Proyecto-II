@@ -21,6 +21,11 @@ build/
 test-results/
 playwright-report/
 blob-report/
+frontend/coverage/
+coverage/
+frontend/cypress/screenshots/
+frontend/cypress/videos/
+frontend/cypress/downloads/
 
 # Logs
 *.log

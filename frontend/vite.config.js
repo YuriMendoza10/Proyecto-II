@@ -9,6 +9,18 @@ export default defineConfig({
     exclude: ['node_modules/**', 'dist/**', 'e2e/**', 'playwright-report/**', 'test-results/**'],
     globals: true,
     setupFiles: './src/tests/setup.js',
+    coverage: {
+      reporter: ['text', 'html'],
+      reportsDirectory: './coverage',
+      include: [
+        'src/utils/**/*.{js,jsx}',
+        'src/components/common/**/*.{js,jsx}',
+        'src/components/csp/**/*.{js,jsx}',
+        'src/pages/admin/EnvironmentalImpactPage.jsx',
+        'src/pages/admin/InstitutionalCspGeneratorPage.jsx',
+      ],
+      exclude: ['src/**/*.test.{js,jsx}', 'src/tests/**'],
+    },
   },
   build: {
     chunkSizeWarningLimit: 1000,
