@@ -1,11 +1,16 @@
 // D:\TALLER 2\optiacademic\frontend\src\tests\setup.js
-import { expect, afterEach, vi } from 'vitest'
+import { afterEach, vi } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
+import React from 'react'
+
+globalThis.React = React
 
 // Limpiar después de cada prueba
 afterEach(() => {
     cleanup()
+    vi.clearAllMocks()
+    document.documentElement.classList.remove('dark', 'dark-theme')
 })
 
 // Mock de localStorage
@@ -15,7 +20,7 @@ const localStorageMock = {
     removeItem: vi.fn(),
     clear: vi.fn(),
 }
-global.localStorage = localStorageMock
+globalThis.localStorage = localStorageMock
 
 // Mock de sessionStorage
 const sessionStorageMock = {
@@ -24,10 +29,10 @@ const sessionStorageMock = {
     removeItem: vi.fn(),
     clear: vi.fn(),
 }
-global.sessionStorage = sessionStorageMock
+globalThis.sessionStorage = sessionStorageMock
 
 // Mock de fetch
-global.fetch = vi.fn()
+globalThis.fetch = vi.fn()
 
 // Mock de console para evitar ruido
 console.error = vi.fn()

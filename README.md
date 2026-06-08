@@ -145,6 +145,7 @@ Toda la documentación del proyecto está centralizada en la carpeta [Doc](Doc/)
 - [07. OPTIACADEMIC - SOSTENIBILIDAD Y VALIDACION](Doc/07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION/)
 - [Entregables segun rubrica](Doc/06.%20CIERRE/entregables-rubrica/)
 - [Evidencias finales](Doc/06.%20CIERRE/evidencias/)
+- [Pruebas Semana 13](Doc/06.%20CIERRE/semana-13-pruebas/)
 
 ## Estado De La Entrega
 

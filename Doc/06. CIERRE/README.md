@@ -22,3 +22,9 @@ Los entregables organizados segun los criterios de evaluacion se encuentran en:
 Tambien se conservan las evidencias finales en:
 
 - [evidencias](evidencias/)
+
+## Semana 13 - Pruebas
+
+La documentacion de pruebas unitarias, integracion y end to end se encuentra en:
+
+- [semana-13-pruebas](semana-13-pruebas/)

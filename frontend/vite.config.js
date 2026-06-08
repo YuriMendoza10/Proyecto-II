@@ -4,6 +4,12 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    exclude: ['node_modules/**', 'dist/**', 'e2e/**', 'playwright-report/**', 'test-results/**'],
+    globals: true,
+    setupFiles: './src/tests/setup.js',
+  },
   build: {
     chunkSizeWarningLimit: 1000,
     rollupOptions: {

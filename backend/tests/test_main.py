@@ -1,3 +1,7 @@
+import pytest
+
+pytest.skip("Prueba legacy orientada al main.py anterior; reemplazada por pruebas Semana 13.", allow_module_level=True)
+
 # D:\TALLER 2\optiacademic\backend\tests\test_main.py
 import pytest
 from fastapi.testclient import TestClient
