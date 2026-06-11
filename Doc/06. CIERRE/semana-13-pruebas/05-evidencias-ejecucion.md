@@ -19,8 +19,8 @@ Las evidencias corresponden a:
 | Evidencia | Comando | Resultado | Estado |
 |---|---|---|---|
 | Pruebas frontend | `npm --prefix frontend run test` | 51 passed | Aprobado |
-| Coverage frontend | `npm --prefix frontend run test:coverage` | 81.11 % | Aprobado |
-| Pruebas backend + coverage | `py -m pytest --cov=app --cov-report=term --cov-report=html` | 46 passed, 5 skipped, 51 % coverage | Aprobado con observacion |
+| Coverage frontend | `npm --prefix frontend run test` | 81.11 % y LCOV generado | Aprobado |
+| Pruebas backend + coverage | `py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term` | 46 passed, 5 skipped, 51 % coverage | Aprobado con observacion |
 | Revision de diferencias | `git diff --check` | Sin errores, solo warnings LF/CRLF | Aprobado |
 
 ## Pruebas unitarias y de componentes frontend
@@ -108,7 +108,7 @@ Usa MSW para simular `/api/v1/institutional-csp/available-schedules`. Valida que
 Comando:
 
 ```powershell
-npm --prefix frontend run test:coverage
+npm --prefix frontend run test
 ```
 
 Resultado:
@@ -116,7 +116,7 @@ Resultado:
 ```txt
 Coverage global: 81.11 %
 Statements: 81.11 %
-Branches: 65.29 %
+Branches: 65.24 %
 Functions: 68.24 %
 Lines: 81.11 %
 ```
@@ -138,7 +138,7 @@ Comando:
 
 ```powershell
 cd backend
-py -m pytest --cov=app --cov-report=term --cov-report=html
+py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term
 ```
 
 Resultado:

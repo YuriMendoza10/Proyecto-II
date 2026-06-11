@@ -146,6 +146,7 @@ Toda la documentación del proyecto está centralizada en la carpeta [Doc](Doc/)
 - [Entregables segun rubrica](Doc/06.%20CIERRE/entregables-rubrica/)
 - [Evidencias finales](Doc/06.%20CIERRE/evidencias/)
 - [Pruebas Semana 13](Doc/06.%20CIERRE/semana-13-pruebas/)
+- [Calidad integral: SonarQube, OWASP, WCAG, SUS y Testing](Doc/06.%20CIERRE/calidad-integral/)
 
 ## Estado De La Entrega
 

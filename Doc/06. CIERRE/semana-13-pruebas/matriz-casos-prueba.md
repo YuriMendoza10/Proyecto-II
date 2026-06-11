@@ -41,8 +41,8 @@ Estados usados:
 | AC-01 | Aceptacion | Login | Login carga correctamente | Cypress abre `/login` | Formulario visible | Pendiente | `frontend/cypress/e2e/acceptance-login.cy.js` |
 | AC-02 | Aceptacion | Login invalido | Login invalido no permite acceso | Credenciales invalidas | Acceso rechazado | Pendiente | `frontend/cypress/e2e/acceptance-login.cy.js` |
 | AC-03 | Aceptacion | CSP institucional | Pantalla CSP muestra elementos principales | Credenciales Cypress | Horarios generados visibles | Pendiente | `frontend/cypress/e2e/acceptance-csp.cy.js` |
-| COV-FE-01 | Cobertura | Frontend | Coverage frontend | `npm --prefix frontend run test:coverage` | 81.11 % | Aprobado | `frontend/coverage` |
-| COV-BE-01 | Cobertura | Backend global | Coverage backend | `py -m pytest --cov=app` | 51 % global | Aprobado con observacion | `backend/htmlcov` |
+| COV-FE-01 | Cobertura | Frontend | Coverage frontend y LCOV | `npm --prefix frontend run test` | 81.11 % y `frontend/coverage/lcov.info` | Aprobado | `frontend/coverage` |
+| COV-BE-01 | Cobertura | Backend global | Coverage backend XML/HTML | `py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term` | 51 % global y `backend/coverage.xml` | Aprobado con observacion | `backend/htmlcov`, `backend/coverage.xml` |
 | COV-BE-02 | Cobertura critica | `app.core.security` | Logica de seguridad | Pytest coverage | 95 % | Aprobado | `backend/htmlcov` |
 | COV-BE-03 | Cobertura critica | `app.csp.utils` | Utilidades CSP | Pytest coverage | 96 % | Aprobado | `backend/htmlcov` |
 | COV-BE-04 | Cobertura critica | `schedule_publication_service` | Publicacion segura | Pytest coverage | 82 % | Aprobado | `backend/htmlcov` |

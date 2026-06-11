@@ -41,7 +41,7 @@ Desde la raiz del proyecto:
 ```powershell
 npm --prefix frontend run build
 npm --prefix frontend run test
-npm --prefix frontend run test:coverage
+npm --prefix frontend run test
 npm --prefix frontend run e2e
 npm --prefix frontend run acceptance
 docker compose --env-file .env.docker.example config --quiet
@@ -52,7 +52,7 @@ Para backend:
 ```powershell
 cd backend
 py -m pytest -v
-py -m pytest --cov=app --cov-report=term --cov-report=html
+py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term
 ```
 
 ## Contenido

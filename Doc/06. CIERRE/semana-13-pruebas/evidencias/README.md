@@ -5,8 +5,8 @@ Esta carpeta debe almacenar capturas reales de las ejecuciones de pruebas de Opt
 ## Capturas requeridas
 
 - Captura de `npm --prefix frontend run test` mostrando `51 passed`.
-- Captura de `npm --prefix frontend run test:coverage` mostrando `81.11 %` de cobertura frontend.
-- Captura de `py -m pytest --cov=app --cov-report=term --cov-report=html` mostrando `46 passed`, `5 skipped` y `51 %` de cobertura backend.
+- Captura de `npm --prefix frontend run test` mostrando `51 passed`, `81.11 %` de cobertura frontend y generacion de `frontend/coverage/lcov.info`.
+- Captura de `py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term` mostrando `46 passed`, `5 skipped`, `51 %` de cobertura backend y generacion de `backend/coverage.xml`.
 - Captura de modulos criticos backend:
   - `app.core.security`: 95 %.
   - `app.csp.utils`: 96 %.

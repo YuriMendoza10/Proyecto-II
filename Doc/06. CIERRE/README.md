@@ -28,3 +28,9 @@ Tambien se conservan las evidencias finales en:
 La documentacion de pruebas unitarias, integracion y end to end se encuentra en:
 
 - [semana-13-pruebas](semana-13-pruebas/)
+
+## Calidad Integral
+
+La documentacion de calidad integral basada en SonarQube, OWASP Top 10 2025, WCAG, SUS y testing se encuentra en:
+
+- [calidad-integral](calidad-integral/)

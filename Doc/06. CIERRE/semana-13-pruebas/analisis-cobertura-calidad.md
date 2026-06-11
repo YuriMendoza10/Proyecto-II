@@ -18,7 +18,7 @@ Este documento interpreta los resultados de cobertura de OptiAcademic despues de
 Comando:
 
 ```powershell
-npm --prefix frontend run test:coverage
+npm --prefix frontend run test
 ```
 
 Resultado:
@@ -26,7 +26,7 @@ Resultado:
 ```txt
 Coverage global: 81.11 %
 Statements: 81.11 %
-Branches: 65.29 %
+Branches: 65.24 %
 Functions: 68.24 %
 Lines: 81.11 %
 ```
@@ -56,7 +56,7 @@ Comando:
 
 ```powershell
 cd backend
-py -m pytest --cov=app --cov-report=term --cov-report=html
+py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term
 ```
 
 Resultado:

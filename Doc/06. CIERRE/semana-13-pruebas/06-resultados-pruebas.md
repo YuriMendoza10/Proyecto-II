@@ -9,8 +9,8 @@ Este documento resume los resultados finales de pruebas de Semana 13 para OptiAc
 | Validacion | Comando | Resultado | Estado |
 |---|---|---|---|
 | Pruebas frontend | `npm --prefix frontend run test` | 12 archivos, 51 pruebas aprobadas | Aprobado |
-| Cobertura frontend | `npm --prefix frontend run test:coverage` | 81.11 % global focalizado | Aprobado |
-| Backend + coverage | `py -m pytest --cov=app --cov-report=term --cov-report=html` | 46 passed, 5 skipped, 51 % coverage | Aprobado con observacion |
+| Cobertura frontend | `npm --prefix frontend run test` | 81.11 % global focalizado y LCOV generado | Aprobado |
+| Backend + coverage | `py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term` | 46 passed, 5 skipped, 51 % coverage | Aprobado con observacion |
 | Playwright E2E | `npm --prefix frontend run e2e` | 6 passed, 3 skipped por credenciales | Aprobado con observacion |
 | Docker config | `docker compose --env-file .env.docker.example config --quiet` | Sin errores | Aprobado |
 | Git diff check | `git diff --check` | Sin errores, solo warnings LF/CRLF | Aprobado |
@@ -109,7 +109,7 @@ Usa MSW para simular `/api/v1/institutional-csp/available-schedules`. Valida hor
 Comando:
 
 ```powershell
-npm --prefix frontend run test:coverage
+npm --prefix frontend run test
 ```
 
 Resultado:
@@ -117,7 +117,7 @@ Resultado:
 ```txt
 Coverage global: 81.11 %
 Statements: 81.11 %
-Branches: 65.29 %
+Branches: 65.24 %
 Functions: 68.24 %
 Lines: 81.11 %
 ```
@@ -141,7 +141,7 @@ Comando:
 
 ```powershell
 cd backend
-py -m pytest --cov=app --cov-report=term --cov-report=html
+py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term
 ```
 
 Resultado:

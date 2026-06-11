@@ -42,6 +42,12 @@ const dayNames = {
 
 const CREATE_NEW = 'new'
 
+const toOptionalNumber = (value) => {
+    if (value === null || value === undefined) return null
+    const normalizedValue = String(value).trim()
+    return normalizedValue === '' ? null : Number(normalizedValue)
+}
+
 export default function InstitutionalCSPPage() {
     const [loadingAction, setLoadingAction] = useState(null)
     const solutionsRef = useRef(null)
@@ -200,18 +206,9 @@ export default function InstitutionalCSPPage() {
         default_block_duration_minutes: Number(form.default_block_duration_minutes),
         min_block_duration_minutes: Number(form.min_block_duration_minutes),
         transfer_tolerance_minutes: Number(form.transfer_tolerance_minutes),
-        random_seed:
-            form.random_seed === '' || form.random_seed === null
-                ? null
-                : Number(form.random_seed),
-        max_sections_to_schedule:
-            form.max_sections_to_schedule === '' || form.max_sections_to_schedule === null
-                ? null
-                : Number(form.max_sections_to_schedule),
-        max_blocks_per_day:
-            form.max_blocks_per_day === '' || form.max_blocks_per_day === null
-                ? null
-                : Number(form.max_blocks_per_day),
+        random_seed: toOptionalNumber(form.random_seed),
+        max_sections_to_schedule: toOptionalNumber(form.max_sections_to_schedule),
+        max_blocks_per_day: toOptionalNumber(form.max_blocks_per_day),
         }
     }
 

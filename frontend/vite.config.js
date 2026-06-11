@@ -10,7 +10,7 @@ export default defineConfig({
     globals: true,
     setupFiles: './src/tests/setup.js',
     coverage: {
-      reporter: ['text', 'html'],
+      reporter: ['text', 'html', 'lcov'],
       reportsDirectory: './coverage',
       include: [
         'src/utils/**/*.{js,jsx}',
