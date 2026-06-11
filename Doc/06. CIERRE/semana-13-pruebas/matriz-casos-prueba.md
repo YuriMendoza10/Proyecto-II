@@ -1,34 +1,49 @@
 # Matriz de casos de prueba
 
+Estados usados:
+
+- Aprobado.
+- Aprobado con observacion.
+- Skip justificado.
+- Pendiente.
+
 | ID | Tipo | Modulo | Caso de prueba | Entrada | Resultado esperado | Estado | Evidencia |
 |---|---|---|---|---|---|---|---|
-| PU-01 | Unitaria | endpointLabels | Traduce rutas tecnicas a nombres amigables | `/api/v1/notifications/me` | `Notificaciones del usuario` | Implementado | `frontend/src/tests/endpointLabels.test.js` |
-| PU-02 | Unitaria | formatters | Formatea CO2 correctamente | `0.0000297237` | Valor legible con `g CO2` | Implementado | `frontend/src/tests/formatters.test.js` |
-| PU-03 | Unitaria | formatters | Formatea porcentajes correctamente | `6` | `6 %` | Implementado | `frontend/src/tests/formatters.test.js` |
-| PU-04 | Unitaria | ThemeToggle | Cambia entre modo claro y oscuro | Click del usuario | Clase `dark` aplicada o retirada | Implementado | `frontend/src/tests/ThemeToggle.test.jsx` |
-| PU-05 | Unitaria | PaginationControls | Controla avance y retroceso de paginas | Click en siguiente/anterior | Llama callbacks correctos | Implementado | `frontend/src/tests/PaginationControls.test.jsx` |
-| PI-01 | Integracion | Backend | `/docs` responde 200 | GET `/docs` | Swagger disponible | Implementado | `backend/tests/test_semana13_integration_api.py` |
-| PI-02 | Integracion | Login | Login invalido responde error controlado | Credenciales invalidas | 401 controlado, no 500 | Implementado | `backend/tests/test_semana13_integration_api.py` |
-| PI-03 | Integracion | Seguridad | Ruta protegida sin token bloquea acceso | GET sin token | 401 o 403 | Implementado | `backend/tests/test_semana13_integration_api.py` |
-| PI-04 | Integracion | Sostenibilidad | Reporte ambiental responde sin 500 | GET sin token | Bloqueo controlado, no 500 | Implementado | `backend/tests/test_semana13_integration_api.py` |
-| PI-05 | Integracion | Historial academico | Endpoint paginado responde estructura esperada si existe | GET sin token | Bloqueo controlado, no 500 | Implementado | `backend/tests/test_semana13_integration_api.py` |
-| E2E-01 | E2E | Login | Login carga correctamente | Abrir `/login` | Formulario visible | Implementado | `frontend/e2e/login.spec.js` |
-| E2E-02 | E2E | Login | Login invalido no permite acceso | Credenciales invalidas | Permanece en login o muestra error | Implementado | `frontend/e2e/login.spec.js` |
-| E2E-03 | E2E | Tema visual | Modo claro/oscuro se puede cambiar | Click en control de tema | Tema aplicado en documento | Implementado | `frontend/e2e/theme.spec.js` |
-| E2E-04 | E2E | Sostenibilidad | Reporte de sostenibilidad carga con sesion valida | Credenciales demo | Muestra metricas principales | Skip por credenciales | `frontend/e2e/sustainability.spec.js` |
-| E2E-05 | E2E | Dashboard | Dashboard administrativo carga con sesion valida | Credenciales demo | Panel visible | Skip por credenciales | `frontend/e2e/navigation.spec.js` |
-| E2E-06 | E2E | CSP institucional | CSP institucional carga con sesion valida | Credenciales demo | Pantalla visible | Skip por credenciales | `frontend/e2e/navigation.spec.js` |
-| MSW-01 | Componente | CSP institucional | Muestra carga, exito, busqueda, vacio y error con API simulada | Respuestas MSW para catalogos y horarios | La pagina no llama backend real y renderiza estados controlados | Aprobado | `frontend/src/tests/InstitutionalCspGeneratorPage.msw.test.jsx` |
-| MSW-02 | Componente | Sostenibilidad | Muestra carga, reporte, vacio y error con API simulada | Respuestas MSW de impacto ambiental | El reporte ambiental es entendible y tolera errores | Aprobado | `frontend/src/tests/SustainabilityReport.msw.test.jsx` |
-| AC-01 | Aceptacion | Login | Login carga correctamente | Abrir `/login` | Formulario visible | Implementado | `frontend/cypress/e2e/acceptance-login.cy.js` |
-| AC-02 | Aceptacion | Login | Login invalido no permite acceso | Credenciales invalidas | Usuario permanece sin sesion | Implementado | `frontend/cypress/e2e/acceptance-login.cy.js` |
-| AC-03 | Aceptacion | CSP institucional | Pantalla CSP muestra elementos principales con sesion | `CYPRESS_ADMIN_EMAIL` y `CYPRESS_ADMIN_PASSWORD` | Muestra `Horarios generados` y acciones principales | Skip por credenciales | `frontend/cypress/e2e/acceptance-csp.cy.js` |
-| AC-04 | Aceptacion | CSP institucional | Omite pruebas autenticadas si no hay credenciales | Variables ausentes | Skip explicado sin credenciales reales | Implementado | `frontend/cypress/e2e/acceptance-csp.cy.js` |
-| AC-05 | Aceptacion | Seguridad UX | Navegacion protegida sin sesion es controlada | Abrir `/admin/institutional-csp` sin token | No hay pantalla blanca | Implementado | `frontend/cypress/e2e/acceptance-csp.cy.js` |
-| E2E-07 | E2E | CSP institucional | Login carga antes de validar CSP | Abrir `/login` | Formulario visible | Aprobado | `frontend/e2e/institutional-csp.spec.js` |
-| E2E-08 | E2E | CSP institucional | Login invalido no permite acceso al CSP | Credenciales invalidas | No ingresa a `/admin/institutional-csp` | Aprobado | `frontend/e2e/institutional-csp.spec.js` |
-| E2E-09 | E2E | CSP institucional | Lista de horarios generados con sesion admin | Credenciales E2E | Muestra busqueda, cargar horario y ver bloques | Skip por credenciales | `frontend/e2e/institutional-csp.spec.js` |
-| CV-01 | Cobertura | Backend | Reporte de cobertura pytest-cov | `py -m pytest --cov=app` | Reporte terminal y HTML | Aprobado | `backend/htmlcov` |
-| CV-02 | Cobertura | Frontend | Reporte de cobertura Vitest V8 | `npm --prefix frontend run test:coverage` | Reporte terminal y HTML | Aprobado | `frontend/coverage` |
-| CV-03 | Calidad | Build | Frontend compila para produccion | `npm --prefix frontend run build` | Build exitoso | Aprobado | `Doc/06. CIERRE/semana-13-pruebas/06-resultados-pruebas.md` |
-
+| PU-FE-01 | Unitaria frontend | endpointLabels | Traduce endpoints tecnicos a nombres amigables | Rutas `/api/v1/...` | Etiquetas comprensibles para usuarios | Aprobado | `frontend/src/tests/endpointLabels.test.js` |
+| PU-FE-02 | Unitaria frontend | formatters | Formatea indicadores | CO2, porcentajes, bytes, ms | Valores legibles con unidades | Aprobado | `frontend/src/tests/formatters.test.js` |
+| PU-FE-03 | Unitaria frontend | utilsExtra | Normaliza listas, datos seguros y errores | Arrays, objetos, `null`, errores API | Respuestas estables sin romper UI | Aprobado | `frontend/src/tests/utilsExtra.test.js` |
+| PC-FE-01 | Componente frontend | Login | Renderiza formulario de login | Pantalla `/login` | Campos y accion disponibles | Aprobado | `frontend/src/tests/Login.test.jsx` |
+| PC-FE-02 | Componente frontend | Dashboard | Renderiza dashboard principal | Datos simulados | Vista principal sin errores | Aprobado | `frontend/src/tests/Dashboard.test.jsx` |
+| PC-FE-03 | Componente frontend | MatriculaPanel | Renderiza panel academico/matricula | Datos academicos simulados | Panel visible y estable | Aprobado | `frontend/src/tests/MatriculaPanel.test.jsx` |
+| PC-FE-04 | Componente frontend | ThemeToggle | Cambia modo claro/oscuro | Click de usuario | Clase/estado de tema aplicado | Aprobado | `frontend/src/tests/ThemeToggle.test.jsx` |
+| PC-FE-05 | Componente frontend | PaginationControls | Controla avance, retroceso y limites | Click siguiente/anterior | Callbacks correctos y limites respetados | Aprobado | `frontend/src/tests/PaginationControls.test.jsx` |
+| PC-FE-06 | Componente frontend | Common components extra | Refuerza alertas, tablas, error boundary, numeros y cards | Estados carga/error/vacio | Componentes comunes estables | Aprobado | `frontend/src/tests/commonComponentsExtra.test.jsx` |
+| PC-FE-07 | Componente frontend | CSP components extra | Valida advertencias y resultados CSP | Sin aula, sin docente, sin disponibilidad, bloques | Filtros y estados CSP funcionan | Aprobado | `frontend/src/tests/cspComponentsExtra.test.jsx` |
+| MSW-FE-01 | Componente con mock API | SustainabilityReport | Simula API de sostenibilidad | Respuestas MSW | Carga, exito, vacio y error controlado | Aprobado | `frontend/src/tests/SustainabilityReport.msw.test.jsx` |
+| MSW-FE-02 | Componente con mock API | Institutional CSP | Simula `available-schedules` | Horarios generados simulados | Lista, busqueda, filtros y errores controlados | Aprobado | `frontend/src/tests/InstitutionalCspGeneratorPage.msw.test.jsx` |
+| PU-BE-01 | Unitaria backend | security core | Valida hash, verificacion y JWT | Contrasena, token valido/invalido | Seguridad base funcionando | Aprobado | `backend/tests/test_security_core.py` |
+| PU-BE-02 | Unitaria backend | CSP utils extra | Valida tiempos, solapamientos y slots | Bloques horarios simulados | Utilidades CSP correctas | Aprobado | `backend/tests/test_csp_utils_extra.py` |
+| PU-BE-03 | Unitaria backend | environmental service | Valida calculo CO2 y persistencia simulada | Bytes, metricas, error commit | CO2 correcto y rollback ante error | Aprobado | `backend/tests/test_environmental_service.py` |
+| PU-BE-04 | Unitaria backend | schedule publication service | Valida publicacion segura | Horario sin bloques, readiness critico, calidad valida | Bloqueo o publicacion segun regla | Aprobado | `backend/tests/test_schedule_publication_service.py` |
+| PU-BE-05 | Unitaria backend | student academic history service | Valida serializacion y resumen academico | Registros mockeados | Conteos, creditos y 404 correctos | Aprobado | `backend/tests/test_student_academic_history_service.py` |
+| PU-BE-06 | Unitaria backend | report service | Valida helpers de reportes y GreenFrame | Periodos, archivo GreenFrame | Periodo, contenido y errores correctos | Aprobado | `backend/tests/test_report_service.py` |
+| PI-BE-01 | Integracion backend | FastAPI docs | `/docs` responde 200 | GET `/docs` | Swagger disponible | Aprobado | `backend/tests/test_semana13_integration_api.py` |
+| PI-BE-02 | Integracion backend | Login invalido | Login invalido responde controlado | Credenciales invalidas | 401/controlado, no 500 | Aprobado | `backend/tests/test_semana13_integration_api.py` |
+| PI-BE-03 | Integracion backend | Ruta protegida sin token | Bloquea acceso sin token | GET protegido sin token | 401 o 403 | Aprobado | `backend/tests/test_semana13_integration_api.py` |
+| PI-BE-04 | Integracion backend | Environmental summary | Endpoint ambiental sin token no rompe | GET sin token | Bloqueo controlado, no 500 | Aprobado | `backend/tests/test_semana13_integration_api.py` |
+| PI-BE-05 | Integracion backend | Academic history page | Historial paginado sin token no rompe | GET sin token | Bloqueo controlado, no 500 | Aprobado | `backend/tests/test_semana13_integration_api.py` |
+| E2E-01 | E2E | Login | Login carga correctamente | Abrir `/login` | Formulario visible | Aprobado | `frontend/e2e/login.spec.js` |
+| E2E-02 | E2E | Login invalido | Login invalido no permite acceso | Credenciales invalidas | No ingresa al dashboard | Aprobado | `frontend/e2e/login.spec.js` |
+| E2E-03 | E2E | Tema visual | Modo claro/oscuro se puede cambiar | Click en control de tema | Tema aplicado | Aprobado | `frontend/e2e/theme.spec.js` |
+| E2E-04 | E2E | Sostenibilidad autenticada | Reporte de sostenibilidad carga con sesion | Credenciales demo | Metricas principales visibles | Skip justificado | `frontend/e2e/sustainability.spec.js` |
+| E2E-05 | E2E | Dashboard autenticado | Dashboard admin carga con sesion | Credenciales demo | Panel visible | Skip justificado | `frontend/e2e/navigation.spec.js` |
+| E2E-06 | E2E | CSP institucional autenticado | CSP carga con sesion admin | Credenciales demo | Pantalla visible | Skip justificado | `frontend/e2e/institutional-csp.spec.js` |
+| AC-01 | Aceptacion | Login | Login carga correctamente | Cypress abre `/login` | Formulario visible | Pendiente | `frontend/cypress/e2e/acceptance-login.cy.js` |
+| AC-02 | Aceptacion | Login invalido | Login invalido no permite acceso | Credenciales invalidas | Acceso rechazado | Pendiente | `frontend/cypress/e2e/acceptance-login.cy.js` |
+| AC-03 | Aceptacion | CSP institucional | Pantalla CSP muestra elementos principales | Credenciales Cypress | Horarios generados visibles | Pendiente | `frontend/cypress/e2e/acceptance-csp.cy.js` |
+| COV-FE-01 | Cobertura | Frontend | Coverage frontend | `npm --prefix frontend run test:coverage` | 81.11 % | Aprobado | `frontend/coverage` |
+| COV-BE-01 | Cobertura | Backend global | Coverage backend | `py -m pytest --cov=app` | 51 % global | Aprobado con observacion | `backend/htmlcov` |
+| COV-BE-02 | Cobertura critica | `app.core.security` | Logica de seguridad | Pytest coverage | 95 % | Aprobado | `backend/htmlcov` |
+| COV-BE-03 | Cobertura critica | `app.csp.utils` | Utilidades CSP | Pytest coverage | 96 % | Aprobado | `backend/htmlcov` |
+| COV-BE-04 | Cobertura critica | `schedule_publication_service` | Publicacion segura | Pytest coverage | 82 % | Aprobado | `backend/htmlcov` |
+| GIT-01 | Calidad repositorio | Diff check | Verifica espacios conflictivos | `git diff --check` | Sin errores criticos | Aprobado | Consola Git |
