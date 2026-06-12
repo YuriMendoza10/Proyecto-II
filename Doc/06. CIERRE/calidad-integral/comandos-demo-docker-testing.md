@@ -1,0 +1,439 @@
+# Comandos resumidos para demo en vivo - Docker, pruebas y calidad
+
+## 1. Ir a la raíz del proyecto
+
+```powershell
+cd D:\CHATTT\Proyecto-II-compartido
+```
+
+Verificar rama:
+
+```powershell
+git branch --show-current
+git status
+```
+
+Rama esperada:
+
+```txt
+main
+```
+
+---
+
+# 2. Verificar Docker
+
+Abrir **Docker Desktop** y esperar a que esté activo.
+
+Luego ejecutar:
+
+```powershell
+docker version
+docker ps
+```
+
+---
+
+# 3. Levantar el proyecto con Docker Compose
+
+```powershell
+docker compose up -d --build
+```
+
+Ver contenedores:
+
+```powershell
+docker compose ps
+```
+
+Ver logs rápidos:
+
+```powershell
+docker compose logs --tail=100
+```
+
+Ver logs en vivo:
+
+```powershell
+docker compose logs -f
+```
+
+---
+
+# 4. Abrir la aplicación
+
+Frontend:
+
+```txt
+http://localhost:5173
+```
+
+Backend:
+
+```txt
+http://localhost:8000
+```
+
+Swagger:
+
+```txt
+http://localhost:8000/docs
+```
+
+---
+
+# 5. Ejecutar migraciones si la base de datos lo requiere
+
+```powershell
+docker compose exec backend alembic upgrade head
+```
+
+Si no reconoce `alembic`:
+
+```powershell
+docker compose exec backend python -m alembic upgrade head
+```
+
+---
+
+# 6. Pruebas unitarias frontend
+
+```powershell
+npm --prefix frontend run test
+```
+
+Resultado esperado:
+
+```txt
+12 test files passed
+51 tests passed
+Coverage frontend: 81.11 %
+```
+
+Verificar reporte LCOV:
+
+```powershell
+Test-Path frontend\coverage\lcov.info
+```
+
+Resultado esperado:
+
+```txt
+True
+```
+
+---
+
+# 7. Pruebas unitarias backend
+
+```powershell
+cd backend
+py -m pytest -v
+cd ..
+```
+
+Resultado esperado:
+
+```txt
+46 passed
+5 skipped
+```
+
+---
+
+# 8. Pruebas backend con cobertura
+
+```powershell
+cd backend
+py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term
+cd ..
+```
+
+Resultado esperado:
+
+```txt
+46 passed
+5 skipped
+Coverage backend: 51 %
+```
+
+Verificar reporte:
+
+```powershell
+Test-Path backend\coverage.xml
+```
+
+Resultado esperado:
+
+```txt
+True
+```
+
+---
+
+# 9. Pruebas de integración backend
+
+```powershell
+cd backend
+py -m pytest tests/test_semana13_integration_api.py -v
+cd ..
+```
+
+Resultado esperado:
+
+```txt
+6 passed
+```
+
+---
+
+# 10. Pruebas de seguridad OWASP backend
+
+```powershell
+cd backend
+py -m pytest tests/test_security_core.py tests/test_semana13_integration_api.py -v
+cd ..
+```
+
+Resultado esperado:
+
+```txt
+9 passed
+```
+
+Estas pruebas validan:
+
+```txt
+- hash y verificación de contraseña
+- generación y decodificación de JWT
+- rechazo de token inválido
+- bloqueo de rutas protegidas sin token
+- manejo controlado de errores
+```
+
+---
+
+# 11. Pruebas E2E con Playwright
+
+```powershell
+npm --prefix frontend run e2e
+```
+
+Resultado esperado:
+
+```txt
+6 passed
+3 skipped
+```
+
+Abrir reporte:
+
+```powershell
+cd frontend
+npx playwright show-report
+cd ..
+```
+
+---
+
+# 12. Pruebas de aceptación con Cypress
+
+Abrir Cypress:
+
+```powershell
+cd frontend
+npx cypress open
+cd ..
+```
+
+Ejecutar Cypress por consola:
+
+```powershell
+cd frontend
+npx cypress run
+cd ..
+```
+
+Nota:
+
+```txt
+Si Cypress falla por binario o entorno gráfico, se documenta como limitación del entorno local. Cypress está configurado para pruebas de aceptación.
+```
+
+---
+
+# 13. Auditoría OWASP frontend
+
+```powershell
+npm --prefix frontend audit
+```
+
+Resultado documentado:
+
+```txt
+4 moderate severity vulnerabilities
+```
+
+No ejecutar:
+
+```powershell
+npm audit fix --force
+```
+
+---
+
+# 14. Auditoría OWASP backend
+
+```powershell
+py -m pip_audit -r backend/requirements.txt
+```
+
+Si no funciona:
+
+```powershell
+pip-audit -r backend/requirements.txt
+```
+
+Resultado documentado:
+
+```txt
+Found 19 known vulnerabilities in 6 packages
+```
+
+---
+
+# 15. Build frontend
+
+```powershell
+npm --prefix frontend run build
+```
+
+Resultado esperado:
+
+```txt
+built successfully
+```
+
+---
+
+# 16. SonarQube
+
+Levantar SonarQube si existe:
+
+```powershell
+docker start sonarqube-optiacademic
+```
+
+Si no existe:
+
+```powershell
+docker run -d --name sonarqube-optiacademic -p 9000:9000 sonarqube:lts-community
+```
+
+Abrir:
+
+```txt
+http://localhost:9000
+```
+
+Ejecutar scanner:
+
+```powershell
+cd D:\CHATTT\Proyecto-II-compartido
+
+$env:SONAR_TOKEN="PEGA_AQUI_TU_TOKEN"
+
+docker run --rm `
+  -v "${PWD}:/usr/src" `
+  -e SONAR_TOKEN="$env:SONAR_TOKEN" `
+  sonarsource/sonar-scanner-cli `
+  -D"sonar.host.url=http://host.docker.internal:9000" `
+  -D"sonar.token=$env:SONAR_TOKEN"
+
+Remove-Item Env:\SONAR_TOKEN
+```
+
+Dashboard:
+
+```txt
+http://localhost:9000/dashboard?id=optic2
+```
+
+Resultado esperado:
+
+```txt
+Quality Gate: Passed
+Bugs: 0
+Vulnerabilities: 0
+Code Smells: 254
+Coverage: 13.9 %
+Duplications: 4.5 %
+```
+
+---
+
+# 17. Apagar Docker al finalizar
+
+```powershell
+docker compose down
+```
+
+No usar:
+
+```powershell
+docker compose down -v
+```
+
+porque elimina volúmenes y puede borrar la base de datos.
+
+---
+
+# 18. Orden recomendado para ejecutar en vivo
+
+```powershell
+cd D:\CHATTT\Proyecto-II-compartido
+
+docker compose up -d --build
+docker compose ps
+
+npm --prefix frontend run test
+
+cd backend
+py -m pytest --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=term
+cd ..
+
+cd backend
+py -m pytest tests/test_security_core.py tests/test_semana13_integration_api.py -v
+cd ..
+
+npm --prefix frontend run e2e
+
+npm --prefix frontend audit
+
+py -m pip_audit -r backend/requirements.txt
+
+npm --prefix frontend run build
+```
+
+Luego ejecutar SonarQube:
+
+```powershell
+$env:SONAR_TOKEN="PEGA_AQUI_TU_TOKEN"
+
+docker run --rm `
+  -v "${PWD}:/usr/src" `
+  -e SONAR_TOKEN="$env:SONAR_TOKEN" `
+  sonarsource/sonar-scanner-cli `
+  -D"sonar.host.url=http://host.docker.internal:9000" `
+  -D"sonar.token=$env:SONAR_TOKEN"
+
+Remove-Item Env:\SONAR_TOKEN
+```
+
+---
+
+# 19. Frase para explicar en la sustentación
+
+```txt
+Se levantó el sistema con Docker Compose y se ejecutaron pruebas unitarias, pruebas de integración, pruebas de seguridad, pruebas E2E, auditoría de dependencias, build de producción y análisis SonarQube como parte de la validación integral de calidad del proyecto OptiAcademic.
+```
