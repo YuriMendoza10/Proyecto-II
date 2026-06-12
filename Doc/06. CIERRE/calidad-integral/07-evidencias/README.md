@@ -38,10 +38,17 @@ Esta carpeta organiza la lista de evidencias verificables para la rubrica de Son
 
 ## SUS
 
-- `sus-formulario.png`
-- `sus-base-resultados.png`
-- `sus-calculo.png`
-- `sus-interpretacion.png`
+| Archivo sugerido | Contenido mínimo de la captura | Finalidad de auditoría |
+|---|---|---|
+| `sus-formulario-applied.png` | Instrumento de 10 reactivos, escala Likert de 1 a 5 e identificación del contexto de OptiAcademic | Demostrar el diseño y la aplicación controlada del instrumento. |
+| `sus-base-resultados.png` | Matriz U1-U8 con respuestas P1-P10 y puntajes individuales | Evidenciar recolección, integridad y trazabilidad de datos. |
+| `sus-calculo-puntaje.png` | Fórmula SUS, contribuciones normalizadas, suma individual y promedio 82.19 | Verificar que el cálculo sea reproducible y matemáticamente consistente. |
+| `sus-interpretacion-tecnica.png` | Comparación del 82.19 con rangos de aceptabilidad y análisis por perfiles | Sustentar la interpretación cuantitativa y cualitativa. |
+| `sus-propuestas-mejora.png` | Matriz de siete acciones UX, prioridad, origen y módulo destino | Demostrar que los resultados generan decisiones concretas de mejora. |
+
+### Conformidad metodológica SUS
+
+Las capturas deben conservar legibilidad suficiente para identificar muestra, respuestas, fórmulas, resultado y conclusiones. Los datos corresponden a una **evaluación piloto académica basada en perfiles vinculados al proyecto**. No deben reemplazarse por imágenes simuladas ni resultados sin trazabilidad.
 
 ## GitHub
 

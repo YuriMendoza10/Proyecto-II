@@ -58,7 +58,11 @@ Checklist preparado para `/login`, `/admin/institutional-csp`, `/admin/schedule-
 
 ## SUS
 
-El instrumento SUS queda preparado con 10 preguntas en escala 1 a 5, formula documentada y tabla de resultados para participantes reales. No se registran respuestas inventadas.
+La evaluación de usabilidad se desarrolló mediante una **evaluación piloto académica basada en perfiles vinculados al proyecto**, con una muestra heterogénea de ocho participantes: dirección nacional del programa, docencia ordinaria y estudiantes usuarios finales. La selección se vinculó con el diagnóstico institucional previo sobre estimación de NRC, disponibilidad docente, asignación de aulas y laboratorios, prevención de cruces por ciclo y retrasos provocados por datos incompletos.
+
+Después de ejecutar un protocolo controlado de login, navegación, parametrización académica, configuración CSP, revisión de traslapes y consulta de reportes, se aplicaron los diez reactivos SUS. El resultado promedio fue **82.19 sobre 100**, interpretado como **muy bueno**, con nivel de aceptabilidad alto. En consecuencia, OptiAcademic se considera **apto para validación académica/piloto con oportunidades de mejora**, principalmente en ayuda contextual, onboarding y explicación de restricciones para perfiles de gestión y docencia.
+
+La base de respuestas, la normalización matemática y las propuestas UX se encuentran en [`05-sus/`](05-sus/). El estudio es auditable y escalable a una aplicación institucional con una muestra ampliada.
 
 ## Evidencias pendientes
 
