@@ -11,9 +11,8 @@ Sea \(R_i\) la respuesta bruta del participante al reactivo \(i\):
 
 ## Ecuación formal
 
-$$
-\operatorname{SUS}(u)=2.5\left[\sum_{i\in\{1,3,5,7,9\}}(R_{u,i}-1)+\sum_{i\in\{2,4,6,8,10\}}(5-R_{u,i})\right]
-$$
+
+$$\text{SUS}(u) = 2.5 \left[ \sum_{i \in \{1,3,5,7,9\}} (R_{u,i} - 1) + \sum_{i \in \{2,4,6,8,10\}} (5 - R_{u,i}) \right]$$
 
 ## Matriz de contribuciones normalizadas
 
