@@ -32,6 +32,8 @@ const HorarioUniversitario = ({ asignaciones = [], onCursoClick }) => {
     const [selectedCurso, setSelectedCurso] = useState(null);
 
     useEffect(() => {
+        console.log('HorarioUniversitario - Asignaciones recibidas:', asignaciones);
+
         // Inicializar estructura vacía
         const data = {};
         DIAS.forEach(dia => {
@@ -45,6 +47,8 @@ const HorarioUniversitario = ({ asignaciones = [], onCursoClick }) => {
         // En HorarioUniversitario.jsx, modifica la parte donde se procesan las asignaciones:
 
         asignaciones.forEach((asignacion, idx) => {
+            console.log(`Procesando asignación ${idx}:`, asignacion);
+
             let dia = asignacion.dia;
             let franjaHoraria = asignacion.franja_horaria;
 
@@ -75,7 +79,9 @@ const HorarioUniversitario = ({ asignaciones = [], onCursoClick }) => {
                     aula: asignacion.aula_id || asignacion.aula,
                     docente: asignacion.docente_id || asignacion.docente
                 };
+                console.log(`✅ Insertado en ${dia} - ${franjaHoraria}`);
             } else {
+                console.warn(`⚠️ No se pudo insertar: ${dia} - ${franjaHoraria}`);
                 // Intentar encontrar la franja más cercana
                 const franjaCercana = FRANJAS.find(f => f.includes(hora.split(' - ')[0]));
                 if (franjaCercana && data[dia][franjaCercana] !== undefined) {
@@ -88,6 +94,7 @@ const HorarioUniversitario = ({ asignaciones = [], onCursoClick }) => {
                         aula: asignacion.aula_id || asignacion.aula,
                         docente: asignacion.docente_id || asignacion.docente
                     };
+                    console.log(`✅ Insertado en ${dia} - ${franjaCercana} (franja cercana)`);
                 }
             }
         });

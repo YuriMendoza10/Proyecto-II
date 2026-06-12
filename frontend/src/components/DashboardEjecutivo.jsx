@@ -1,6 +1,6 @@
 // D:\TALLER 2\optiacademic\frontend\src\components\DashboardEjecutivo.jsx
 import { useState, useEffect } from 'react'
-import { Users, BookOpen, Building, TrendingUp, Calendar, Activity } from 'lucide-react'
+import { Users, BookOpen, Building, Clock, TrendingUp, Calendar, Activity, Award } from 'lucide-react'
 
 export default function DashboardEjecutivo({ user }) {
     const [stats, setStats] = useState({

@@ -1,6 +1,6 @@
 // D:\TALLER 2\optiacademic\frontend\src\components\MisSolicitudes.jsx
 import { useState, useEffect } from 'react'
-import { CheckCircle, Clock, XCircle } from 'lucide-react'
+import { AlertCircle, CheckCircle, Clock, XCircle, Send, RefreshCw, FileText } from 'lucide-react'
 import toast, { Toaster } from 'react-hot-toast'
 
 const API_URL = 'http://localhost:8000/api/v1'

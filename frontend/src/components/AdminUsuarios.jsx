@@ -1,6 +1,6 @@
 // D:\TALLER 2\optiacademic\frontend\src\components\AdminUsuarios.jsx
 import { useState, useEffect } from 'react'
-import { Search, Edit, Trash2, UserPlus, Mail } from 'lucide-react'
+import { Search, Edit, Trash2, UserPlus, Shield, Mail, Key } from 'lucide-react'
 import toast from 'react-hot-toast' // Asegúrate de tener instalada la librería correspondiente
 
 const API_URL = 'http://localhost:8000/api/v1'

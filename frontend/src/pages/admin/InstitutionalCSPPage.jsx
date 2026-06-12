@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
+    AlertTriangle,
     CalendarSearch,
     CheckCircle,
     ClipboardCheck,
@@ -452,7 +453,7 @@ export default function InstitutionalCSPPage() {
                     <p className="mb-3 block text-sm font-semibold text-slate-700">Días permitidos</p>
                     <div className="flex flex-wrap gap-2">
                         {DAYS.map((day) => (
-                            <button key={day.id} type="button" onClick={() => toggleDay(day.id)} aria-pressed={form.days.includes(day.id)} aria-label={`Alternar dia ${day.label}`} className={[
+                            <button key={day.id} type="button" onClick={() => toggleDay(day.id)} className={[
                                 'rounded-xl border px-4 py-2 text-sm font-semibold transition',
                                 form.days.includes(day.id) ? 'border-blue-600 bg-blue-600 text-white' : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-100',
                             ].join(' ')}>

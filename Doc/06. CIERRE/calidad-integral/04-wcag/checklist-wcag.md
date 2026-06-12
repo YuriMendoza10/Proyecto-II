@@ -9,7 +9,7 @@
 | Uso de Space | Controles interactivos responden correctamente | `/admin/dashboard` | Pendiente de evidencia | Captura | Validar toggles/botones |
 | Foco visible | El elemento activo se identifica visualmente | Todas | Pendiente de evidencia | Captura de foco | Verificar dark mode |
 | Etiquetas en formularios | Inputs con labels visibles o nombre accesible | `/login` | Pendiente de evidencia | DOM / captura | Revisar email y password |
-| Botones accesibles | Botones con texto claro o `aria-label` | Todas | Mejora aplicada, pendiente de evidencia | DOM / captura | Se reforzaron botones de dias en CSP institucional con `aria-pressed` |
+| Botones accesibles | Botones con texto claro o `aria-label` | Todas | Pendiente de evidencia | DOM / captura | No depender solo de iconos |
 | Mensajes de error | Errores comprensibles y no tecnicos | `/login` | Pendiente de evidencia | Captura | Login invalido |
 | Tablas legibles | Encabezados claros y datos con contraste | `/admin/students` | Pendiente de evidencia | Captura | Validar scroll responsive |
 | Modo claro/oscuro | Ambos modos conservan legibilidad | Todas | Pendiente de evidencia | Capturas comparativas | No usar alto contraste agresivo |

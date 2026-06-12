@@ -8,9 +8,6 @@ from app.core.database import Base
 from app.models.base import TimestampMixin
 
 
-CASCADE_ALL_DELETE_ORPHAN = "all, delete-orphan"
-
-
 class AcademicPeriodStatus(str, enum.Enum):
     PLANNED = "PLANNED"
     ACTIVE = "ACTIVE"
@@ -91,7 +88,7 @@ class AcademicPeriod(Base, TimestampMixin):
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     section_offerings = relationship(
-        "SectionOffering", back_populates="academic_period", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "SectionOffering", back_populates="academic_period", cascade="all, delete-orphan"
     )
 
 
@@ -115,12 +112,12 @@ class AcademicProgram(Base, TimestampMixin):
     )
 
     curriculum_plans = relationship(
-        "CurriculumPlan", back_populates="program", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "CurriculumPlan", back_populates="program", cascade="all, delete-orphan"
     )
     faculty_entity = relationship("Faculty", back_populates="academic_programs")
     campus_entity = relationship("Campus", back_populates="academic_programs")
     section_offerings = relationship(
-        "SectionOffering", back_populates="academic_program", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "SectionOffering", back_populates="academic_program", cascade="all, delete-orphan"
     )
 
 
@@ -143,13 +140,13 @@ class CurriculumPlan(Base, TimestampMixin):
 
     program = relationship("AcademicProgram", back_populates="curriculum_plans")
     curriculum_courses = relationship(
-        "CurriculumCourse", back_populates="curriculum_plan", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "CurriculumCourse", back_populates="curriculum_plan", cascade="all, delete-orphan"
     )
     elective_bank_courses = relationship(
-        "ElectiveBankCourse", back_populates="curriculum_plan", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "ElectiveBankCourse", back_populates="curriculum_plan", cascade="all, delete-orphan"
     )
     section_offerings = relationship(
-        "SectionOffering", back_populates="curriculum_plan", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "SectionOffering", back_populates="curriculum_plan", cascade="all, delete-orphan"
     )
 
 
@@ -185,7 +182,7 @@ class CurriculumCourse(Base, TimestampMixin):
         "CoursePrerequisite",
         foreign_keys="CoursePrerequisite.curriculum_course_id",
         back_populates="curriculum_course",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
     prerequisite_for = relationship(
         "CoursePrerequisite",
@@ -194,7 +191,7 @@ class CurriculumCourse(Base, TimestampMixin):
         passive_deletes=True,
     )
     section_offerings = relationship(
-        "SectionOffering", back_populates="curriculum_course", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "SectionOffering", back_populates="curriculum_course", cascade="all, delete-orphan"
     )
 
 

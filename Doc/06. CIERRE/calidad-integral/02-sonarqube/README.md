@@ -100,13 +100,13 @@ Esto puede provocar doble indexacion de pruebas, incluir artefactos generados y 
 
 | Metrica | Resultado inicial | Interpretacion |
 |---|---:|---|
-| Quality Gate | Passed | La compuerta de calidad pasa con la configuracion actual |
-| Bugs | 0 | Los bugs previos de comparaciones estrictas fueron corregidos |
-| Vulnerabilities | 0 | Sin vulnerabilidades directas reportadas |
-| Code Smells | 194 | Existe deuda de mantenibilidad restante |
-| Coverage | 17.5 % | Cobertura integrada calculada por SonarQube sobre el conjunto combinado analizado |
-| Duplications | 2.5 % | Duplicacion baja/moderada |
+| Quality Gate | Failed | La compuerta fallo por hallazgos de calidad pendientes |
+| Bugs | 2 | Comparaciones estrictas entre tipos distintos en `InstitutionalCSPPage.jsx` |
+| Vulnerabilities | 0 | Sin vulnerabilidades reportadas en este primer analisis |
+| Code Smells | 254 | Existe deuda de mantenibilidad |
+| Coverage | 13.9 % | Cobertura integrada calculada por SonarQube sobre el conjunto combinado analizado |
+| Duplications | 4.5 % | Duplicacion moderada |
 | Security Hotspots Reviewed | 0.0 % | Requiere revision manual de hotspots |
-| Lines | 41k | Tamano aproximado analizado |
+| Lines | 48k | Tamano aproximado analizado |
 
-No se inventan resultados posteriores. Las siguientes ejecuciones deben registrarse con capturas reales.
+No se inventan resultados posteriores. La segunda ejecucion debe registrarse con capturas reales.

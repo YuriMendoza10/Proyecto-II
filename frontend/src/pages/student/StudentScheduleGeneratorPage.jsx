@@ -418,6 +418,8 @@ export default function StudentScheduleGeneratorPage() {
 
         try {
             const payload = buildPreviewPayload()
+            console.log('PAYLOAD STUDENT CSP:', payload)
+
             const data = await studentCspService.previewStudentSchedules(payload)
 
             setPreview(data)

@@ -1,6 +1,6 @@
 // D:\TALLER 2\optiacademic\frontend\src\components\SelectorHorarioProfesional.jsx
 import { useState, useEffect } from 'react'
-import { CheckCircle, Star, Sun, Moon, Cloud } from 'lucide-react'
+import { Calendar, Clock, Users, BookOpen, CheckCircle, AlertCircle, ChevronLeft, ChevronRight, Star, TrendingUp, Award, Sun, Moon, Cloud } from 'lucide-react'
 import toast, { Toaster } from 'react-hot-toast'
 
 import api from '../api'

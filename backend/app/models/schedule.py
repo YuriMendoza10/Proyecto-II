@@ -8,9 +8,6 @@ from app.core.database import Base
 from app.models.base import TimestampMixin
 
 
-CASCADE_ALL_DELETE_ORPHAN = "all, delete-orphan"
-
-
 class ScheduleStatus(str, enum.Enum):
     DRAFT = "DRAFT"
     GENERATED = "GENERATED"
@@ -123,16 +120,17 @@ class AcademicSchedule(Base, TimestampMixin):
         default=True,
     )
 
+    # Relaciones
     blocks = relationship(
         "ScheduleBlock",
         back_populates="schedule",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
 
     student_schedules = relationship(
         "StudentSchedule",
         back_populates="schedule",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
 
     academic_period_entity = relationship("AcademicPeriod")
@@ -198,6 +196,7 @@ class ScheduleBlock(Base, TimestampMixin):
 
     quality_score: Mapped[float | None] = mapped_column(Float, nullable=True)
 
+    # Relaciones
     schedule = relationship(
         "AcademicSchedule",
         back_populates="blocks",
@@ -261,6 +260,7 @@ class StudentSchedule(Base, TimestampMixin):
         default="EXPLORATION",
     )
 
+    # Relaciones
     student = relationship(
         "Student",
         back_populates="student_schedules",
@@ -274,7 +274,7 @@ class StudentSchedule(Base, TimestampMixin):
     selected_blocks = relationship(
         "StudentScheduleBlock",
         back_populates="student_schedule",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
 
 
@@ -300,6 +300,7 @@ class StudentScheduleBlock(Base, TimestampMixin):
         index=True,
     )
 
+    # Relaciones
     student_schedule = relationship(
         "StudentSchedule",
         back_populates="selected_blocks",

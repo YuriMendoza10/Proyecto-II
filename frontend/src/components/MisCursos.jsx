@@ -1,6 +1,6 @@
 // D:\TALLER 2\optiacademic\frontend\src\components\MisCursos.jsx
 import { useState, useEffect } from 'react'
-import { Clock, Users, BookOpen, AlertCircle, RefreshCw, Trash2 } from 'lucide-react'
+import { Calendar, Clock, Users, BookOpen, CheckCircle, AlertCircle, XCircle, RefreshCw, FileText, Trash2 } from 'lucide-react'
 import toast, { Toaster } from 'react-hot-toast'
 
 const API_URL = 'http://localhost:8000/api/v1'

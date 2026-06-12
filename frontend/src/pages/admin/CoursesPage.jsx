@@ -3,6 +3,7 @@ import {
     BookOpen,
     Edit,
     Loader2,
+    Plus,
     Power,
     RefreshCcw,
     Save,

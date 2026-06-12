@@ -7,10 +7,6 @@ from app.core.database import Base
 from app.models.base import TimestampMixin
 
 
-ACADEMIC_PERIOD_ID_FK = "academic_periods.id"
-CASCADE_ALL_DELETE_ORPHAN = "all, delete-orphan"
-
-
 class StudentEnrollmentStatus(str, enum.Enum):
     ENROLLED = "ENROLLED"
     RESERVED = "RESERVED"
@@ -46,7 +42,7 @@ class Student(Base, TimestampMixin):
         ForeignKey("campuses.id", ondelete="SET NULL"), nullable=True, index=True
     )
     admission_period_id: Mapped[int | None] = mapped_column(
-        ForeignKey(ACADEMIC_PERIOD_ID_FK, ondelete="SET NULL"), nullable=True, index=True
+        ForeignKey("academic_periods.id", ondelete="SET NULL"), nullable=True, index=True
     )
     current_cycle: Mapped[int] = mapped_column(Integer, nullable=False, default=1, index=True)
     min_credits: Mapped[int] = mapped_column(Integer, nullable=False, default=7)
@@ -62,13 +58,13 @@ class Student(Base, TimestampMixin):
 
     user = relationship("User", back_populates="student_profile")
     student_schedules = relationship(
-        "StudentSchedule", back_populates="student", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "StudentSchedule", back_populates="student", cascade="all, delete-orphan"
     )
     course_enrollments = relationship(
-        "StudentCourseEnrollment", back_populates="student", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "StudentCourseEnrollment", back_populates="student", cascade="all, delete-orphan"
     )
     academic_history = relationship(
-        "StudentAcademicHistory", back_populates="student", cascade=CASCADE_ALL_DELETE_ORPHAN
+        "StudentAcademicHistory", back_populates="student", cascade="all, delete-orphan"
     )
     academic_program = relationship("AcademicProgram")
     curriculum_plan = relationship("CurriculumPlan")
@@ -112,7 +108,7 @@ class StudentAcademicHistory(Base, TimestampMixin):
         ForeignKey("courses.id", ondelete="CASCADE"), nullable=False, index=True
     )
     academic_period_id: Mapped[int | None] = mapped_column(
-        ForeignKey(ACADEMIC_PERIOD_ID_FK, ondelete="SET NULL"), nullable=True, index=True
+        ForeignKey("academic_periods.id", ondelete="SET NULL"), nullable=True, index=True
     )
     status: Mapped[StudentAcademicHistoryStatus] = mapped_column(
         Enum(StudentAcademicHistoryStatus), nullable=False, index=True
@@ -142,7 +138,7 @@ class StudentCourseEnrollment(Base, TimestampMixin):
     )
     academic_period: Mapped[str] = mapped_column(String(20), nullable=False, default="2026-1", index=True)
     academic_period_id: Mapped[int | None] = mapped_column(
-        ForeignKey(ACADEMIC_PERIOD_ID_FK, ondelete="SET NULL"), nullable=True, index=True
+        ForeignKey("academic_periods.id", ondelete="SET NULL"), nullable=True, index=True
     )
     status: Mapped[str] = mapped_column(String(30), nullable=False, default="ENROLLED")
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)

@@ -8,9 +8,6 @@ from app.core.database import Base
 from app.models.base import TimestampMixin
 
 
-USERS_ID_FK = "users.id"
-
-
 class NotificationType(str, enum.Enum):
     INFO = "INFO"
     SUCCESS = "SUCCESS"
@@ -59,7 +56,7 @@ class Notification(Base, TimestampMixin):
     __tablename__ = "notifications"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey(USERS_ID_FK, ondelete="CASCADE"), nullable=False, index=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     title: Mapped[str] = mapped_column(String(180), nullable=False)
     message: Mapped[str] = mapped_column(Text, nullable=False)
     notification_type: Mapped[NotificationType] = mapped_column(Enum(NotificationType), nullable=False, index=True)
@@ -75,7 +72,7 @@ class AuditLog(Base):
     __tablename__ = "audit_logs"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
-    user_id: Mapped[int | None] = mapped_column(ForeignKey(USERS_ID_FK, ondelete="SET NULL"), nullable=True, index=True)
+    user_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
     user_role: Mapped[str | None] = mapped_column(String(30), nullable=True)
     action: Mapped[AuditAction] = mapped_column(Enum(AuditAction), nullable=False, index=True)
     entity_type: Mapped[str] = mapped_column(String(80), nullable=False, index=True)
@@ -100,7 +97,7 @@ class SchedulePublicationHistory(Base):
     academic_period_id: Mapped[int | None] = mapped_column(
         ForeignKey("academic_periods.id", ondelete="SET NULL"), nullable=True, index=True
     )
-    published_by_user_id: Mapped[int] = mapped_column(ForeignKey(USERS_ID_FK), nullable=False, index=True)
+    published_by_user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False, index=True)
     previous_status: Mapped[str] = mapped_column(String(30), nullable=False)
     new_status: Mapped[str] = mapped_column(String(30), nullable=False)
     publication_notes: Mapped[str | None] = mapped_column(Text, nullable=True)
@@ -127,7 +124,7 @@ class ScheduleChangeHistory(Base):
     schedule_block_id: Mapped[int | None] = mapped_column(
         ForeignKey("schedule_blocks.id", ondelete="SET NULL"), nullable=True, index=True
     )
-    changed_by_user_id: Mapped[int] = mapped_column(ForeignKey(USERS_ID_FK), nullable=False, index=True)
+    changed_by_user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False, index=True)
     change_type: Mapped[ScheduleChangeType] = mapped_column(Enum(ScheduleChangeType), nullable=False, index=True)
     description: Mapped[str] = mapped_column(Text, nullable=False)
     old_values: Mapped[dict | None] = mapped_column(JSON, nullable=True)

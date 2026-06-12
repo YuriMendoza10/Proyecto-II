@@ -5,9 +5,6 @@ from app.core.database import Base
 from app.models.base import TimestampMixin
 
 
-CASCADE_ALL_DELETE_ORPHAN = "all, delete-orphan"
-
-
 class Course(Base, TimestampMixin):
     __tablename__ = "courses"
 
@@ -59,31 +56,31 @@ class Course(Base, TimestampMixin):
     sections = relationship(
         "CourseSection",
         back_populates="course",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
 
     student_enrollments = relationship(
         "StudentCourseEnrollment",
         back_populates="course",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
 
     academic_history = relationship(
         "StudentAcademicHistory",
         back_populates="course",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
 
     curriculum_courses = relationship(
         "CurriculumCourse",
         back_populates="course",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
 
     section_offerings = relationship(
         "SectionOffering",
         back_populates="course",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
 
 
@@ -136,5 +133,5 @@ class CourseSection(Base, TimestampMixin):
     schedule_blocks = relationship(
         "ScheduleBlock",
         back_populates="section",
-        cascade=CASCADE_ALL_DELETE_ORPHAN,
+        cascade="all, delete-orphan",
     )
