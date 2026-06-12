@@ -34,28 +34,31 @@ docker ps
 
 ---
 
-# 3. Levantar el proyecto con Docker Compose
+# 3. Levantar el proyecto con Docker Compose usando `.docker.env`
+
+> Importante: el proyecto debe levantarse usando `.docker.env`, porque ese archivo contiene las credenciales alineadas con el volumen MySQL existente.
+> No usar `docker compose down -v`, porque elimina volúmenes y puede borrar la base de datos.
 
 ```powershell
-docker compose up -d --build
+docker compose --env-file .docker.env up -d --build
 ```
 
 Ver contenedores:
 
 ```powershell
-docker compose ps
+docker compose --env-file .docker.env ps
 ```
 
 Ver logs rápidos:
 
 ```powershell
-docker compose logs --tail=100
+docker compose --env-file .docker.env logs --tail=100
 ```
 
 Ver logs en vivo:
 
 ```powershell
-docker compose logs -f
+docker compose --env-file .docker.env logs -f
 ```
 
 ---
@@ -82,21 +85,47 @@ http://localhost:8000/docs
 
 ---
 
-# 5. Ejecutar migraciones si la base de datos lo requiere
+# 5. Estado recuperado de la base de datos
+
+Después de alinear `.docker.env` con el volumen MySQL existente, se recuperaron los datos del sistema.
+
+| Entidad             | Cantidad recuperada |
+| ------------------- | ------------------: |
+| Usuarios            |                 226 |
+| Docentes            |                  68 |
+| Estudiantes         |                 155 |
+| Cursos              |                  75 |
+| Aulas               |                  68 |
+| Horarios            |                  22 |
+| Bloques de horario  |               1,575 |
+| Ofertas             |                  68 |
+| Periodos académicos |                   1 |
+
+Estado de migraciones:
+
+```txt
+Alembic: k2085f6a7b2c (head)
+```
+
+---
+
+# 6. Ejecutar migraciones si la base de datos lo requiere
+
+Solo ejecutar si el backend indica que faltan migraciones.
 
 ```powershell
-docker compose exec backend alembic upgrade head
+docker compose --env-file .docker.env exec backend alembic upgrade head
 ```
 
 Si no reconoce `alembic`:
 
 ```powershell
-docker compose exec backend python -m alembic upgrade head
+docker compose --env-file .docker.env exec backend python -m alembic upgrade head
 ```
 
 ---
 
-# 6. Pruebas unitarias frontend
+# 7. Pruebas unitarias frontend
 
 ```powershell
 npm --prefix frontend run test
@@ -124,7 +153,7 @@ True
 
 ---
 
-# 7. Pruebas unitarias backend
+# 8. Pruebas unitarias backend
 
 ```powershell
 cd backend
@@ -141,7 +170,7 @@ Resultado esperado:
 
 ---
 
-# 8. Pruebas backend con cobertura
+# 9. Pruebas backend con cobertura
 
 ```powershell
 cd backend
@@ -171,7 +200,7 @@ True
 
 ---
 
-# 9. Pruebas de integración backend
+# 10. Pruebas de integración backend
 
 ```powershell
 cd backend
@@ -187,7 +216,7 @@ Resultado esperado:
 
 ---
 
-# 10. Pruebas de seguridad OWASP backend
+# 11. Pruebas de seguridad OWASP backend
 
 ```powershell
 cd backend
@@ -213,7 +242,7 @@ Estas pruebas validan:
 
 ---
 
-# 11. Pruebas E2E con Playwright
+# 12. Pruebas E2E con Playwright
 
 ```powershell
 npm --prefix frontend run e2e
@@ -236,7 +265,7 @@ cd ..
 
 ---
 
-# 12. Pruebas de aceptación con Cypress
+# 13. Pruebas de aceptación con Cypress
 
 Abrir Cypress:
 
@@ -262,7 +291,7 @@ Si Cypress falla por binario o entorno gráfico, se documenta como limitación d
 
 ---
 
-# 13. Auditoría OWASP frontend
+# 14. Auditoría OWASP frontend
 
 ```powershell
 npm --prefix frontend audit
@@ -280,9 +309,11 @@ No ejecutar:
 npm audit fix --force
 ```
 
+Porque puede romper dependencias de Cypress o el entorno de pruebas.
+
 ---
 
-# 14. Auditoría OWASP backend
+# 15. Auditoría OWASP backend
 
 ```powershell
 py -m pip_audit -r backend/requirements.txt
@@ -302,7 +333,7 @@ Found 19 known vulnerabilities in 6 packages
 
 ---
 
-# 15. Build frontend
+# 16. Build frontend
 
 ```powershell
 npm --prefix frontend run build
@@ -316,7 +347,7 @@ built successfully
 
 ---
 
-# 16. SonarQube
+# 17. SonarQube
 
 Levantar SonarQube si existe:
 
@@ -372,10 +403,18 @@ Duplications: 4.5 %
 
 ---
 
-# 17. Apagar Docker al finalizar
+# 18. Apagar Docker al finalizar sin borrar datos
+
+Para detener los servicios sin eliminar datos:
 
 ```powershell
-docker compose down
+docker compose --env-file .docker.env stop
+```
+
+También se puede usar:
+
+```powershell
+docker compose --env-file .docker.env down
 ```
 
 No usar:
@@ -384,17 +423,17 @@ No usar:
 docker compose down -v
 ```
 
-porque elimina volúmenes y puede borrar la base de datos.
+Porque elimina volúmenes y puede borrar la base de datos.
 
 ---
 
-# 18. Orden recomendado para ejecutar en vivo
+# 19. Orden recomendado para ejecutar en vivo
 
 ```powershell
 cd D:\CHATTT\Proyecto-II-compartido
 
-docker compose up -d --build
-docker compose ps
+docker compose --env-file .docker.env up -d --build
+docker compose --env-file .docker.env ps
 
 npm --prefix frontend run test
 
@@ -432,8 +471,38 @@ Remove-Item Env:\SONAR_TOKEN
 
 ---
 
-# 19. Frase para explicar en la sustentación
+# 20. Verificación rápida de funcionamiento
+
+```powershell
+docker compose --env-file .docker.env ps
+```
+
+Abrir:
 
 ```txt
-Se levantó el sistema con Docker Compose y se ejecutaron pruebas unitarias, pruebas de integración, pruebas de seguridad, pruebas E2E, auditoría de dependencias, build de producción y análisis SonarQube como parte de la validación integral de calidad del proyecto OptiAcademic.
+http://localhost:5173
+http://localhost:8000/docs
+```
+
+Verificar en la app:
+
+```txt
+- Login
+- Dashboard
+- Docentes
+- Estudiantes
+- Cursos
+- Aulas
+- Horarios
+- Vista de horarios
+- Generador CSP institucional
+- Reporte de sostenibilidad
+```
+
+---
+
+# 21. Frase para explicar en la sustentación
+
+```txt
+Se levantó el sistema con Docker Compose usando el archivo .docker.env alineado al volumen MySQL existente. No se borraron volúmenes ni se ejecutaron seeds. Se recuperaron los datos reales del sistema, incluyendo usuarios, docentes, estudiantes, cursos, aulas, horarios y bloques. Además, se ejecutaron pruebas unitarias, pruebas de integración, pruebas de seguridad, pruebas E2E, auditoría de dependencias, build de producción y análisis SonarQube como parte de la validación integral de calidad del proyecto OptiAcademic.
 ```
