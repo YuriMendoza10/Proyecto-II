@@ -12,6 +12,9 @@ from app.schemas.student_academic_history_schema import (
 )
 
 
+HISTORY_NOT_FOUND_MESSAGE = "Registro de historial no encontrado"
+
+
 class StudentAcademicHistoryService:
     def __init__(self, db: Session):
         self.db = db
@@ -116,7 +119,7 @@ class StudentAcademicHistoryService:
     def get_history_record(self, record_id: int) -> dict:
         record = self._query().filter(StudentAcademicHistory.id == record_id).first()
         if not record:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Registro de historial no encontrado")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=HISTORY_NOT_FOUND_MESSAGE)
         return self._serialize(record)
 
     def _validated_entities(self, student_id: int, course_id: int, academic_period_id: int | None):
@@ -150,7 +153,7 @@ class StudentAcademicHistoryService:
     def update_history_record(self, record_id: int, payload: StudentAcademicHistoryUpdate) -> dict:
         record = self.db.get(StudentAcademicHistory, record_id)
         if not record:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Registro de historial no encontrado")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=HISTORY_NOT_FOUND_MESSAGE)
         values = payload.model_dump(exclude_unset=True)
         course_id = values.get("course_id", record.course_id)
         period_id = values.get("academic_period_id", record.academic_period_id)
@@ -172,7 +175,7 @@ class StudentAcademicHistoryService:
     def delete_history_record(self, record_id: int) -> dict:
         record = self.db.get(StudentAcademicHistory, record_id)
         if not record:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Registro de historial no encontrado")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=HISTORY_NOT_FOUND_MESSAGE)
         self.db.delete(record)
         self.db.commit()
         return {"message": "Registro de historial eliminado correctamente"}

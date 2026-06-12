@@ -392,8 +392,8 @@ export default function MatriculaPanel({ user, vistaInicial = 'oferta' }) {
                 <div className="bg-red-50 border border-red-200 rounded-xl p-4">
                     <div className="flex items-center gap-2 text-red-700 mb-2"><AlertCircle size={18} /> Conflictos de horario</div>
                     <ul className="list-disc list-inside text-sm text-red-600 space-y-1">
-                        {conflictosHorarios.map((c, i) => (
-                            <li key={i}>{c.curso1} y {c.curso2} coinciden en {c.horario}</li>
+                        {conflictosHorarios.map((c) => (
+                            <li key={`${c.curso1}-${c.curso2}-${c.horario}`}>{c.curso1} y {c.curso2} coinciden en {c.horario}</li>
                         ))}
                     </ul>
                 </div>
@@ -401,8 +401,8 @@ export default function MatriculaPanel({ user, vistaInicial = 'oferta' }) {
             {recomendaciones.length > 0 && (
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
                     <div className="flex items-center gap-2 text-blue-700 mb-2"><Zap size={18} /> Recomendaciones</div>
-                    {recomendaciones.map((rec, i) => (
-                        <div key={i} className="text-sm text-blue-600">📌 {rec.nombre} — {rec.razon}</div>
+                    {recomendaciones.map((rec) => (
+                        <div key={`${rec.nombre}-${rec.razon}`} className="text-sm text-blue-600">📌 {rec.nombre} — {rec.razon}</div>
                     ))}
                 </div>
             )}

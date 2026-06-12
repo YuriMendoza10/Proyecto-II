@@ -31,7 +31,6 @@ export default function ForgotPassword({ onBack }) {
 
                 // Guardar token para desarrollo (solo si está en modo dev)
                 if (data.dev_token) {
-                    console.log('🔐 Token de desarrollo:', data.dev_token)
                     localStorage.setItem('reset_token', data.dev_token)
                 }
             } else {

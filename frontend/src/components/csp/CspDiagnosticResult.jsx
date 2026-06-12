@@ -17,7 +17,7 @@ export default function CspDiagnosticResult({ data, scheduleLabel }) {
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <Header
                 title="Diagnostico completado"
-                tone={success ? 'success' : warning ? 'warning' : 'danger'}
+                tone={getDiagnosticTone(success, warning)}
                 subtitle={data.summary_text || data.message || data.summary?.message || 'Revision de dominios CSP terminada.'}
             />
             <div className="mt-5 grid gap-3 md:grid-cols-3 xl:grid-cols-6">
@@ -35,6 +35,12 @@ export default function CspDiagnosticResult({ data, scheduleLabel }) {
             <CspTechnicalDetails data={data} />
         </section>
     )
+}
+
+function getDiagnosticTone(success, warning) {
+    if (success) return 'success'
+    if (warning) return 'warning'
+    return 'danger'
 }
 
 function Header({ title, subtitle, tone }) {

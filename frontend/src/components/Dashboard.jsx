@@ -1,5 +1,5 @@
 // D:\TALLER 2\optiacademic\frontend\src\components\Dashboard.jsx
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import HorarioUniversitario from './HorarioUniversitario'
 import toast, { Toaster } from 'react-hot-toast'
 import api from '../api'

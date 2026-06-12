@@ -15,6 +15,9 @@ from app.schemas.teacher_schema import (
 )
 
 
+TEACHER_NOT_FOUND_MESSAGE = "Docente no encontrado"
+
+
 class TeacherService:
     def __init__(self, db: Session):
         self.db = db
@@ -40,7 +43,7 @@ class TeacherService:
         if not teacher:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="Docente no encontrado",
+                detail=TEACHER_NOT_FOUND_MESSAGE,
             )
 
         if current_user and current_user.role == UserRole.TEACHER:
@@ -127,7 +130,7 @@ class TeacherAvailabilityService:
         if not teacher:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="Docente no encontrado",
+                detail=TEACHER_NOT_FOUND_MESSAGE,
             )
 
         self._ensure_teacher_access(teacher_id, current_user)
@@ -166,7 +169,7 @@ class TeacherAvailabilityService:
         if not teacher:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="Docente no encontrado",
+                detail=TEACHER_NOT_FOUND_MESSAGE,
             )
 
         self._ensure_teacher_access(teacher.id, current_user)

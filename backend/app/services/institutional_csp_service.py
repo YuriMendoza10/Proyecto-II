@@ -15,6 +15,13 @@ from app.schemas.csp_schema import (
 from app.schemas.schedule_schema import AcademicScheduleUpdate
 
 
+SCHEDULE_NOT_FOUND_MESSAGE = "Horario académico no encontrado"
+NO_SECTIONS_FOR_FILTERS_MESSAGE = (
+    "No hay secciones para programar con los filtros indicados. "
+    "Revisa career_filter, cycle_filter, course_ids o max_sections_to_schedule."
+)
+
+
 class InstitutionalCSPService:
     def __init__(self, db: Session):
         self.db = db
@@ -27,10 +34,7 @@ class InstitutionalCSPService:
         if not sections:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=(
-                    "No hay secciones para programar con los filtros indicados. "
-                    "Revisa career_filter, cycle_filter, course_ids o max_sections_to_schedule."
-                ),
+                detail=NO_SECTIONS_FOR_FILTERS_MESSAGE,
             )
 
         engine = self._build_engine_from_request(request, sections=sections)
@@ -74,10 +78,7 @@ class InstitutionalCSPService:
         if not sections:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=(
-                    "No hay secciones para programar con los filtros indicados. "
-                    "Revisa career_filter, cycle_filter, course_ids o max_sections_to_schedule."
-                ),
+                detail=NO_SECTIONS_FOR_FILTERS_MESSAGE,
             )
 
         if request.clear_existing_blocks:
@@ -108,7 +109,7 @@ class InstitutionalCSPService:
         if not schedule:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="Horario académico no encontrado",
+                detail=SCHEDULE_NOT_FOUND_MESSAGE,
             )
 
         created_blocks = self._save_selected_solution(
@@ -149,10 +150,7 @@ class InstitutionalCSPService:
         if not sections:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=(
-                    "No hay secciones para programar con los filtros indicados. "
-                    "Revisa career_filter, cycle_filter, course_ids o max_sections_to_schedule."
-                ),
+                detail=NO_SECTIONS_FOR_FILTERS_MESSAGE,
             )
 
         engine = self._build_engine_from_request(request, sections=sections)
@@ -193,7 +191,7 @@ class InstitutionalCSPService:
         if not schedule:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="Horario académico no encontrado",
+                detail=SCHEDULE_NOT_FOUND_MESSAGE,
             )
 
         if request.clear_existing_blocks:
@@ -241,7 +239,7 @@ class InstitutionalCSPService:
         if not schedule:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="Horario académico no encontrado",
+                detail=SCHEDULE_NOT_FOUND_MESSAGE,
             )
 
         if not schedule.is_active:

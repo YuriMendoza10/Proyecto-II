@@ -1,6 +1,6 @@
 // D:\TALLER 2\optiacademic\frontend\src\components\GestionarSolicitudes.jsx
 import { useState, useEffect } from 'react'
-import { CheckCircle, XCircle, Clock, Eye, RefreshCw } from 'lucide-react'
+import { CheckCircle, XCircle, Clock } from 'lucide-react'
 import toast, { Toaster } from 'react-hot-toast'
 
 const API_URL = 'http://localhost:8000/api/v1'
