@@ -1,4 +1,4 @@
-# Interpretacion SUS
+﻿# Interpretacion SUS
 
 | Puntaje | Interpretacion |
 |---:|---|
@@ -8,14 +8,6 @@
 | 70 a 80 | Bueno |
 | Mayor a 80 | Excelente |
 
-## Interpretacion tecnica
+## Estado actual
 
-El puntaje SUS debe analizarse considerando:
-
-- Nivel de aceptabilidad.
-- Facilidad de uso percibida.
-- Confianza del usuario.
-- Dificultad de aprendizaje.
-- Oportunidades de mejora por rol.
-
-No se debe afirmar un resultado positivo sin aplicar el instrumento a participantes reales.
+Pendiente de aplicacion real. No se debe presentar un puntaje final sin respuestas verificables de participantes.

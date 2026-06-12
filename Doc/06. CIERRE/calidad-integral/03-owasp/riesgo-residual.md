@@ -1,13 +1,11 @@
-# Riesgo residual
+﻿# Riesgo residual OWASP
 
-| Area | Riesgo residual | Impacto | Accion recomendada |
+| Riesgo | Evidencia | Motivo para no aplicar fix automatico | Plan |
 |---|---|---|---|
-| Autorizacion por rol | No todos los endpoints tienen pruebas especificas por rol | Acceso indebido si una ruta queda mal protegida | Agregar pruebas de permisos ADMIN, COORDINATOR, TEACHER y STUDENT |
-| Dependencias | Falta evidencia de `npm audit` y `pip-audit` | Vulnerabilidades conocidas no detectadas | Ejecutar auditorias y registrar capturas |
-| Configuracion productiva | CORS, debug y variables dependen del entorno final | Exposicion por configuracion incorrecta | Revisar antes de despliegue |
-| Datos sensibles | Algunos reportes pueden devolver campos extensos | Exposicion innecesaria | Revisar serializacion y payloads |
-| Validacion negativa | Faltan mas casos de entradas maliciosas | Errores 500 o validacion incompleta | Agregar pruebas de payloads invalidos |
+| Vulnerabilidades moderadas frontend | `npm audit`: 4 moderadas en dependencias relacionadas con Cypress | `npm audit fix --force` podria instalar Cypress 13.14.2 y romper entorno de pruebas | Crear rama de actualizacion, ejecutar Vitest, Playwright y Cypress |
+| Vulnerabilidades backend | `pip-audit`: 19 vulnerabilidades en 6 paquetes | Actualizar JWT, multipart, Starlette o cryptography puede romper compatibilidad FastAPI | Crear rama de hardening, actualizar por paquete y ejecutar Pytest completo |
+| Security Hotspots no revisados | SonarQube: 0.0 % reviewed | Requieren clasificacion manual, no correccion automatica | Revisar hotspot por hotspot y adjuntar captura |
+| WCAG sin capturas | Checklist preparado | Falta ejecucion manual/Lighthouse | Ejecutar Lighthouse y navegacion por teclado |
+| SUS sin respuestas reales | Instrumento preparado | No se deben inventar participantes | Aplicar cuestionario a usuarios reales o de prueba |
 
-## Interpretacion
-
-El riesgo residual es controlable, pero no debe marcarse como cerrado sin evidencias reales de auditoria. La prioridad siguiente es capturar pruebas de seguridad, auditorias de dependencias y permisos por rol.
+Los riesgos residuales se consideran controlados para la sustentacion siempre que se expliquen y no se oculten.

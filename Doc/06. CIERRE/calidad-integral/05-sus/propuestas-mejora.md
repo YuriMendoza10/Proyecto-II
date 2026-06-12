@@ -1,15 +1,7 @@
-# Propuestas de mejora derivadas de SUS
+﻿# Propuestas de mejora derivadas de SUS
 
-Registrar propuestas despues de aplicar el instrumento.
-
-| Hallazgo SUS | Rol afectado | Propuesta de mejora | Prioridad | Estado |
+| Hallazgo SUS | Evidencia | Propuesta de mejora | Prioridad | Estado |
 |---|---|---|---|---|
-| Pendiente de aplicacion | Pendiente | Pendiente | Pendiente | Pendiente |
+| Pendiente de aplicacion | Pendiente | Completar despues de aplicar cuestionario | Pendiente | Pendiente |
 
-## Ejemplos de posibles lineas de mejora
-
-- Simplificar textos en reportes.
-- Reducir pasos en generacion de horarios.
-- Mejorar mensajes de error.
-- Reforzar ayuda contextual.
-- Mejorar navegacion por teclado.
+Las propuestas deben derivarse de respuestas reales y comentarios de participantes.

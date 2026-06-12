@@ -1,64 +1,29 @@
-# OWASP Top 10 2025
+﻿# OWASP Top 10 2025
 
-Esta carpeta documenta la revision de seguridad de OptiAcademic segun OWASP Top 10 2025. La evaluacion se adapta al stack real del proyecto: React + Vite en frontend, FastAPI + SQLAlchemy en backend y MySQL como base de datos.
+Esta seccion documenta la auditoria de seguridad de OptiAcademic alineada a OWASP Top 10 2025.
 
-## Superficie evaluada
+## Evidencias reales documentadas
 
-- Autenticacion con login y JWT.
-- Autorizacion por roles: ADMIN, COORDINATOR, TEACHER y STUDENT.
-- Rutas protegidas y endpoints administrativos.
-- Validaciones Pydantic en backend.
-- Formularios y validaciones en frontend.
-- Acceso a datos academicos de estudiantes, docentes, horarios y reportes.
-- Configuracion de Docker Compose, CORS, variables de entorno y archivos `.env`.
-- Auditoria, trazabilidad, logs y reporte ambiental.
+| Evidencia | Resultado |
+|---|---|
+| Pruebas backend de seguridad | 9 passed, 3 warnings no bloqueantes |
+| SonarQube vulnerabilities | 0 |
+| npm audit | 4 vulnerabilidades moderadas |
+| pip-audit | 19 vulnerabilidades conocidas en 6 paquetes |
 
-## Categorias aplicadas
-
-- Broken Access Control.
-- Authentication Failures.
-- Injection.
-- Security Misconfiguration.
-- Vulnerable Components.
-- Data Exposure.
-- Logging and Monitoring.
-- Input Validation.
-
-## Mitigaciones existentes
-
-- Rutas protegidas sin token devuelven 401 o 403.
-- Login invalido devuelve error controlado.
-- Tokens JWT para sesiones autenticadas.
-- Roles para separar permisos administrativos, academicos y estudiantiles.
-- Validaciones Pydantic para datos de entrada.
-- SQLAlchemy reduce riesgo de SQL injection frente a concatenacion manual.
-- `.env` se mantiene fuera del repositorio.
-- Pruebas backend de seguridad en `backend/tests/test_security_core.py`.
-
-## Comandos de evidencia
+## Comandos usados
 
 ```powershell
 cd backend
-py -m pytest tests/test_security_core.py -v
+py -m pytest tests/test_security_core.py tests/test_semana13_integration_api.py -v
 cd ..
-```
 
-```powershell
 npm --prefix frontend audit
-```
 
-```powershell
 py -m pip install pip-audit
 py -m pip_audit -r backend/requirements.txt
 ```
 
-## Evidencias pendientes
+## Interpretacion
 
-- Captura de login invalido.
-- Captura de ruta protegida sin token.
-- Resultado de `test_security_core.py`.
-- Resultado de `npm audit`.
-- Resultado de `pip-audit`.
-- Revision de riesgos residuales.
-
-No se inventan vulnerabilidades explotadas ni resultados de auditoria. Las evidencias deben provenir de ejecuciones reales.
+Las pruebas validan autenticacion, JWT, rechazo de token invalido, login invalido y bloqueo de rutas protegidas. Las vulnerabilidades de dependencias detectadas no se corrigen automaticamente antes de la sustentacion para evitar romper compatibilidad; se documentan como riesgo residual controlado.

@@ -1,28 +1,33 @@
-# Deuda tecnica
+﻿# Deuda tecnica
 
-El analisis inicial reporto 254 code smells y 2 bugs. Estos hallazgos deben revisarse en SonarQube para priorizar correcciones por severidad e impacto.
+## Estado final estable SonarQube
 
-| Hallazgo | Archivo | Severidad | Accion aplicada | Estado |
-|---|---|---|---|---|
-| Comparaciones estrictas entre tipos distintos | `frontend/src/pages/admin/InstitutionalCSPPage.jsx` lineas cercanas a 204 y 208 | Alta | Normalizar valores opcionales con `String()` y `Number()` antes de construir el payload | Corregido, pendiente segunda ejecucion SonarQube |
-| Code smells | Pendiente de detalle | Pendiente | Refactorizar solo si no rompe funcionalidad | Pendiente |
-| Security hotspots no revisados | Pendiente de detalle | Pendiente | Revisar manualmente en SonarQube | Pendiente |
-| Coverage 13.9 % integrada | Configuracion de coverage y alcance combinado | Media | Generar LCOV/XML y configurar Sonar sin excluir logica real | Preparado |
+| Metrica | Resultado |
+|---|---:|
+| Quality Gate | Passed |
+| Bugs | 0 |
+| Vulnerabilities | 0 |
+| Security Hotspots Reviewed | 0.0 % |
+| Code Smells | 254 |
+| Coverage | 13.9 % |
+| Duplications | 4.5 % |
+| Lines | 48k |
 
-## Mitigacion de bugs
+## Interpretacion
 
-Los 2 bugs correspondian a comparaciones estrictas entre valores de distinto tipo. La correccion evita usar `==` y aplica normalizacion segura:
+La deuda tecnica restante se concentra en mantenibilidad: complejidad cognitiva, condicionales anidados, duplicaciones menores, codigo comentado o estilos que SonarQube clasifica como code smells. El rating de mantenibilidad se mantiene en A, por lo que no bloquea el Quality Gate.
 
-- `String(value).trim()` para detectar valores vacios.
-- `Number(value)` para enviar campos numericos opcionales al payload CSP.
-- `null` cuando el campo opcional queda vacio.
+## Bugs corregidos
 
-## Criterios de priorizacion
+Los 2 bugs iniciales se corrigieron mediante normalizacion explicita de tipos en la vista CSP institucional. No se uso comparacion laxa `==`; se normalizaron valores numericos opcionales antes de compararlos o enviarlos al payload.
 
-1. Vulnerabilidades o hotspots de seguridad.
-2. Bugs en flujos de login, CSP, publicacion y reportes.
-3. Code smells en servicios compartidos.
-4. Duplicacion en componentes o endpoints.
-5. Deuda tecnica que afecte mantenibilidad.
+## Deuda pendiente
 
-No aplicar refactors masivos antes de la entrega si pueden romper funcionalidad.
+| Hallazgo | Riesgo | Accion recomendada | Estado |
+|---|---|---|---|
+| Security Hotspots sin revisar | Requiere validacion manual | Revisar en SonarQube y documentar si aplica mitigacion | Pendiente |
+| Code Smells restantes | Mantenibilidad | Priorizar funciones pequenas y seguras antes de refactors grandes | Pendiente |
+| Complejidad en servicios CSP | Riesgo de romper generacion institucional | Refactor progresivo con pruebas focalizadas | Pendiente controlado |
+| Coverage integrada 13.9 % | Verificabilidad global | Aumentar pruebas sobre repositorios y servicios con BD de prueba aislada | Pendiente |
+
+No se deben excluir modulos reales ni maquillar configuraciones para mejorar metricas.

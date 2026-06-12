@@ -1,17 +1,14 @@
-# Metricas antes y despues
+﻿# Metricas antes y despues
 
-| Metrica | Antes | Despues | Variacion | Interpretacion |
-|---|---:|---:|---:|---|
-| Quality Gate | Failed | Pendiente | Pendiente | El analisis inicial fallo por hallazgos de calidad |
-| Bugs | 2 | Pendiente | Pendiente | Bugs en comparaciones estrictas de `InstitutionalCSPPage.jsx` corregidos con normalizacion explicita |
-| Vulnerabilities | 0 | Pendiente | Pendiente | No se reportaron vulnerabilidades iniciales |
-| Code Smells | 254 | Pendiente | Pendiente | Existe deuda de mantenibilidad |
-| Coverage | 13.9 % | Pendiente | Pendiente | Cobertura integrada de SonarQube sobre frontend/backend analizados |
-| Duplications | 4.5 % | Pendiente | Pendiente | Duplicacion moderada |
-| Security Hotspots Reviewed | 0.0 % | Pendiente | Pendiente | Requiere revision manual |
-| Lines | 48k | Pendiente | Pendiente | Tamano aproximado analizado |
-| Technical Debt | Pendiente | Pendiente | Pendiente | Completar con dashboard real |
+| Metrica | Resultado inicial | Resultado final estable | Interpretacion |
+|---|---:|---:|---|
+| Quality Gate | Failed | Passed | Se corrigio el estado de calidad hasta pasar la compuerta. |
+| Bugs | 2 | 0 | Se eliminaron bugs detectados por SonarQube. |
+| Vulnerabilities | 0 | 0 | No se detectan vulnerabilidades directas. |
+| Code Smells | 254 | 254 | Se mantiene rating A y se documenta deuda tecnica restante. |
+| Coverage | 13.9 % | 13.9 % | SonarQube reconoce cobertura integrada. |
+| Duplications | 4.5 % | 4.5 % | Duplicacion baja. |
 
-## Nota
+## Aclaracion
 
-Los valores posteriores deben completarse unicamente despues de ejecutar nuevamente SonarQube con `frontend/coverage/lcov.info` y `backend/coverage.xml`. No se inventan metricas finales.
+Hubo intentos posteriores de reduccion de smells, pero para la evidencia final estable se conserva el analisis Passed con 0 bugs y 0 vulnerabilities. No se inventan resultados posteriores. Si se vuelve a ejecutar SonarQube, esta tabla debe actualizarse solo con capturas reales.

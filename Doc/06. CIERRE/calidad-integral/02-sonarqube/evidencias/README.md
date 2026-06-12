@@ -1,23 +1,27 @@
-# Evidencias SonarQube
+﻿# Evidencias SonarQube
 
-Guardar capturas reales de:
+Guardar aqui capturas reales del analisis SonarQube.
 
-- Dashboard inicial.
-- Dashboard despues de corregir cobertura.
-- Bugs.
-- Vulnerabilities.
-- Security hotspots.
-- Code smells.
-- Coverage.
-- Duplications.
-- Technical debt.
-- Quality gate.
+## Capturas requeridas
 
-## Archivos de cobertura esperados
+- `sonarqube-dashboard-final-passed.png`
+- `sonarqube-bugs-0.png`
+- `sonarqube-vulnerabilities-0.png`
+- `sonarqube-security-hotspots-0-reviewed.png`
+- `sonarqube-code-smells-rating-a.png`
+- `sonarqube-coverage-13-9.png`
+- `sonarqube-duplications-4-5.png`
+- `sonarqube-lines-48k.png`
 
-- `frontend/coverage/lcov.info`
-- `backend/coverage.xml`
+## Resultado que deben sustentar
 
-## Regla
+- Quality Gate: Passed.
+- Bugs: 0.
+- Vulnerabilities: 0.
+- Security Hotspots Reviewed: 0.0 %.
+- Code Smells: 254.
+- Coverage: 13.9 %.
+- Duplications: 4.5 %.
+- Lines: 48k.
 
-No subir tokens, capturas inventadas ni metricas posteriores sin ejecucion real.
+No inventar capturas. Las imagenes deben provenir del dashboard real de SonarQube.
