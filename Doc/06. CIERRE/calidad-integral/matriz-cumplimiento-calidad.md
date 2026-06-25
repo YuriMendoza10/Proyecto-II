@@ -11,3 +11,16 @@
 | Testing automatizado | Frontend 51 passed y 81.11 %; backend 46 passed, 5 skipped y 51 %; Playwright 6 passed, 3 skipped | `06-testing/`, `../semana-13-pruebas/` | Cumple | Cypress configurado, pendiente si el binario local falla por entorno. |
 | Evidencias tecnicas | Guia de capturas para SonarQube, OWASP, WCAG, SUS, testing y GitHub | `07-evidencias/` | En proceso | Agregar capturas reales con los nombres sugeridos. |
 | Presentacion tecnica | Resumen general, matrices y resultados listos para sustentar | `resumen-general-calidad-integral.md` | Pendiente | Preparar diapositivas finales con capturas reales. |
+
+## Relación con control y cierre
+
+Esta matriz alimenta los documentos de cierre del proyecto, especialmente:
+
+- `01-informe-final-proyecto.md`
+- `03-registro-riesgos.md`
+- `04-registro-incidentes.md`
+- `06-registro-defectos.md`
+- `10-documentacion-capacitacion.md`
+- `11-matriz-trazabilidad-cierre.md`
+
+Los criterios de calidad integral respaldan la aceptación técnica del proyecto y sirven como evidencia de que el cierre se realizó con control de configuración, trazabilidad y validación objetiva.

@@ -28,4 +28,17 @@ OptiAcademic no usa MERN. El proyecto real usa React, Vite, Tailwind CSS, Axios,
 - [06-testing](06-testing/)
 - [07-evidencias](07-evidencias/)
 
+## Relación con la fase de control y cierre
+
+La documentación de calidad integral funciona como evidencia técnica para la fase de cierre del proyecto. Sus resultados respaldan:
+
+- El [Informe Final del Proyecto](../01-informe-final-proyecto.md).
+- El [Registro de Riesgos](../03-registro-riesgos.md).
+- El [Registro de Incidentes](../04-registro-incidentes.md).
+- El [Registro de Defectos](../06-registro-defectos.md).
+- La [Documentación de Capacitación](../10-documentacion-capacitacion.md).
+- La [Matriz de Trazabilidad de Cierre](../11-matriz-trazabilidad-cierre.md).
+
+SonarQube, OWASP, WCAG, SUS y testing automatizado permiten demostrar que el cierre no solo documenta entregables, sino también control de calidad, riesgos técnicos, verificabilidad y evidencia objetiva.
+
 No se inventan capturas, puntajes SUS ni metricas. Las evidencias deben provenir de ejecuciones reales del proyecto.
