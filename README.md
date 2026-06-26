@@ -15,7 +15,8 @@ El proyecto integra funcionalidades académicas, validaciones técnicas, generac
 > Agregar aquí la imagen oficial del grupo.
 
 ```md
-![Equipo OptiAcademic](Doc/00.%20RECURSOS/equipo-optiacademic.jpg)
+<img width="612" height="1350" alt="equipo-optiacademic" src="https://github.com/user-attachments/assets/d00fc02f-5195-427c-849f-14022eb20509" />
+
 ```
 
 Si la imagen se guarda en otra ruta, actualizar el enlace correspondiente.
