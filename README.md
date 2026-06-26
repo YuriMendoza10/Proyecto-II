@@ -10,28 +10,22 @@ El proyecto integra funcionalidades académicas, validaciones técnicas, generac
 
 ---
 
-## Imagen del equipo
+## Equipo de desarrollo
 
-> Agregar aquí la imagen oficial del grupo.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d00fc02f-5195-427c-849f-14022eb20509" alt="Equipo OptiAcademic" width="700"/>
+</p>
 
-```md
-<img width="612" height="1350" alt="equipo-optiacademic" src="https://github.com/user-attachments/assets/f6f3302d-bf02-4131-81b4-28ea3fc42b85" />
+El proyecto **OptiAcademic** fue desarrollado de manera colaborativa por estudiantes de Ingeniería de Sistemas e Informática, aplicando buenas prácticas de desarrollo web, documentación técnica, validación de calidad, control de versiones y cierre formal del proyecto.
 
-
-```
-
-Si la imagen se guarda en otra ruta, actualizar el enlace correspondiente.
-
----
-
-## Integrantes del equipo
-
-* Mendoza Vilcahuaman Yuri Luigui
-* Cajamarca Areche Reynaldo Elias
-* Torres Inche Ulises Yerko
-* Yarasca Batalla Jairo Ronald
-* Riveros Sumalabe Fredy
-* Zacarias Lopez Lenning Andree
+| Integrante | Rol destacado |
+|---|---|
+| **Mendoza Vilcahuaman Yuri Luigui** | Desarrollo y documentación |
+| **Cajamarca Areche Reynaldo Elias** | Desarrollo y pruebas |
+| **Torres Inche Ulises Yerko** | Calidad, Docker, SonarQube y cierre |
+| **Yarasca Batalla Jairo Ronald** | Desarrollo y revisión funcional |
+| **Riveros Sumalabe Fredy** | Validación y organización documental |
+| **Zacarias Lopez Lenning Andree** | Pruebas y apoyo en sustentación |
 
 ---
 
