@@ -28,6 +28,7 @@ Formalizar el cierre del proyecto mediante documentos que permitan verificar:
 | [09-declaracion-trabajo-sow.md](09-declaracion-trabajo-sow.md) | Declaración de trabajo y validación de entregables | Documentado |
 | [10-documentacion-capacitacion.md](10-documentacion-capacitacion.md) | Guía operativa para demo, pruebas y sustentación | Documentado |
 | [11-matriz-trazabilidad-cierre.md](11-matriz-trazabilidad-cierre.md) | Trazabilidad de requisitos de cierre y evidencias | Documentado |
+| [12-resumen.md](12-resumen-exposicion-cierre-6-integrantes.md) | Guía resumida para exposición oral de 6 integrantes | Documentado |
 
 ## Evidencias relacionadas
 
