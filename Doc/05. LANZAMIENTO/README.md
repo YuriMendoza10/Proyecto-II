@@ -10,3 +10,7 @@ Esta carpeta está destinada a la preparación de la versión final del proyecto
 - Capturas principales.
 - Material de preparación para exposición.
 - Checklist de funcionalidades críticas.
+
+## Entregable Audiovisual
+
+- [Video explicativo final](video-explicativo.md)

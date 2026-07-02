@@ -10,3 +10,8 @@ Esta carpeta contiene la documentación usada para planificar el proyecto y orga
 - Presupuesto.
 - Gestión de riesgos.
 - Requerimientos iniciales y criterios de avance.
+
+## Control de Configuración
+
+- [Flujo de trabajo Git](flujo-trabajo-git.md)
+- [Versionado semántico](versionado-semantico.md)

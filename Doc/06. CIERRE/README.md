@@ -28,7 +28,8 @@ Formalizar el cierre del proyecto mediante documentos que permitan verificar:
 | [09-declaracion-trabajo-sow.md](09-declaracion-trabajo-sow.md) | Declaración de trabajo y validación de entregables | Documentado |
 | [10-documentacion-capacitacion.md](10-documentacion-capacitacion.md) | Guía operativa para demo, pruebas y sustentación | Documentado |
 | [11-matriz-trazabilidad-cierre.md](11-matriz-trazabilidad-cierre.md) | Trazabilidad de requisitos de cierre y evidencias | Documentado |
-| [12-resumen.md](12-resumen-exposicion-cierre-6-integrantes.md) | Guía resumida para exposición oral de 6 integrantes | Documentado |
+| [12-resumen.md](12-resumen.md) | Guía resumida para exposición oral de 6 integrantes | Documentado |
+| [13-checklist-final-repositorio-pfa.md](13-checklist-final-repositorio-pfa.md) | Matriz final de cumplimiento de la consigna PFA | Documentado con pendientes explícitos |
 
 ## Evidencias relacionadas
 
@@ -37,6 +38,7 @@ Formalizar el cierre del proyecto mediante documentos que permitan verificar:
 - [Entregables según rúbrica](entregables-rubrica/)
 - [Evidencias finales](evidencias/)
 - [Verificación de rúbrica](verificacion-rubrica.md)
+- [Checklist final del repositorio PFA](13-checklist-final-repositorio-pfa.md)
 
 ## Relación con calidad integral
 
