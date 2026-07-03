@@ -34,5 +34,4 @@
 
 ## Estado del Video
 
-**Pendiente:** el video se realizará y adjuntará aparte. No consume una de las
-seis partes principales de esta exposición.
+https://drive.google.com/file/d/1VmEKT5wB81Oyp7M-5Fho3dRoBe3V4lHE/view?usp=sharing
