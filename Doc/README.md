@@ -13,6 +13,7 @@ planificación, implementación, revisión, lanzamiento y cierre.
 - [05. Lanzamiento](05.%20LANZAMIENTO/)
 - [06. Cierre](06.%20CIERRE/)
 - [07. OptiAcademic: sostenibilidad y validación](07.%20OPTIACADEMIC%20-%20SOSTENIBILIDAD%20Y%20VALIDACION/)
+- [08. Exposición Semana 16](08.%20EXPOSICION%20SEMANA%2016/)
 
 ## Documentos de Cumplimiento PFA
 
@@ -23,6 +24,7 @@ planificación, implementación, revisión, lanzamiento y cierre.
 - [Video explicativo](05.%20LANZAMIENTO/video-explicativo.md)
 - [Checklist final del repositorio PFA](06.%20CIERRE/13-checklist-final-repositorio-pfa.md)
 - [Calidad integral](06.%20CIERRE/calidad-integral/)
+- [Guía de exposición Semana 16](08.%20EXPOSICION%20SEMANA%2016/)
 
 El acceso compatible solicitado por la consigna también está disponible en
 [`docs/README.md`](../docs/README.md).

@@ -49,3 +49,6 @@ La carpeta [calidad-integral](calidad-integral/) contiene evidencias y análisis
 **Cierre documentado y versionable.**
 
 La carpeta queda preparada para revisión docente, sustentación académica y auditoría documental del proyecto.
+
+> Para la exposición resumida de la Semana 16, revisar
+> [../08. EXPOSICION SEMANA 16/](../08.%20EXPOSICION%20SEMANA%2016/).

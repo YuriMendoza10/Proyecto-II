@@ -18,6 +18,7 @@ del repositorio PFA. No duplica el contenido oficial.
 | Lanzamiento | [Doc/05. LANZAMIENTO](../Doc/05.%20LANZAMIENTO/) |
 | Cierre | [Doc/06. CIERRE](../Doc/06.%20CIERRE/) |
 | Calidad integral | [SonarQube, OWASP, WCAG, SUS y testing](../Doc/06.%20CIERRE/calidad-integral/) |
+| Exposición Semana 16 | [Guía rápida dividida en seis partes](../Doc/08.%20EXPOSICION%20SEMANA%2016/) |
 
 ## Accesos PFA
 
@@ -27,3 +28,4 @@ del repositorio PFA. No duplica el contenido oficial.
 - [Evidencia de desarrollo colaborativo](../Doc/04.%20REVISION%20Y%20RETROSPECTIVA/evidencia-desarrollo-colaborativo.md)
 - [Video explicativo](../Doc/05.%20LANZAMIENTO/video-explicativo.md)
 - [Checklist final del repositorio PFA](../Doc/06.%20CIERRE/13-checklist-final-repositorio-pfa.md)
+- [Exposición Semana 16](../Doc/08.%20EXPOSICION%20SEMANA%2016/)
