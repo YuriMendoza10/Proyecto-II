@@ -40,8 +40,5 @@ no se vuelve a verificar la base antes de exponer.
 
 ## Dónde está la evidencia completa
 
-- <http://localhost:5173>.
-- <http://localhost:8000>.
-- <http://localhost:8000/docs>.
 - `Doc/06. CIERRE/calidad-integral/07-evidencias/docker-demo-funcionamiento.md`.
 - `Doc/06. CIERRE/13-checklist-final-repositorio-pfa.md`.
