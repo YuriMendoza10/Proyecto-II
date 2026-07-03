@@ -1,45 +1,71 @@
 # Parte 1 - Presentación del Proyecto y Problemática
 
-## Responsable Sugerido
+## Responsable
 
-**Cajamarca Areche Reynaldo Elias**
+Cajamarca Areche Reynaldo Elias.
 
-## Criterios de Rúbrica que Cubre
+## Objetivo de esta parte
 
-- Contenido completo del `README.md`.
-- Nombre del proyecto e integrantes.
+Demostrar qué es OptiAcademic, qué problema universitario resuelve y por qué su
+PMV tiene valor académico y técnico.
+
+## Resumen de lo que se hizo
+
+El equipo desarrolló OptiAcademic como un sistema web inteligente para la
+planificación, generación, validación y publicación de horarios académicos
+universitarios mediante optimización basada en restricciones CSP.
+
+La solución responde a la complejidad de coordinar docentes, aulas, cursos,
+ciclos, secciones y disponibilidad. El PMV centraliza la información académica
+y permite gestionar docentes, estudiantes, cursos, aulas, secciones y
+horarios, reduciendo el riesgo de cruces, duplicidad de datos, baja
+trazabilidad y carga administrativa.
+
+## Qué criterio de la rúbrica cumple
+
+- Nombre del proyecto.
+- Integrantes del equipo.
 - Problemática abordada.
-- Justificación e implementación del PMV.
+- Justificación del PMV.
+- README completo.
+- Implementación coherente del PMV.
 
-## Qué Debe Explicar
+## Evidencia resumida
 
-- OptiAcademic es una plataforma web para planificación académica.
-- El problema combina docentes, aulas, cursos, ciclos, secciones y disponibilidad.
-- La coordinación manual puede producir cruces, inconsistencias y baja trazabilidad.
-- El PMV centraliza datos y genera horarios mediante restricciones CSP.
-- El proyecto integra valor académico, técnico y de gestión.
+El README identifica el proyecto y al equipo, explica la problemática de la
+planificación manual y delimita el PMV. La documentación general enlaza el
+problema con las funcionalidades académicas y el motor CSP implementado.
 
-## Qué Debe Mostrar
+## Dónde está la evidencia completa
 
-1. [`README.md`](../../README.md).
-2. Sección **Problemática**.
-3. Sección **Justificación del PMV**.
-4. Sección **Equipo**.
+- `README.md`, especialmente las secciones Equipo, Problemática y
+  Justificación del PMV.
+- `Doc/README.md`.
+- `docs/README.md`.
 
-## Guion Breve Sugerido
+## Cómo explicarlo al docente
 
-> OptiAcademic es un sistema web inteligente para la planificación,
-> generación, validación y publicación de horarios académicos universitarios
-> mediante optimización basada en restricciones. El problema abordado es la
-> complejidad de organizar docentes, aulas, cursos, ciclos, secciones y
-> disponibilidad sin producir cruces, duplicidad de datos o pérdida de
-> trazabilidad. El PMV centraliza esta información y permite validar, generar,
-> revisar y publicar horarios de manera controlada. Su valor académico está en
-> aplicar arquitectura Full Stack, gestión de proyecto y calidad de software a
-> una necesidad universitaria real.
+> En esta parte mostramos que OptiAcademic es un sistema web inteligente para
+> planificar, generar, validar y publicar horarios académicos mediante
+> restricciones CSP. El problema es que organizar manualmente docentes, aulas,
+> cursos, ciclos, secciones y disponibilidad puede producir cruces, datos
+> duplicados y poca trazabilidad. El PMV centraliza esa información y permite
+> gestionar los elementos académicos necesarios para apoyar la generación de
+> horarios. Esto se evidencia en el README, donde también aparecen el equipo,
+> la problemática y la justificación. Con esto cumplimos los criterios de
+> identificación del proyecto, coherencia del PMV y documentación inicial. Si
+> el docente desea revisar el detalle, se encuentra en `README.md`,
+> `Doc/README.md` y `docs/README.md`.
 
-## Conexión con la Parte 2
+## Qué mostrar durante la exposición
 
-> Con esto queda claro qué problema resuelve el proyecto. Ahora se explicará
+- Título y descripción de `README.md`.
+- Sección Equipo.
+- Sección Problemática.
+- Sección Justificación del PMV.
+
+## Transición a la siguiente parte
+
+> Con esto queda claro qué problema resuelve OptiAcademic. Ahora se explicará
 > cómo se gestionó el repositorio, el control de versiones y el versionado del
 > PMV.

@@ -1,55 +1,74 @@
 # Parte 2 - Repositorio, Git y Versionado
 
-## Responsable Sugerido
+## Responsable
 
-**Mendoza Vilcahuaman Yuri Luigui**
+Mendoza Vilcahuaman Yuri Luigui.
 
-## Criterios de Rúbrica que Cubre
+## Objetivo de esta parte
+
+Demostrar que el proyecto cuenta con un repositorio estable, control de
+versiones, flujo de ramas e identificación semántica del PMV.
+
+## Resumen de lo que se hizo
+
+El repositorio oficial compartido con el docente es
+<https://github.com/YuriMendoza10/Proyecto-II.git>. El equipo utilizó Git para
+registrar el desarrollo progresivo mediante ramas y commits descriptivos.
+
+Se documentó Feature Branch Workflow para organizar funcionalidades,
+correcciones, pruebas y documentación antes de integrarlas en `main`. También
+se definió el uso de versionado semántico `MAJOR.MINOR.PATCH`, identificando el
+PMV esperado como `v1.0.0`.
+
+## Qué criterio de la rúbrica cumple
 
 - Gestión del repositorio GitHub y URL estable.
-- Control de versiones, ramas y commits significativos.
+- Control de versiones Git.
+- Uso de ramas.
+- Commits significativos.
 - Pull requests o integración documentada.
-- Feature Branch Workflow.
-- Versionado semántico y tag `v1.0.0`.
+- Flujo de trabajo definido.
+- Versionado semántico.
+- Tag `v1.0.0`.
 
-## Qué Debe Explicar
+## Evidencia resumida
 
-- Repositorio: <https://github.com/YuriMendoza10/Proyecto-II.git>.
-- Git conserva el desarrollo progresivo mediante commits descriptivos.
-- Las ramas aíslan funcionalidades, correcciones, pruebas y documentación.
-- `main` representa la línea estable después de integración.
-- El flujo elegido es Feature Branch Workflow.
-- El PMV debe identificarse con SemVer como `v1.0.0`.
+El historial local y remoto contiene ramas, commits progresivos e integración
+documentada. Los documentos de planificación explican el flujo de trabajo y
+los criterios de SemVer.
 
-> **Pendiente crítico:** el comando `git tag` no muestra todavía el tag exacto
-> `v1.0.0`. No afirmar durante la exposición que ya existe.
+Los comandos `git tag` y `git ls-remote --tags origin` confirman que el tag
+exacto `v1.0.0` existe localmente y está publicado en GitHub. El PMV cuenta con
+la identificación semántica solicitada.
 
-## Qué Debe Mostrar
+## Dónde está la evidencia completa
 
-1. Repositorio GitHub: commits, ramas y tags.
-2. [Flujo de trabajo Git](../02.%20PLANIFICACION/flujo-trabajo-git.md).
-3. [Versionado semántico](../02.%20PLANIFICACION/versionado-semantico.md).
+- Repositorio GitHub, pestañas Commits, Branches, Pull requests y Tags.
+- `Doc/02. PLANIFICACION/flujo-trabajo-git.md`.
+- `Doc/02. PLANIFICACION/versionado-semantico.md`.
+- Comandos `git log --oneline --all`, `git branch -a` y `git tag`.
 
-Comandos de apoyo:
+## Cómo explicarlo al docente
 
-```bash
-git log --oneline --decorate --graph --all -30
-git branch -a
-git tag
-```
+> En esta parte mostramos que el proyecto se gestionó con Git y GitHub en un
+> repositorio estable compartido con el docente. Se utilizaron ramas y commits
+> descriptivos para evidenciar el desarrollo progresivo, aplicando Feature
+> Branch Workflow para integrar cambios revisados hacia `main`. Esto se
+> evidencia en el historial, las ramas y la integración documentada, además de
+> los archivos de planificación. También definimos versionado semántico para
+> identificar el PMV como `v1.0.0`. Con esto cumplimos la gestión del
+> repositorio, control de versiones y flujo de trabajo. El comando `git tag`
+> confirma que `v1.0.0` existe localmente y también está publicado en GitHub.
 
-## Guion Breve Sugerido
+## Qué mostrar durante la exposición
 
-> El proyecto se gestionó en GitHub mediante Git, usando ramas, commits
-> descriptivos y un flujo Feature Branch Workflow. Este enfoque permite
-> trabajar cambios de funcionalidad, pruebas y documentación de forma aislada,
-> para después integrarlos a `main` como rama estable. El historial evidencia
-> una evolución progresiva y existe integración documentada mediante pull
-> request. También se definió versionado semántico: el PMV corresponde a
-> `v1.0.0`, las mejoras compatibles incrementan MINOR y las correcciones PATCH.
-> El tag exacto `v1.0.0` permanece pendiente antes de la entrega final.
+- Página principal del repositorio GitHub.
+- Historial de commits y ramas.
+- Tags disponibles.
+- `flujo-trabajo-git.md`.
+- `versionado-semantico.md`.
 
-## Conexión con la Parte 3
+## Transición a la siguiente parte
 
 > Después de revisar la gestión del repositorio, ahora se explicará cómo está
 > organizada técnicamente la arquitectura del sistema.

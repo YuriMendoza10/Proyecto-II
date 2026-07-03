@@ -1,59 +1,72 @@
 # Parte 4 - PMV Funcional y Demo
 
-## Responsable Sugerido
+## Responsable
 
-**Torres Inche Ulises Yerko**
+Torres Inche Ulises Yerko.
 
-## Criterios de Rúbrica que Cubre
+## Objetivo de esta parte
 
-- Implementación y funcionalidad del PMV.
-- Coherencia con el problema de horarios.
-- Valor agregado y demostración del sistema.
+Demostrar que el PMV funciona localmente y responde de forma coherente al
+problema de gestión y generación de horarios académicos.
 
-## Qué Debe Explicar
+## Resumen de lo que se hizo
 
-- Acceso al frontend, backend y Swagger.
-- Login y dashboard.
-- Gestión de docentes, estudiantes, cursos y aulas.
-- Consulta y generación de horarios mediante CSP institucional.
-- Vista y publicación controlada de horarios.
+OptiAcademic funciona con frontend, backend, Swagger y MySQL. El sistema
+incluye login, dashboard y gestión de docentes, estudiantes, cursos, aulas,
+horarios, CSP institucional, vista de horarios y reportes.
 
-## Qué Debe Mostrar
+El entorno Docker fue recuperado sin eliminar volúmenes ni reiniciar la base.
+La evidencia documenta frontend, backend y Swagger con HTTP 200, MySQL
+saludable y Alembic en `k2085f6a7b2c (head)`.
 
-| Recurso | Dirección o módulo |
-|---|---|
-| Frontend | <http://localhost:5173> |
-| Backend | <http://localhost:8000> |
-| Swagger | <http://localhost:8000/docs> |
-| Datos académicos | Dashboard, docentes, estudiantes, cursos y aulas |
-| Planificación | Horarios, CSP institucional y vista de horarios |
+## Qué criterio de la rúbrica cumple
 
-## Datos Reales Documentados
+- Implementación del PMV.
+- Funcionalidad del sistema.
+- Coherencia con la problemática.
+- Valor agregado.
+- Demostración del sistema.
 
-| Entidad | Cantidad |
-|---|---:|
-| Usuarios | 226 |
-| Docentes | 68 |
-| Estudiantes | 155 |
-| Cursos | 75 |
-| Aulas | 68 |
-| Horarios | 22 |
-| Bloques | 1,575 |
-| Ofertas | 68 |
-| Períodos académicos | 1 |
+## Evidencia resumida
 
-## Guion Breve Sugerido
+Los servicios estuvieron disponibles en `localhost:5173`, `localhost:8000` y
+`localhost:8000/docs`. Los datos recuperados fueron 226 usuarios, 68 docentes,
+155 estudiantes, 75 cursos, 68 aulas, 22 horarios, 1,575 bloques, 68 ofertas y
+1 período académico.
 
-> El PMV de OptiAcademic está funcional y permite gestionar los datos
-> académicos necesarios para planificar horarios. La demostración inicia con
-> el login y el dashboard, continúa con docentes, estudiantes, cursos y aulas,
-> y llega al flujo principal de horarios y CSP institucional. El entorno fue
-> validado con frontend, backend y Swagger respondiendo correctamente. Además,
-> se recuperaron datos reales en Docker, entre ellos 226 usuarios, 68 docentes,
-> 155 estudiantes, 22 horarios y 1,575 bloques. Esto evidencia coherencia entre
-> la problemática, la solución implementada y el valor del PMV.
+Estas cifras corresponden a la evidencia registrada durante la recuperación
+del entorno; no deben presentarse como una medición realizada en tiempo real si
+no se vuelve a verificar la base antes de exponer.
 
-## Conexión con la Parte 5
+## Dónde está la evidencia completa
+
+- <http://localhost:5173>.
+- <http://localhost:8000>.
+- <http://localhost:8000/docs>.
+- `Doc/06. CIERRE/calidad-integral/07-evidencias/docker-demo-funcionamiento.md`.
+- `Doc/06. CIERRE/13-checklist-final-repositorio-pfa.md`.
+
+## Cómo explicarlo al docente
+
+> En esta parte mostramos el PMV funcionando con frontend, backend, Swagger y
+> MySQL. El sistema permite iniciar sesión, consultar el dashboard y gestionar
+> docentes, estudiantes, cursos y aulas, además de revisar y generar horarios
+> mediante el CSP institucional. Esto se evidencia en los servicios HTTP 200 y
+> en la recuperación segura del entorno Docker, sin borrar volúmenes. La base
+> documentada contenía 226 usuarios, 68 docentes, 155 estudiantes, 22 horarios
+> y 1,575 bloques. Con esto cumplimos funcionalidad, coherencia con el problema
+> y demostración del PMV. El detalle técnico está en la evidencia Docker y el
+> checklist PFA.
+
+## Qué mostrar durante la exposición
+
+- Login y dashboard en el frontend.
+- Docentes, estudiantes, cursos y aulas.
+- CSP institucional y vista de horarios.
+- Swagger.
+- Evidencia Docker si algún servicio no está disponible durante la demo.
+
+## Transición a la siguiente parte
 
 > Una vez demostrado el funcionamiento del PMV, ahora se presentarán las
 > evidencias de calidad, seguridad, accesibilidad, usabilidad y pruebas.

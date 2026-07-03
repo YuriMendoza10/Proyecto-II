@@ -1,49 +1,71 @@
 # Parte 3 - Arquitectura y Tecnologías
 
-## Responsable Sugerido
+## Responsable
 
-**Riveros Sumalabe Fredy**
+Riveros Sumalabe Fredy.
 
-## Criterios de Rúbrica que Cubre
+## Objetivo de esta parte
+
+Demostrar que OptiAcademic tiene una arquitectura Full Stack organizada, con
+responsabilidades separadas y tecnologías coherentes con el PMV.
+
+## Resumen de lo que se hizo
+
+El sistema separa frontend, backend, persistencia y optimización. El frontend
+representa la capa de presentación UI/UX y utiliza React, Vite, Tailwind CSS y
+Axios. El backend contiene las APIs y la lógica de negocio con FastAPI,
+SQLAlchemy y Alembic.
+
+MySQL conserva los datos académicos, Docker Compose orquesta el entorno y el
+motor CSP resuelve la generación de horarios basada en restricciones. Esta
+separación reduce acoplamiento y favorece mantenibilidad, pruebas y
+escalabilidad.
+
+## Qué criterio de la rúbrica cumple
 
 - Organización del código fuente.
-- Separación frontend/backend y arquitectura por capas.
+- Separación frontend/backend.
+- Arquitectura por capas o características.
 - Separación de responsabilidades.
-- Mantenibilidad, escalabilidad y buenas prácticas.
+- Mantenibilidad y escalabilidad.
+- Buenas prácticas de desarrollo.
+- Código organizado y documentado.
 
-## Qué Debe Explicar
+## Evidencia resumida
 
-- El frontend es la capa de presentación y experiencia de usuario.
-- El backend concentra API, seguridad y lógica de negocio.
-- MySQL almacena la información académica.
-- SQLAlchemy gestiona persistencia y Alembic controla migraciones.
-- Docker Compose orquesta el entorno local.
-- El CSP es el motor especializado de optimización de horarios.
-- La separación reduce acoplamiento y facilita mantenimiento y evolución.
+Las carpetas `frontend/` y `backend/` evidencian la separación principal. El
+documento de arquitectura describe presentación, API, servicios, persistencia,
+migraciones, CSP y orquestación. SonarQube, Pytest, Vitest y Playwright
+complementan la validación técnica.
 
-## Qué Debe Mostrar
+## Dónde está la evidencia completa
 
-1. Carpetas [`frontend/`](../../frontend/) y [`backend/`](../../backend/).
-2. [`docker-compose.yml`](../../docker-compose.yml).
-3. [Arquitectura del sistema](../03.%20IMPLEMENTACION/arquitectura-sistema.md).
+- `frontend/`.
+- `backend/`.
+- `docker-compose.yml`.
+- `Doc/03. IMPLEMENTACION/arquitectura-sistema.md`.
+- `README.md`, secciones Tecnologías y Arquitectura.
 
-## Tecnologías a Mencionar
+## Cómo explicarlo al docente
 
-React, Vite, Tailwind CSS, Axios, FastAPI, SQLAlchemy, Alembic, MySQL,
-Docker Compose, SonarQube, Pytest, Vitest y Playwright.
+> En esta parte mostramos que OptiAcademic está dividido en frontend y backend
+> con responsabilidades claras. El frontend usa React, Vite, Tailwind y Axios
+> para la interfaz; el backend usa FastAPI para las APIs y la lógica de
+> negocio, junto con SQLAlchemy y Alembic para persistencia y migraciones.
+> MySQL almacena la información, Docker Compose levanta el entorno y el CSP se
+> encarga de optimizar horarios. Esto se evidencia en las carpetas principales,
+> el archivo Docker y el documento de arquitectura. Con esta separación
+> cumplimos organización, mantenibilidad, escalabilidad y buenas prácticas. Si
+> se requiere detalle, está en `arquitectura-sistema.md`.
 
-## Guion Breve Sugerido
+## Qué mostrar durante la exposición
 
-> OptiAcademic está organizado en frontend y backend con responsabilidades
-> separadas. El frontend, desarrollado con React, Vite, Tailwind y Axios,
-> gestiona la interfaz y la interacción por roles. El backend, construido con
-> FastAPI, expone las APIs y concentra seguridad, validaciones, servicios y el
-> motor CSP. MySQL conserva los datos mediante SQLAlchemy, mientras Alembic
-> controla la evolución del esquema. Docker Compose permite levantar el
-> entorno de forma reproducible. Esta separación reduce acoplamiento y facilita
-> mantenimiento, pruebas y escalabilidad futura.
+- Carpetas `frontend/` y `backend/`.
+- `docker-compose.yml` sin abrir archivos de entorno.
+- Diagrama textual de `arquitectura-sistema.md`.
+- Tabla de tecnologías del README.
 
-## Conexión con la Parte 4
+## Transición a la siguiente parte
 
 > Con la arquitectura explicada, ahora se mostrará el funcionamiento real del
 > PMV.
