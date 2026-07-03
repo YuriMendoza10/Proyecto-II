@@ -6,6 +6,7 @@ Presentar el PMV de OptiAcademic, su problema, arquitectura, funcionamiento y
 evidencias de calidad en un video claro de **máximo 5 minutos**.
 
 **Enlace del video: Pendiente de adjuntar.**
+https://drive.google.com/drive/folders/1eAzjZqVuTyh212SjPFL97sXrqRoVtLJX?usp=sharing
 
 ## Estructura Recomendada
 
