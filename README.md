@@ -36,7 +36,7 @@ Repositorio oficial: <https://github.com/YuriMendoza10/Proyecto-II.git>
 ### Imagen del Equipo
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/d00fc02f-5195-427c-849f-14022eb20509" alt="Equipo OptiAcademic" width="700"/>
+  <img width="1224" height="858" alt="WhatsApp Image 2026-07-03 at 3 33 01 PM" src="https://github.com/user-attachments/assets/df19a1c7-8a8e-4152-9547-5e68d22b43ce" />
 </p>
 
 La imagen ya estaba publicada por el equipo en el README remoto. Se conserva
