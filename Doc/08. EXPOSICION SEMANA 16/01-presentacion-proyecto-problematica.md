@@ -43,29 +43,4 @@ problema con las funcionalidades académicas y el motor CSP implementado.
 - `Doc/README.md`.
 - `docs/README.md`.
 
-## Cómo explicarlo al docente
 
-> En esta parte mostramos que OptiAcademic es un sistema web inteligente para
-> planificar, generar, validar y publicar horarios académicos mediante
-> restricciones CSP. El problema es que organizar manualmente docentes, aulas,
-> cursos, ciclos, secciones y disponibilidad puede producir cruces, datos
-> duplicados y poca trazabilidad. El PMV centraliza esa información y permite
-> gestionar los elementos académicos necesarios para apoyar la generación de
-> horarios. Esto se evidencia en el README, donde también aparecen el equipo,
-> la problemática y la justificación. Con esto cumplimos los criterios de
-> identificación del proyecto, coherencia del PMV y documentación inicial. Si
-> el docente desea revisar el detalle, se encuentra en `README.md`,
-> `Doc/README.md` y `docs/README.md`.
-
-## Qué mostrar durante la exposición
-
-- Título y descripción de `README.md`.
-- Sección Equipo.
-- Sección Problemática.
-- Sección Justificación del PMV.
-
-## Transición a la siguiente parte
-
-> Con esto queda claro qué problema resuelve OptiAcademic. Ahora se explicará
-> cómo se gestionó el repositorio, el control de versiones y el versionado del
-> PMV.
